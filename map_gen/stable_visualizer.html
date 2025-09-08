@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Middlemarch Character Map - Stable</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        
+        .main {
+            flex: 1;
+            position: relative;
+            background: white;
+        }
+        
+        svg {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+        
+        svg:active {
+            cursor: grabbing;
+        }
+        
+        .node {
+            cursor: pointer;
+            stroke: #fff;
+            stroke-width: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .node:hover {
+            stroke: #333;
+            stroke-width: 3px;
+        }
+        
+        .link {
+            stroke: #adb5bd;
+            stroke-opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .node-label {
+            font-size: 11px;
+            text-anchor: middle;
+            pointer-events: none;
+            font-weight: 500;
+            fill: #495057;
+            transition: all 0.3s ease;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(33, 37, 41, 0.95);
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .controls {
+            margin-bottom: 25px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 13px;
+        }
+        
+        select, input[type="range"] {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        .character-list {
+            max-height: 450px;
+            overflow-y: auto;
+        }
+        
+        .character-item {
+            padding: 10px;
+            border: 1px solid #e9ecef;
+            margin-bottom: 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+        }
+        
+        .character-item:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            transform: translateY(-1px);
+        }
+        
+        .character-name {
+            font-weight: 600;
+            color: #212529;
+        }
+        
+        .character-stats {
+            font-size: 11px;
+            color: #6c757d;
+            margin-top: 4px;
+        }
+        
+        .legend {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+            font-size: 11px;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2 style="margin-top: 0; color: #212529;">Middlemarch Characters</h2>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label>Color Nodes By:</label>
+                    <select id="colorBy">
+                        <option value="community">Community</option>
+                        <option value="degree">Degree Centrality</option>
+                        <option value="betweenness">Betweenness Centrality</option>
+                        <option value="closeness">Closeness Centrality</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>Size Nodes By:</label>
+                    <select id="sizeBy">
+                        <option value="degree">Degree</option>
+                        <option value="betweenness">Betweenness Centrality</option>
+                        <option value="closeness">Closeness Centrality</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label>Show Labels:</label>
+                    <select id="showLabels">
+                        <option value="all">All Characters</option>
+                        <option value="major">Major Characters Only</option>
+                        <option value="none">No Labels</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="legend" id="legend"></div>
+            
+            <div class="character-list" id="characterList"></div>
+        </div>
+        
+        <div class="main">
+            <svg id="graph"></svg>
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+    </div>
+
+    <script>
+        let graphData;
+        let simulation;
+        let svg, g, link, node, label;
+        let isInitialized = false;
+        
+        const width = window.innerWidth - 300;
+        const height = window.innerHeight;
+        
+        const communityColors = ['#2196f3', '#ff9800'];
+        const centralityColorScale = d3.scaleSequential(d3.interpolateViridis);
+        
+        function initVisualization() {
+            svg = d3.select("#graph")
+                .attr("width", width)
+                .attr("height", height);
+            
+            g = svg.append("g");
+            
+            const zoom = d3.zoom()
+                .scaleExtent([0.3, 3])
+                .on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                });
+            
+            svg.call(zoom);
+            
+            d3.json("middlemarch_d3.json").then(data => {
+                graphData = data;
+                preprocessData();
+                setupSimulation();
+                createElements();
+                setupControls();
+                updateVisualization();
+                populateCharacterList();
+                updateLegend();
+                isInitialized = true;
+            });
+        }
+        
+        function preprocessData() {
+            const degreeExtent = d3.extent(graphData.nodes, d => d.centrality.degree);
+            const betweennessExtent = d3.extent(graphData.nodes, d => d.centrality.betweenness);
+            const closenessExtent = d3.extent(graphData.nodes, d => d.centrality.closeness);
+            
+            centralityColorScale.domain(degreeExtent);
+            
+            graphData.nodes.forEach(d => {
+                d.degreeNorm = (d.centrality.degree - degreeExtent[0]) / (degreeExtent[1] - degreeExtent[0]);
+                d.betweennessNorm = (d.centrality.betweenness - betweennessExtent[0]) / (betweennessExtent[1] - betweennessExtent[0]);
+                d.closenessNorm = (d.centrality.closeness - closenessExtent[0]) / (closenessExtent[1] - closenessExtent[0]);
+                d.isMajor = d.centrality.degree > 0.6;
+            });
+        }
+        
+        function setupSimulation() {
+            simulation = d3.forceSimulation(graphData.nodes)
+                .force("link", d3.forceLink(graphData.links).id(d => d.id).distance(80).strength(0.6))
+                .force("charge", d3.forceManyBody().strength(-400))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collision", d3.forceCollide().radius(25));
+        }
+        
+        function createElements() {
+            link = g.append("g")
+                .selectAll("line")
+                .data(graphData.links)
+                .enter().append("line")
+                .attr("class", "link");
+            
+            node = g.append("g")
+                .selectAll("circle")
+                .data(graphData.nodes)
+                .enter().append("circle")
+                .attr("class", "node")
+                .call(drag(simulation))
+                .on("mouseover", showTooltip)
+                .on("mouseout", hideTooltip)
+                .on("click", centerOnNode);
+            
+            label = g.append("g")
+                .selectAll("text")
+                .data(graphData.nodes)
+                .enter().append("text")
+                .attr("class", "node-label")
+                .text(d => d.name);
+            
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+                
+                node
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y);
+                
+                label
+                    .attr("x", d => d.x)
+                    .attr("y", d => d.y - getNodeRadius(d) - 5);
+            });
+            
+            setTimeout(() => {
+                simulation.alpha(0.1);
+            }, 3000);
+        }
+        
+        function setupControls() {
+            d3.select("#colorBy").on("change", () => {
+                updateVisualization();
+                updateLegend();
+            });
+            d3.select("#sizeBy").on("change", updateVisualization);
+            d3.select("#showLabels").on("change", updateVisualization);
+        }
+        
+        function updateVisualization() {
+            if (!isInitialized) return;
+            
+            const colorBy = d3.select("#colorBy").property("value");
+            const sizeBy = d3.select("#sizeBy").property("value");
+            const showLabels = d3.select("#showLabels").property("value");
+            
+            node.transition()
+                .duration(500)
+                .attr("r", d => getNodeRadius(d, sizeBy))
+                .style("fill", d => getNodeColor(d, colorBy));
+            
+            link.transition()
+                .duration(500)
+                .style("stroke-width", d => Math.sqrt(d.value) * 1.5);
+            
+            label.transition()
+                .duration(300)
+                .style("opacity", d => {
+                    if (showLabels === "none") return 0;
+                    if (showLabels === "major") return d.isMajor ? 1 : 0;
+                    return 1;
+                })
+                .attr("y", d => d.y - getNodeRadius(d, sizeBy) - 5);
+        }
+        
+        function getNodeRadius(d, sizeBy = "degree") {
+            const baseSize = 8;
+            const maxSize = 25;
+            
+            switch(sizeBy) {
+                case "degree":
+                    return baseSize + d.degreeNorm * (maxSize - baseSize);
+                case "betweenness":
+                    return baseSize + d.betweennessNorm * (maxSize - baseSize);
+                case "closeness":
+                    return baseSize + d.closenessNorm * (maxSize - baseSize);
+                default:
+                    return baseSize + d.degreeNorm * (maxSize - baseSize);
+            }
+        }
+        
+        function getNodeColor(d, colorBy) {
+            switch(colorBy) {
+                case "community":
+                    return communityColors[d.community];
+                case "degree":
+                    return d3.interpolateBlues(0.3 + d.degreeNorm * 0.7);
+                case "betweenness":
+                    return d3.interpolateOranges(0.3 + d.betweennessNorm * 0.7);
+                case "closeness":
+                    return d3.interpolateGreens(0.3 + d.closenessNorm * 0.7);
+                default:
+                    return communityColors[d.community];
+            }
+        }
+        
+        function updateLegend() {
+            const colorBy = d3.select("#colorBy").property("value");
+            const legend = d3.select("#legend");
+            
+            legend.html("");
+            
+            const title = legend.append("div").attr("class", "legend-title");
+            
+            if (colorBy === "community") {
+                title.text("Communities");
+                
+                const communities = [...new Set(graphData.nodes.map(d => d.community))];
+                communities.forEach(community => {
+                    const item = legend.append("div").attr("class", "legend-item");
+                    item.append("div")
+                        .attr("class", "legend-color")
+                        .style("background-color", communityColors[community]);
+                    item.append("span").text(`Community ${community}`);
+                });
+            } else {
+                title.text(`${colorBy.charAt(0).toUpperCase() + colorBy.slice(1)} Centrality`);
+                
+                const item = legend.append("div").attr("class", "legend-item");
+                item.append("div").style("font-size", "11px").text("Low → High centrality");
+            }
+        }
+        
+        function centerOnNode(event, d) {
+            const scale = 1.5;
+            const x = width / 2 - d.x * scale;
+            const y = height / 2 - d.y * scale;
+            
+            svg.transition()
+                .duration(750)
+                .call(
+                    d3.zoom().transform,
+                    d3.zoomIdentity.translate(x, y).scale(scale)
+                );
+        }
+        
+        function drag(simulation) {
+            return d3.drag()
+                .on("start", event => {
+                    if (!event.active) simulation.alphaTarget(0.1).restart();
+                    event.subject.fx = event.subject.x;
+                    event.subject.fy = event.subject.y;
+                })
+                .on("drag", event => {
+                    event.subject.fx = event.x;
+                    event.subject.fy = event.y;
+                })
+                .on("end", event => {
+                    if (!event.active) simulation.alphaTarget(0);
+                    event.subject.fx = null;
+                    event.subject.fy = null;
+                });
+        }
+        
+        function showTooltip(event, d) {
+            const tooltip = d3.select("#tooltip");
+            tooltip.style("opacity", 1)
+                .html(`
+                    <strong>${d.name}</strong><br>
+                    Community: ${d.community}<br>
+                    Connections: ${d.degree}<br>
+                    <br>
+                    <em>Centrality Scores:</em><br>
+                    Degree: ${d.centrality.degree.toFixed(3)}<br>
+                    Betweenness: ${d.centrality.betweenness.toFixed(3)}<br>
+                    Closeness: ${d.centrality.closeness.toFixed(3)}
+                `)
+                .style("left", (event.pageX + 15) + "px")
+                .style("top", (event.pageY - 10) + "px");
+        }
+        
+        function hideTooltip() {
+            d3.select("#tooltip").style("opacity", 0);
+        }
+        
+        function populateCharacterList() {
+            const characterList = d3.select("#characterList");
+            const sortedCharacters = graphData.nodes
+                .slice()
+                .sort((a, b) => b.centrality.degree - a.centrality.degree);
+            
+            characterList.selectAll(".character-item")
+                .data(sortedCharacters)
+                .enter()
+                .append("div")
+                .attr("class", "character-item")
+                .html(d => `
+                    <div class="character-name">${d.name}</div>
+                    <div class="character-stats">
+                        ${d.degree} connections | Community ${d.community}
+                    </div>
+                `)
+                .on("click", (event, d) => centerOnNode(event, d));
+        }
+        
+        initVisualization();
+    </script>
+</body>
+</html>

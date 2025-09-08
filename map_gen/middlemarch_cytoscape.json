@@ -1,0 +1,816 @@
+{
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "id": "D",
+          "name": "Dorothea",
+          "degree": 0.6666666666666666,
+          "community": 0,
+          "betweenness": 0.04422291993720566,
+          "closeness": 0.75,
+          "eigenvector": 0.2834286814918863
+        },
+        "position": {
+          "x": -68.51050167036348,
+          "y": -272.6244937049046
+        }
+      },
+      {
+        "data": {
+          "id": "Celia",
+          "name": "Celia",
+          "degree": 0.6666666666666666,
+          "community": 0,
+          "betweenness": 0.0862701319844177,
+          "closeness": 0.75,
+          "eigenvector": 0.276027892280809
+        },
+        "position": {
+          "x": -59.48484574526861,
+          "y": -130.59596019911575
+        }
+      },
+      {
+        "data": {
+          "id": "B",
+          "name": "Bulstrode",
+          "degree": 0.6,
+          "community": 0,
+          "betweenness": 0.03732426303854876,
+          "closeness": 0.7142857142857143,
+          "eigenvector": 0.2647639082151992
+        },
+        "position": {
+          "x": 47.388848571330286,
+          "y": -47.461781984686525
+        }
+      },
+      {
+        "data": {
+          "id": "Lyd",
+          "name": "Tertius Lydate",
+          "degree": 0.9333333333333333,
+          "community": 0,
+          "betweenness": 0.2818297575440432,
+          "closeness": 0.9375,
+          "eigenvector": 0.35456400659655124
+        },
+        "position": {
+          "x": -195.84179429350698,
+          "y": -135.24588709172042
+        }
+      },
+      {
+        "data": {
+          "id": "Lad",
+          "name": "Will Ladislaw",
+          "degree": 0.6666666666666666,
+          "community": 0,
+          "betweenness": 0.05991685563114136,
+          "closeness": 0.75,
+          "eigenvector": 0.2903318559693102
+        },
+        "position": {
+          "x": -106.97553800311135,
+          "y": 80.76425223628556
+        }
+      },
+      {
+        "data": {
+          "id": "R",
+          "name": "Rosamond Vincy",
+          "degree": 0.8,
+          "community": 0,
+          "betweenness": 0.1321571021571021,
+          "closeness": 0.8333333333333334,
+          "eigenvector": 0.3137525079906796
+        },
+        "position": {
+          "x": 217.35748300351116,
+          "y": -15.714045670636537
+        }
+      },
+      {
+        "data": {
+          "id": "M",
+          "name": "Mary Garth",
+          "degree": 0.4,
+          "community": 0,
+          "betweenness": 0.00380952380952381,
+          "closeness": 0.6,
+          "eigenvector": 0.15095825793555995
+        },
+        "position": {
+          "x": -104.7223376922063,
+          "y": -23.370757271866122
+        }
+      },
+      {
+        "data": {
+          "id": "F",
+          "name": "Fred Vincy",
+          "degree": 0.4666666666666667,
+          "community": 0,
+          "betweenness": 0.015555555555555557,
+          "closeness": 0.625,
+          "eigenvector": 0.17872097855564023
+        },
+        "position": {
+          "x": 47.05566809302591,
+          "y": -180.79744475213863
+        }
+      },
+      {
+        "data": {
+          "id": "C",
+          "name": "Mr. Casaubon",
+          "degree": 0.6666666666666666,
+          "community": 0,
+          "betweenness": 0.0848415605558463,
+          "closeness": 0.75,
+          "eigenvector": 0.28215279217330563
+        },
+        "position": {
+          "x": 130.3017657422843,
+          "y": -223.86264896500015
+        }
+      },
+      {
+        "data": {
+          "id": "MB",
+          "name": "Mr. Brooke",
+          "degree": 0.7333333333333333,
+          "community": 0,
+          "betweenness": 0.0908733065875923,
+          "closeness": 0.7894736842105263,
+          "eigenvector": 0.30573537707593595
+        },
+        "position": {
+          "x": -30.585223519857113,
+          "y": 177.00348852176396
+        }
+      },
+      {
+        "data": {
+          "id": "JC",
+          "name": "Sir James Chettam",
+          "degree": 0.6,
+          "community": 0,
+          "betweenness": 0.029454619454619458,
+          "closeness": 0.7142857142857143,
+          "eigenvector": 0.2534263557673762
+        },
+        "position": {
+          "x": -242.57225882404273,
+          "y": -0.23615227635595432
+        }
+      },
+      {
+        "data": {
+          "id": "LC",
+          "name": "Lady Chettam",
+          "degree": 0.4,
+          "community": 0,
+          "betweenness": 0.005698005698005699,
+          "closeness": 0.625,
+          "eigenvector": 0.1733652339984815
+        },
+        "position": {
+          "x": 165.84706585588984,
+          "y": -125.75397243920759
+        }
+      },
+      {
+        "data": {
+          "id": "MrsV",
+          "name": "Mrs Vincy",
+          "degree": 0.4,
+          "community": 0,
+          "betweenness": 0.01680911680911681,
+          "closeness": 0.625,
+          "eigenvector": 0.1600218258851867
+        },
+        "position": {
+          "x": 20.83615538942491,
+          "y": 108.27442980500976
+        }
+      },
+      {
+        "data": {
+          "id": "MrV",
+          "name": "Mr Vincy",
+          "degree": 0.6,
+          "community": 0,
+          "betweenness": 0.051094831094831115,
+          "closeness": 0.7142857142857143,
+          "eigenvector": 0.23327443824335267
+        },
+        "position": {
+          "x": 176.45027125905875,
+          "y": 188.9888321800376
+        }
+      },
+      {
+        "data": {
+          "id": "MrsCad",
+          "name": "Mrs Cadawaller",
+          "degree": 0.4,
+          "community": 0,
+          "betweenness": 0.0031746031746031746,
+          "closeness": 0.5769230769230769,
+          "eigenvector": 0.16644094725931766
+        },
+        "position": {
+          "x": 137.93639257210432,
+          "y": 68.31448580658972
+        }
+      },
+      {
+        "data": {
+          "id": "MrF",
+          "name": "Mr Featherstone",
+          "degree": 0.4666666666666667,
+          "community": 0,
+          "betweenness": 0.0283964183964184,
+          "closeness": 0.6521739130434783,
+          "eigenvector": 0.18736898980874783
+        },
+        "position": {
+          "x": -134.4367353829533,
+          "y": 186.64461179122938
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "id": "D-MB",
+          "source": "D",
+          "target": "MB",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "D-JC",
+          "source": "D",
+          "target": "JC",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "D-R",
+          "source": "D",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "D-MrsCad",
+          "source": "D",
+          "target": "MrsCad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "D-LC",
+          "source": "D",
+          "target": "LC",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "D-Lyd",
+          "source": "D",
+          "target": "Lyd",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "D-Lad",
+          "source": "D",
+          "target": "Lad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Celia-D",
+          "source": "Celia",
+          "target": "D",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Celia-MB",
+          "source": "Celia",
+          "target": "MB",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Celia-JC",
+          "source": "Celia",
+          "target": "JC",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Celia-R",
+          "source": "Celia",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Celia-MrsCad",
+          "source": "Celia",
+          "target": "MrsCad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Celia-LC",
+          "source": "Celia",
+          "target": "LC",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Celia-MrF",
+          "source": "Celia",
+          "target": "MrF",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Celia-Lyd",
+          "source": "Celia",
+          "target": "Lyd",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Celia-Lad",
+          "source": "Celia",
+          "target": "Lad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "B-D",
+          "source": "B",
+          "target": "D",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "B-MB",
+          "source": "B",
+          "target": "MB",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "B-JC",
+          "source": "B",
+          "target": "JC",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "B-C",
+          "source": "B",
+          "target": "C",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "B-Lad",
+          "source": "B",
+          "target": "Lad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "B-Lyd",
+          "source": "B",
+          "target": "Lyd",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "B-MrV",
+          "source": "B",
+          "target": "MrV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "B-R",
+          "source": "B",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "B-MrF",
+          "source": "B",
+          "target": "MrF",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Lyd-MB",
+          "source": "Lyd",
+          "target": "MB",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Lyd-MrsV",
+          "source": "Lyd",
+          "target": "MrsV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Lyd-MrV",
+          "source": "Lyd",
+          "target": "MrV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Lyd-R",
+          "source": "Lyd",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Lyd-M",
+          "source": "Lyd",
+          "target": "M",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Lyd-MrF",
+          "source": "Lyd",
+          "target": "MrF",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Lad-MB",
+          "source": "Lad",
+          "target": "MB",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Lad-MrV",
+          "source": "Lad",
+          "target": "MrV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Lad-R",
+          "source": "Lad",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "Lad-Lyd",
+          "source": "Lad",
+          "target": "Lyd",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "M-MrV",
+          "source": "M",
+          "target": "MrV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "M-R",
+          "source": "M",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "M-MrsV",
+          "source": "M",
+          "target": "MrsV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "M-MrF",
+          "source": "M",
+          "target": "MrF",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "F-Lad",
+          "source": "F",
+          "target": "Lad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "F-Lyd",
+          "source": "F",
+          "target": "Lyd",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "F-MrV",
+          "source": "F",
+          "target": "MrV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "F-R",
+          "source": "F",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "F-MrsV",
+          "source": "F",
+          "target": "MrsV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "F-M",
+          "source": "F",
+          "target": "M",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "F-MrF",
+          "source": "F",
+          "target": "MrF",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "C-D",
+          "source": "C",
+          "target": "D",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "C-MB",
+          "source": "C",
+          "target": "MB",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "C-Celia",
+          "source": "C",
+          "target": "Celia",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "C-JC",
+          "source": "C",
+          "target": "JC",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "C-MrsV",
+          "source": "C",
+          "target": "MrsV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "C-R",
+          "source": "C",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "C-MrsCad",
+          "source": "C",
+          "target": "MrsCad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "C-Lyd",
+          "source": "C",
+          "target": "Lyd",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "C-Lad",
+          "source": "C",
+          "target": "Lad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "MB-MrV",
+          "source": "MB",
+          "target": "MrV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "MB-R",
+          "source": "MB",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "MB-MrsCad",
+          "source": "MB",
+          "target": "MrsCad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "JC-MB",
+          "source": "JC",
+          "target": "MB",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "JC-MrsCad",
+          "source": "JC",
+          "target": "MrsCad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "JC-LC",
+          "source": "JC",
+          "target": "LC",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "JC-Lyd",
+          "source": "JC",
+          "target": "Lyd",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "JC-Lad",
+          "source": "JC",
+          "target": "Lad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "LC-MB",
+          "source": "LC",
+          "target": "MB",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "LC-MrsCad",
+          "source": "LC",
+          "target": "MrsCad",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "LC-Lyd",
+          "source": "LC",
+          "target": "Lyd",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "MrsV-R",
+          "source": "MrsV",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "MrV-MrsV",
+          "source": "MrV",
+          "target": "MrsV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "MrV-R",
+          "source": "MrV",
+          "target": "R",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "MrF-MrV",
+          "source": "MrF",
+          "target": "MrV",
+          "weight": 2
+        }
+      },
+      {
+        "data": {
+          "id": "MrF-R",
+          "source": "MrF",
+          "target": "R",
+          "weight": 2
+        }
+      }
+    ]
+  }
+}
