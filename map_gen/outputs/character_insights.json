@@ -1,0 +1,842 @@
+{
+  "character_analysis": {
+    "D": {
+      "name": "Dorothea",
+      "dialogue_count": 745,
+      "interaction_count": 5335,
+      "context_appearances": 745,
+      "prominence_score": 2581.0,
+      "character_type": "protagonist"
+    },
+    "Celia": {
+      "name": "Celia",
+      "dialogue_count": 207,
+      "interaction_count": 2224,
+      "context_appearances": 207,
+      "prominence_score": 1013.8,
+      "character_type": "protagonist"
+    },
+    "B": {
+      "name": "Bulstrode",
+      "dialogue_count": 216,
+      "interaction_count": 692,
+      "context_appearances": 216,
+      "prominence_score": 406.4,
+      "character_type": "protagonist"
+    },
+    "Lyd": {
+      "name": "Tertius Lydate",
+      "dialogue_count": 533,
+      "interaction_count": 3196,
+      "context_appearances": 533,
+      "prominence_score": 1598.2,
+      "character_type": "protagonist"
+    },
+    "Lad": {
+      "name": "Will Ladislaw",
+      "dialogue_count": 343,
+      "interaction_count": 2378,
+      "context_appearances": 343,
+      "prominence_score": 1157.0,
+      "character_type": "protagonist"
+    },
+    "R": {
+      "name": "Rosamond Vincy",
+      "dialogue_count": 389,
+      "interaction_count": 3754,
+      "context_appearances": 389,
+      "prominence_score": 1735.0,
+      "character_type": "protagonist"
+    },
+    "M": {
+      "name": "Mary Garth",
+      "dialogue_count": 233,
+      "interaction_count": 1744,
+      "context_appearances": 233,
+      "prominence_score": 837.4,
+      "character_type": "protagonist"
+    },
+    "F": {
+      "name": "Fred Vincy",
+      "dialogue_count": 306,
+      "interaction_count": 2162,
+      "context_appearances": 306,
+      "prominence_score": 1048.4,
+      "character_type": "protagonist"
+    },
+    "C": {
+      "name": "Mr. Casaubon",
+      "dialogue_count": 163,
+      "interaction_count": 1312,
+      "context_appearances": 163,
+      "prominence_score": 622.6,
+      "character_type": "protagonist"
+    },
+    "MB": {
+      "name": "Mr. Brooke",
+      "dialogue_count": 269,
+      "interaction_count": 1944,
+      "context_appearances": 269,
+      "prominence_score": 939.0,
+      "character_type": "protagonist"
+    },
+    "JC": {
+      "name": "Sir James Chettam",
+      "dialogue_count": 203,
+      "interaction_count": 1632,
+      "context_appearances": 203,
+      "prominence_score": 774.6,
+      "character_type": "protagonist"
+    },
+    "LC": {
+      "name": "Lady Chettam",
+      "dialogue_count": 31,
+      "interaction_count": 345,
+      "context_appearances": 31,
+      "prominence_score": 156.6,
+      "character_type": "protagonist"
+    },
+    "MrsV": {
+      "name": "Mrs Vincy",
+      "dialogue_count": 74,
+      "interaction_count": 783,
+      "context_appearances": 74,
+      "prominence_score": 357.6,
+      "character_type": "protagonist"
+    },
+    "MrV": {
+      "name": "Mr Vincy",
+      "dialogue_count": 84,
+      "interaction_count": 511,
+      "context_appearances": 84,
+      "prominence_score": 254.8,
+      "character_type": "protagonist"
+    },
+    "MrsCad": {
+      "name": "Mrs Cadawaller",
+      "dialogue_count": 142,
+      "interaction_count": 1400,
+      "context_appearances": 142,
+      "prominence_score": 645.2,
+      "character_type": "protagonist"
+    },
+    "MrF": {
+      "name": "Mr Featherstone",
+      "dialogue_count": 90,
+      "interaction_count": 654,
+      "context_appearances": 90,
+      "prominence_score": 315.6,
+      "character_type": "protagonist"
+    }
+  },
+  "narrative_patterns": {
+    "book_progression": [
+      {
+        "book": 1,
+        "character_activity": 872,
+        "new_characters": 16,
+        "interaction_density": 16
+      },
+      {
+        "book": 2,
+        "character_activity": 506,
+        "new_characters": 16,
+        "interaction_density": 11
+      },
+      {
+        "book": 3,
+        "character_activity": 343,
+        "new_characters": 16,
+        "interaction_density": 12
+      },
+      {
+        "book": 4,
+        "character_activity": 517,
+        "new_characters": 16,
+        "interaction_density": 14
+      },
+      {
+        "book": 5,
+        "character_activity": 477,
+        "new_characters": 16,
+        "interaction_density": 8
+      },
+      {
+        "book": 6,
+        "character_activity": 492,
+        "new_characters": 16,
+        "interaction_density": 13
+      },
+      {
+        "book": 7,
+        "character_activity": 292,
+        "new_characters": 16,
+        "interaction_density": 8
+      },
+      {
+        "book": 8,
+        "character_activity": 529,
+        "new_characters": 16,
+        "interaction_density": 14
+      }
+    ],
+    "character_evolution": {
+      "D": [
+        {
+          "book": 1,
+          "dialogue": 193,
+          "interactions": 1817
+        },
+        {
+          "book": 2,
+          "dialogue": 99,
+          "interactions": 724
+        },
+        {
+          "book": 3,
+          "dialogue": 39,
+          "interactions": 276
+        },
+        {
+          "book": 4,
+          "dialogue": 105,
+          "interactions": 788
+        },
+        {
+          "book": 5,
+          "dialogue": 80,
+          "interactions": 466
+        },
+        {
+          "book": 6,
+          "dialogue": 77,
+          "interactions": 413
+        },
+        {
+          "book": 7,
+          "dialogue": 3,
+          "interactions": 36
+        },
+        {
+          "book": 8,
+          "dialogue": 149,
+          "interactions": 815
+        }
+      ],
+      "MB": [
+        {
+          "book": 1,
+          "dialogue": 94,
+          "interactions": 767
+        },
+        {
+          "book": 2,
+          "dialogue": 3,
+          "interactions": 0
+        },
+        {
+          "book": 3,
+          "dialogue": 14,
+          "interactions": 84
+        },
+        {
+          "book": 4,
+          "dialogue": 57,
+          "interactions": 388
+        },
+        {
+          "book": 5,
+          "dialogue": 63,
+          "interactions": 369
+        },
+        {
+          "book": 6,
+          "dialogue": 1,
+          "interactions": 0
+        },
+        {
+          "book": 7,
+          "dialogue": 6,
+          "interactions": 32
+        },
+        {
+          "book": 8,
+          "dialogue": 31,
+          "interactions": 304
+        }
+      ],
+      "Celia": [
+        {
+          "book": 1,
+          "dialogue": 99,
+          "interactions": 1176
+        },
+        {
+          "book": 3,
+          "dialogue": 14,
+          "interactions": 184
+        },
+        {
+          "book": 4,
+          "dialogue": 8,
+          "interactions": 84
+        },
+        {
+          "book": 5,
+          "dialogue": 18,
+          "interactions": 114
+        },
+        {
+          "book": 6,
+          "dialogue": 23,
+          "interactions": 204
+        },
+        {
+          "book": 8,
+          "dialogue": 45,
+          "interactions": 462
+        }
+      ],
+      "JC": [
+        {
+          "book": 1,
+          "dialogue": 75,
+          "interactions": 530
+        },
+        {
+          "book": 3,
+          "dialogue": 10,
+          "interactions": 60
+        },
+        {
+          "book": 4,
+          "dialogue": 48,
+          "interactions": 388
+        },
+        {
+          "book": 5,
+          "dialogue": 25,
+          "interactions": 216
+        },
+        {
+          "book": 6,
+          "dialogue": 11,
+          "interactions": 109
+        },
+        {
+          "book": 8,
+          "dialogue": 34,
+          "interactions": 329
+        }
+      ],
+      "C": [
+        {
+          "book": 1,
+          "dialogue": 55,
+          "interactions": 584
+        },
+        {
+          "book": 2,
+          "dialogue": 30,
+          "interactions": 163
+        },
+        {
+          "book": 3,
+          "dialogue": 17,
+          "interactions": 124
+        },
+        {
+          "book": 4,
+          "dialogue": 37,
+          "interactions": 262
+        },
+        {
+          "book": 5,
+          "dialogue": 24,
+          "interactions": 179
+        }
+      ],
+      "MrsCad": [
+        {
+          "book": 1,
+          "dialogue": 65,
+          "interactions": 599
+        },
+        {
+          "book": 4,
+          "dialogue": 45,
+          "interactions": 520
+        },
+        {
+          "book": 6,
+          "dialogue": 20,
+          "interactions": 152
+        },
+        {
+          "book": 8,
+          "dialogue": 12,
+          "interactions": 129
+        }
+      ],
+      "Lad": [
+        {
+          "book": 1,
+          "dialogue": 4,
+          "interactions": 24
+        },
+        {
+          "book": 2,
+          "dialogue": 82,
+          "interactions": 561
+        },
+        {
+          "book": 4,
+          "dialogue": 55,
+          "interactions": 568
+        },
+        {
+          "book": 5,
+          "dialogue": 75,
+          "interactions": 409
+        },
+        {
+          "book": 6,
+          "dialogue": 78,
+          "interactions": 564
+        },
+        {
+          "book": 8,
+          "dialogue": 49,
+          "interactions": 252
+        }
+      ],
+      "B": [
+        {
+          "book": 1,
+          "dialogue": 5,
+          "interactions": 4
+        },
+        {
+          "book": 2,
+          "dialogue": 38,
+          "interactions": 239
+        },
+        {
+          "book": 4,
+          "dialogue": 2,
+          "interactions": 0
+        },
+        {
+          "book": 5,
+          "dialogue": 36,
+          "interactions": 0
+        },
+        {
+          "book": 6,
+          "dialogue": 47,
+          "interactions": 91
+        },
+        {
+          "book": 7,
+          "dialogue": 75,
+          "interactions": 346
+        },
+        {
+          "book": 8,
+          "dialogue": 13,
+          "interactions": 12
+        }
+      ],
+      "LC": [
+        {
+          "book": 1,
+          "dialogue": 16,
+          "interactions": 157
+        },
+        {
+          "book": 4,
+          "dialogue": 1,
+          "interactions": 8
+        },
+        {
+          "book": 6,
+          "dialogue": 9,
+          "interactions": 108
+        },
+        {
+          "book": 8,
+          "dialogue": 5,
+          "interactions": 72
+        }
+      ],
+      "Lyd": [
+        {
+          "book": 1,
+          "dialogue": 9,
+          "interactions": 36
+        },
+        {
+          "book": 2,
+          "dialogue": 88,
+          "interactions": 308
+        },
+        {
+          "book": 3,
+          "dialogue": 45,
+          "interactions": 365
+        },
+        {
+          "book": 4,
+          "dialogue": 44,
+          "interactions": 267
+        },
+        {
+          "book": 5,
+          "dialogue": 75,
+          "interactions": 587
+        },
+        {
+          "book": 6,
+          "dialogue": 67,
+          "interactions": 426
+        },
+        {
+          "book": 7,
+          "dialogue": 122,
+          "interactions": 705
+        },
+        {
+          "book": 8,
+          "dialogue": 83,
+          "interactions": 502
+        }
+      ],
+      "MrV": [
+        {
+          "book": 1,
+          "dialogue": 3,
+          "interactions": 12
+        },
+        {
+          "book": 2,
+          "dialogue": 26,
+          "interactions": 123
+        },
+        {
+          "book": 3,
+          "dialogue": 9,
+          "interactions": 48
+        },
+        {
+          "book": 4,
+          "dialogue": 29,
+          "interactions": 152
+        },
+        {
+          "book": 6,
+          "dialogue": 12,
+          "interactions": 123
+        },
+        {
+          "book": 8,
+          "dialogue": 5,
+          "interactions": 53
+        }
+      ],
+      "R": [
+        {
+          "book": 1,
+          "dialogue": 88,
+          "interactions": 1355
+        },
+        {
+          "book": 2,
+          "dialogue": 21,
+          "interactions": 180
+        },
+        {
+          "book": 3,
+          "dialogue": 41,
+          "interactions": 221
+        },
+        {
+          "book": 4,
+          "dialogue": 37,
+          "interactions": 295
+        },
+        {
+          "book": 5,
+          "dialogue": 41,
+          "interactions": 446
+        },
+        {
+          "book": 6,
+          "dialogue": 55,
+          "interactions": 547
+        },
+        {
+          "book": 7,
+          "dialogue": 51,
+          "interactions": 347
+        },
+        {
+          "book": 8,
+          "dialogue": 55,
+          "interactions": 363
+        }
+      ],
+      "MrsV": [
+        {
+          "book": 1,
+          "dialogue": 26,
+          "interactions": 411
+        },
+        {
+          "book": 2,
+          "dialogue": 3,
+          "interactions": 20
+        },
+        {
+          "book": 3,
+          "dialogue": 14,
+          "interactions": 92
+        },
+        {
+          "book": 4,
+          "dialogue": 13,
+          "interactions": 140
+        },
+        {
+          "book": 6,
+          "dialogue": 8,
+          "interactions": 63
+        },
+        {
+          "book": 7,
+          "dialogue": 6,
+          "interactions": 8
+        },
+        {
+          "book": 8,
+          "dialogue": 4,
+          "interactions": 49
+        }
+      ],
+      "F": [
+        {
+          "book": 1,
+          "dialogue": 68,
+          "interactions": 880
+        },
+        {
+          "book": 2,
+          "dialogue": 57,
+          "interactions": 654
+        },
+        {
+          "book": 3,
+          "dialogue": 52,
+          "interactions": 204
+        },
+        {
+          "book": 4,
+          "dialogue": 7,
+          "interactions": 61
+        },
+        {
+          "book": 5,
+          "dialogue": 19,
+          "interactions": 0
+        },
+        {
+          "book": 6,
+          "dialogue": 63,
+          "interactions": 188
+        },
+        {
+          "book": 7,
+          "dialogue": 27,
+          "interactions": 34
+        },
+        {
+          "book": 8,
+          "dialogue": 13,
+          "interactions": 141
+        }
+      ],
+      "MrF": [
+        {
+          "book": 1,
+          "dialogue": 35,
+          "interactions": 265
+        },
+        {
+          "book": 2,
+          "dialogue": 20,
+          "interactions": 178
+        },
+        {
+          "book": 3,
+          "dialogue": 30,
+          "interactions": 211
+        },
+        {
+          "book": 4,
+          "dialogue": 4,
+          "interactions": 0
+        },
+        {
+          "book": 5,
+          "dialogue": 1,
+          "interactions": 0
+        }
+      ],
+      "M": [
+        {
+          "book": 1,
+          "dialogue": 37,
+          "interactions": 569
+        },
+        {
+          "book": 2,
+          "dialogue": 39,
+          "interactions": 452
+        },
+        {
+          "book": 3,
+          "dialogue": 58,
+          "interactions": 375
+        },
+        {
+          "book": 4,
+          "dialogue": 25,
+          "interactions": 57
+        },
+        {
+          "book": 5,
+          "dialogue": 20,
+          "interactions": 0
+        },
+        {
+          "book": 6,
+          "dialogue": 21,
+          "interactions": 128
+        },
+        {
+          "book": 7,
+          "dialogue": 2,
+          "interactions": 18
+        },
+        {
+          "book": 8,
+          "dialogue": 31,
+          "interactions": 145
+        }
+      ]
+    }
+  },
+  "relationship_dynamics": {
+    "strong_relationships": [
+      {
+        "character1": "Tertius Lydate",
+        "character2": "Rosamond Vincy",
+        "interaction_strength": 1742
+      },
+      {
+        "character1": "Dorothea",
+        "character2": "Will Ladislaw",
+        "interaction_strength": 1508
+      },
+      {
+        "character1": "Celia",
+        "character2": "Dorothea",
+        "interaction_strength": 1402
+      },
+      {
+        "character1": "Fred Vincy",
+        "character2": "Mary Garth",
+        "interaction_strength": 982
+      },
+      {
+        "character1": "Mr. Casaubon",
+        "character2": "Dorothea",
+        "interaction_strength": 866
+      },
+      {
+        "character1": "Sir James Chettam",
+        "character2": "Mrs Cadawaller",
+        "interaction_strength": 563
+      },
+      {
+        "character1": "Fred Vincy",
+        "character2": "Rosamond Vincy",
+        "interaction_strength": 540
+      },
+      {
+        "character1": "Dorothea",
+        "character2": "Mr. Brooke",
+        "interaction_strength": 533
+      },
+      {
+        "character1": "Mary Garth",
+        "character2": "Rosamond Vincy",
+        "interaction_strength": 529
+      },
+      {
+        "character1": "Sir James Chettam",
+        "character2": "Mr. Brooke",
+        "interaction_strength": 515
+      },
+      {
+        "character1": "Dorothea",
+        "character2": "Tertius Lydate",
+        "interaction_strength": 499
+      },
+      {
+        "character1": "Bulstrode",
+        "character2": "Tertius Lydate",
+        "interaction_strength": 458
+      },
+      {
+        "character1": "Fred Vincy",
+        "character2": "Mr Featherstone",
+        "interaction_strength": 365
+      },
+      {
+        "character1": "Will Ladislaw",
+        "character2": "Rosamond Vincy",
+        "interaction_strength": 334
+      },
+      {
+        "character1": "Mrs Vincy",
+        "character2": "Rosamond Vincy",
+        "interaction_strength": 330
+      },
+      {
+        "character1": "Dorothea",
+        "character2": "Sir James Chettam",
+        "interaction_strength": 321
+      },
+      {
+        "character1": "Mr. Brooke",
+        "character2": "Mrs Cadawaller",
+        "interaction_strength": 266
+      },
+      {
+        "character1": "Celia",
+        "character2": "Mrs Cadawaller",
+        "interaction_strength": 264
+      },
+      {
+        "character1": "Will Ladislaw",
+        "character2": "Tertius Lydate",
+        "interaction_strength": 245
+      },
+      {
+        "character1": "Lady Chettam",
+        "character2": "Mrs Cadawaller",
+        "interaction_strength": 232
+      }
+    ]
+  }
+}

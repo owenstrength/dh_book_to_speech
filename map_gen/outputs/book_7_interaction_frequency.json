@@ -1,0 +1,557 @@
+{
+  "metadata": {
+    "type": "book_7",
+    "weight_by": "interaction_frequency",
+    "total_characters": 16,
+    "total_edges": 9
+  },
+  "nodes": [
+    {
+      "id": "D",
+      "name": "Dorothea",
+      "degree": 3,
+      "community": 0,
+      "dialogue_count": 3,
+      "context_count": 3,
+      "description": "as informed me that though she has destined the chief part of those funds to another purpose, she is willing to consider whether she cannot fully take my place in relation to the Hospital. But she wis",
+      "centrality": {
+        "degree": 0.2,
+        "betweenness": 0.009523809523809525,
+        "closeness": 1.1538461538461537,
+        "eigenvector": 0.47527056634278486,
+        "dialogue": 0.010273972602739725,
+        "interaction_strength": 36
+      },
+      "spring_x": 1.7232235604750488,
+      "spring_y": -0.5208603671620463
+    },
+    {
+      "id": "Celia",
+      "name": "Celia",
+      "degree": 0,
+      "community": 1,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": -1.4608568874617207,
+      "spring_y": 2.382824497496434
+    },
+    {
+      "id": "B",
+      "name": "Bulstrode",
+      "degree": 2,
+      "community": 0,
+      "dialogue_count": 75,
+      "context_count": 75,
+      "description": "to consult Lydgate without delay on that particular morning, although he had nothing to tell beyond what he had told before. He listened eagerly to what Lydgate had to say in dissipation of his fears,",
+      "centrality": {
+        "degree": 0.13333333333333333,
+        "betweenness": 0.0,
+        "closeness": 1.0714285714285714,
+        "eigenvector": 0.3772774709293791,
+        "dialogue": 0.2568493150684932,
+        "interaction_strength": 346
+      },
+      "spring_x": 0.7413653848022123,
+      "spring_y": -0.09744201563321976
+    },
+    {
+      "id": "Lyd",
+      "name": "Tertius Lydate",
+      "degree": 5,
+      "community": 0,
+      "dialogue_count": 122,
+      "context_count": 122,
+      "description": "casm, and there the subject was dropped. This was not the first time that Mr. Farebrother had heard hints of Lydgate's expenses being obviously too great to be met by his practice, but he thought it n",
+      "centrality": {
+        "degree": 0.3333333333333333,
+        "betweenness": 0.31428571428571433,
+        "closeness": 1.6666666666666667,
+        "eigenvector": 0.5999826898614309,
+        "dialogue": 0.4178082191780822,
+        "interaction_strength": 705
+      },
+      "spring_x": 0.3541361178269838,
+      "spring_y": -0.3106191638198286
+    },
+    {
+      "id": "Lad",
+      "name": "Will Ladislaw",
+      "degree": 0,
+      "community": 2,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": -1.2952415177221812,
+      "spring_y": -4.0068381384148255
+    },
+    {
+      "id": "R",
+      "name": "Rosamond Vincy",
+      "degree": 2,
+      "community": 0,
+      "dialogue_count": 51,
+      "context_count": 51,
+      "description": "ence of that interest in her husband's presence which a loving wife is sure to betray, even if etiquette keeps her aloof from him. When Lydgate was taking part in the conversation, she never looked to",
+      "centrality": {
+        "degree": 0.13333333333333333,
+        "betweenness": 0.1142857142857143,
+        "closeness": 1.1538461538461537,
+        "eigenvector": 0.24007386849366527,
+        "dialogue": 0.17465753424657535,
+        "interaction_strength": 347
+      },
+      "spring_x": -0.31249584995719265,
+      "spring_y": 0.19712564514491102
+    },
+    {
+      "id": "M",
+      "name": "Mary Garth",
+      "degree": 1,
+      "community": 0,
+      "dialogue_count": 2,
+      "context_count": 2,
+      "description": "r family were present; the Vincy children all dined at the table, and Fred had persuaded his mother that if she did not invite Mary Garth, the Farebrothers would regard it as a slight to themselves, M",
+      "centrality": {
+        "degree": 0.06666666666666667,
+        "betweenness": 0.0,
+        "closeness": 0.7894736842105263,
+        "eigenvector": 0.08423525338623432,
+        "dialogue": 0.00684931506849315,
+        "interaction_strength": 18
+      },
+      "spring_x": -1.2947517884764859,
+      "spring_y": -1.5581370015881804
+    },
+    {
+      "id": "F",
+      "name": "Fred Vincy",
+      "degree": 2,
+      "community": 0,
+      "dialogue_count": 27,
+      "context_count": 27,
+      "description": "ut any difficulty there was a friendly ear ready. The opportunity came at Mr. Vincy's, where, on New Year's Day, there was a party, to which Mr. Farebrother was irresistibly invited, on the plea that ",
+      "centrality": {
+        "degree": 0.13333333333333333,
+        "betweenness": 0.1142857142857143,
+        "closeness": 1.1538461538461537,
+        "eigenvector": 0.24007386849366527,
+        "dialogue": 0.09246575342465753,
+        "interaction_strength": 34
+      },
+      "spring_x": -0.5910159723151861,
+      "spring_y": -1.1630318846381682
+    },
+    {
+      "id": "C",
+      "name": "Mr. Casaubon",
+      "degree": 0,
+      "community": 3,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": -2.093312325437915,
+      "spring_y": -6.570717694893907
+    },
+    {
+      "id": "MB",
+      "name": "Mr. Brooke",
+      "degree": 2,
+      "community": 0,
+      "dialogue_count": 6,
+      "context_count": 6,
+      "description": "iation of himself with Bulstrode, of which he now saw the full meaning as it must have presented itself to other minds. He now felt the conviction that this man who was leaning tremblingly on his arm,",
+      "centrality": {
+        "degree": 0.13333333333333333,
+        "betweenness": 0.0,
+        "closeness": 1.0714285714285714,
+        "eigenvector": 0.3772774709293791,
+        "dialogue": 0.02054794520547945,
+        "interaction_strength": 32
+      },
+      "spring_x": 1.8084448867728078,
+      "spring_y": -0.823957429208133
+    },
+    {
+      "id": "JC",
+      "name": "Sir James Chettam",
+      "degree": 0,
+      "community": 4,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": -3.766039839019936,
+      "spring_y": 2.1286597179137963
+    },
+    {
+      "id": "LC",
+      "name": "Lady Chettam",
+      "degree": 0,
+      "community": 5,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": -0.72596150868946,
+      "spring_y": 4.002940527693522
+    },
+    {
+      "id": "MrsV",
+      "name": "Mrs Vincy",
+      "degree": 1,
+      "community": 0,
+      "dialogue_count": 6,
+      "context_count": 6,
+      "description": "ptured Psyche modelled to look another way: and when, after being called out for an hour or two, he re-entered the room, she seemed unconscious of the fact, which eighteen months before would have had",
+      "centrality": {
+        "degree": 0.06666666666666667,
+        "betweenness": 0.0,
+        "closeness": 0.7894736842105263,
+        "eigenvector": 0.08423525338623432,
+        "dialogue": 0.02054794520547945,
+        "interaction_strength": 8
+      },
+      "spring_x": -1.3518260669342335,
+      "spring_y": 0.52417537462233
+    },
+    {
+      "id": "MrV",
+      "name": "Mr Vincy",
+      "degree": 0,
+      "community": 6,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": 1.4856727812722228,
+      "spring_y": -3.5511748377850187
+    },
+    {
+      "id": "MrsCad",
+      "name": "Mrs Cadawaller",
+      "degree": 0,
+      "community": 7,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": 4.019752984430655,
+      "spring_y": 1.1564495161557338
+    },
+    {
+      "id": "MrF",
+      "name": "Mr Featherstone",
+      "degree": 0,
+      "community": 8,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": 5.025485509459382,
+      "spring_y": 3.734951818176266
+    }
+  ],
+  "edges": [
+    {
+      "source": "D",
+      "target": "Lyd",
+      "weight": 8
+    },
+    {
+      "source": "D",
+      "target": "MB",
+      "weight": 56
+    },
+    {
+      "source": "B",
+      "target": "Lyd",
+      "weight": 684
+    },
+    {
+      "source": "B",
+      "target": "D",
+      "weight": 8
+    },
+    {
+      "source": "Lyd",
+      "target": "R",
+      "weight": 678
+    },
+    {
+      "source": "Lyd",
+      "target": "MB",
+      "weight": 8
+    },
+    {
+      "source": "F",
+      "target": "M",
+      "weight": 36
+    },
+    {
+      "source": "F",
+      "target": "Lyd",
+      "weight": 32
+    },
+    {
+      "source": "MrsV",
+      "target": "R",
+      "weight": 16
+    }
+  ],
+  "centrality_metrics": {
+    "degree": {
+      "D": 0.2,
+      "Celia": 0.0,
+      "B": 0.13333333333333333,
+      "Lyd": 0.3333333333333333,
+      "Lad": 0.0,
+      "R": 0.13333333333333333,
+      "M": 0.06666666666666667,
+      "F": 0.13333333333333333,
+      "C": 0.0,
+      "MB": 0.13333333333333333,
+      "JC": 0.0,
+      "LC": 0.0,
+      "MrsV": 0.06666666666666667,
+      "MrV": 0.0,
+      "MrsCad": 0.0,
+      "MrF": 0.0
+    },
+    "betweenness": {
+      "D": 0.009523809523809525,
+      "Celia": 0.0,
+      "B": 0.0,
+      "Lyd": 0.31428571428571433,
+      "Lad": 0.0,
+      "R": 0.1142857142857143,
+      "M": 0.0,
+      "F": 0.1142857142857143,
+      "C": 0.0,
+      "MB": 0.0,
+      "JC": 0.0,
+      "LC": 0.0,
+      "MrsV": 0.0,
+      "MrV": 0.0,
+      "MrsCad": 0.0,
+      "MrF": 0.0
+    },
+    "closeness": {
+      "D": 1.1538461538461537,
+      "Celia": 0.0,
+      "B": 1.0714285714285714,
+      "Lyd": 1.6666666666666667,
+      "Lad": 0.0,
+      "R": 1.1538461538461537,
+      "M": 0.7894736842105263,
+      "F": 1.1538461538461537,
+      "C": 0.0,
+      "MB": 1.0714285714285714,
+      "JC": 0.0,
+      "LC": 0.0,
+      "MrsV": 0.7894736842105263,
+      "MrV": 0.0,
+      "MrsCad": 0.0,
+      "MrF": 0.0
+    },
+    "eigenvector": {
+      "D": 0.47527056634278486,
+      "Celia": 0.0,
+      "B": 0.3772774709293791,
+      "Lyd": 0.5999826898614309,
+      "Lad": 0.0,
+      "R": 0.24007386849366527,
+      "M": 0.08423525338623432,
+      "F": 0.24007386849366527,
+      "C": 0.0,
+      "MB": 0.3772774709293791,
+      "JC": 0.0,
+      "LC": 0.0,
+      "MrsV": 0.08423525338623432,
+      "MrV": 0.0,
+      "MrsCad": 0.0,
+      "MrF": 0.0
+    },
+    "dialogue": {
+      "D": 0.010273972602739725,
+      "Celia": 0.0,
+      "B": 0.2568493150684932,
+      "Lyd": 0.4178082191780822,
+      "Lad": 0.0,
+      "R": 0.17465753424657535,
+      "M": 0.00684931506849315,
+      "F": 0.09246575342465753,
+      "C": 0.0,
+      "MB": 0.02054794520547945,
+      "JC": 0.0,
+      "LC": 0.0,
+      "MrsV": 0.02054794520547945,
+      "MrV": 0.0,
+      "MrsCad": 0.0,
+      "MrF": 0.0
+    },
+    "interaction_strength": {
+      "D": 36,
+      "Celia": 0,
+      "B": 346,
+      "Lyd": 705,
+      "Lad": 0,
+      "R": 347,
+      "M": 18,
+      "F": 34,
+      "C": 0,
+      "MB": 32,
+      "JC": 0,
+      "LC": 0,
+      "MrsV": 8,
+      "MrV": 0,
+      "MrsCad": 0,
+      "MrF": 0
+    }
+  },
+  "communities": {
+    "D": 0,
+    "MB": 0,
+    "Lyd": 0,
+    "B": 0,
+    "R": 0,
+    "MrsV": 0,
+    "F": 0,
+    "M": 0,
+    "Celia": 1,
+    "Lad": 2,
+    "C": 3,
+    "JC": 4,
+    "LC": 5,
+    "MrV": 6,
+    "MrsCad": 7,
+    "MrF": 8
+  },
+  "layouts": {
+    "spring": {
+      "D": [
+        1.7232235604750488,
+        -0.5208603671620463
+      ],
+      "Celia": [
+        -1.4608568874617207,
+        2.382824497496434
+      ],
+      "B": [
+        0.7413653848022123,
+        -0.09744201563321976
+      ],
+      "Lyd": [
+        0.3541361178269838,
+        -0.3106191638198286
+      ],
+      "Lad": [
+        -1.2952415177221812,
+        -4.0068381384148255
+      ],
+      "R": [
+        -0.31249584995719265,
+        0.19712564514491102
+      ],
+      "M": [
+        -1.2947517884764859,
+        -1.5581370015881804
+      ],
+      "F": [
+        -0.5910159723151861,
+        -1.1630318846381682
+      ],
+      "C": [
+        -2.093312325437915,
+        -6.570717694893907
+      ],
+      "MB": [
+        1.8084448867728078,
+        -0.823957429208133
+      ],
+      "JC": [
+        -3.766039839019936,
+        2.1286597179137963
+      ],
+      "LC": [
+        -0.72596150868946,
+        4.002940527693522
+      ],
+      "MrsV": [
+        -1.3518260669342335,
+        0.52417537462233
+      ],
+      "MrV": [
+        1.4856727812722228,
+        -3.5511748377850187
+      ],
+      "MrsCad": [
+        4.019752984430655,
+        1.1564495161557338
+      ],
+      "MrF": [
+        5.025485509459382,
+        3.734951818176266
+      ]
+    }
+  }
+}

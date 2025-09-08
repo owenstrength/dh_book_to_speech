@@ -1,0 +1,592 @@
+{
+  "metadata": {
+    "type": "book_2",
+    "weight_by": "co_occurrence",
+    "total_characters": 16,
+    "total_edges": 16
+  },
+  "nodes": [
+    {
+      "id": "D",
+      "name": "Dorothea",
+      "degree": 3,
+      "community": 0,
+      "dialogue_count": 99,
+      "context_count": 99,
+      "description": "s if something had happened to him with regard to her. There are characters which are continually creating collisions and nodes for themselves in dramas which nobody is prepared to act with them. Thei",
+      "centrality": {
+        "degree": 0.2,
+        "betweenness": 0.0761904761904762,
+        "closeness": 0.6,
+        "eigenvector": 0.2209269378911939,
+        "dialogue": 0.1956521739130435,
+        "interaction_strength": 724
+      },
+      "spring_x": 4.131101213090787,
+      "spring_y": -8.069786919402356
+    },
+    {
+      "id": "Celia",
+      "name": "Celia",
+      "degree": 0,
+      "community": 1,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": -2.0305532781467197,
+      "spring_y": -3.0793659869342798
+    },
+    {
+      "id": "B",
+      "name": "Bulstrode",
+      "degree": 4,
+      "community": 0,
+      "dialogue_count": 38,
+      "context_count": 38,
+      "description": "this kind of moral lantern turned on them. If you are not proud of your cellar, there is no thrill of satisfaction in seeing your guest hold up his wine-glass to the light and look judicial. Such joys",
+      "centrality": {
+        "degree": 0.26666666666666666,
+        "betweenness": 0.4,
+        "closeness": 0.7894736842105263,
+        "eigenvector": 0.3654372775791144,
+        "dialogue": 0.07509881422924901,
+        "interaction_strength": 239
+      },
+      "spring_x": 3.2330018261739277,
+      "spring_y": -6.230889261251257
+    },
+    {
+      "id": "Lyd",
+      "name": "Tertius Lydate",
+      "degree": 5,
+      "community": 0,
+      "dialogue_count": 88,
+      "context_count": 88,
+      "description": "s. Mr. Bulstrode had also a deferential bending attitude in listening, and an apparently fixed attentiveness in his eyes which made those persons who thought themselves worth hearing infer that he was",
+      "centrality": {
+        "degree": 0.3333333333333333,
+        "betweenness": 0.49523809523809526,
+        "closeness": 0.8823529411764706,
+        "eigenvector": 0.48994005014791925,
+        "dialogue": 0.17391304347826086,
+        "interaction_strength": 308
+      },
+      "spring_x": 2.3660061624003434,
+      "spring_y": -4.5843842240805515
+    },
+    {
+      "id": "Lad",
+      "name": "Will Ladislaw",
+      "degree": 2,
+      "community": 0,
+      "dialogue_count": 82,
+      "context_count": 82,
+      "description": "ou think of that for a fine bit of antithesis? said the German, searching in his friend's face for responding admiration, but going on volubly without waiting for any other answer. There lies antique ",
+      "centrality": {
+        "degree": 0.13333333333333333,
+        "betweenness": 0.0,
+        "closeness": 0.45454545454545453,
+        "eigenvector": 0.13527242233561856,
+        "dialogue": 0.16205533596837945,
+        "interaction_strength": 561
+      },
+      "spring_x": 4.4904523247866255,
+      "spring_y": -8.83413972638906
+    },
+    {
+      "id": "R",
+      "name": "Rosamond Vincy",
+      "degree": 3,
+      "community": 0,
+      "dialogue_count": 21,
+      "context_count": 21,
+      "description": "ouse—attractions which made it all the easier to fall in love with the daughter. The tinge of unpretentious, inoffensive vulgarity in Mrs. Vincy gave more effect to Rosamond's refinement, which was be",
+      "centrality": {
+        "degree": 0.2,
+        "betweenness": 0.07619047619047617,
+        "closeness": 0.7142857142857143,
+        "eigenvector": 0.36120610503037826,
+        "dialogue": 0.041501976284584984,
+        "interaction_strength": 180
+      },
+      "spring_x": 1.7293058300475457,
+      "spring_y": -3.8161859550060466
+    },
+    {
+      "id": "M",
+      "name": "Mary Garth",
+      "degree": 1,
+      "community": 0,
+      "dialogue_count": 39,
+      "context_count": 39,
+      "description": "said Fred, rising with the letter as if he would put it in the fire. Ay, ay, I don't want it. It's worth no money to me. Fred carried the letter to the fire, and thrust the poker through it with much ",
+      "centrality": {
+        "degree": 0.06666666666666667,
+        "betweenness": 0.0,
+        "closeness": 0.4411764705882353,
+        "eigenvector": 0.10063033065682754,
+        "dialogue": 0.07707509881422925,
+        "interaction_strength": 452
+      },
+      "spring_x": 0.5808386566806799,
+      "spring_y": -1.5698498582745497
+    },
+    {
+      "id": "F",
+      "name": "Fred Vincy",
+      "degree": 4,
+      "community": 0,
+      "dialogue_count": 57,
+      "context_count": 57,
+      "description": "by Mr. Featherstone—promised? who said I had ever promised? I promise nothing—I shall make codicils as long as I like—and that considering the nature of such a proceeding, it is unreasonable to presum",
+      "centrality": {
+        "degree": 0.26666666666666666,
+        "betweenness": 0.1904761904761905,
+        "closeness": 0.6,
+        "eigenvector": 0.3286991131311626,
+        "dialogue": 0.11264822134387352,
+        "interaction_strength": 654
+      },
+      "spring_x": 1.0102043934778948,
+      "spring_y": -2.3927064446041553
+    },
+    {
+      "id": "C",
+      "name": "Mr. Casaubon",
+      "degree": 3,
+      "community": 0,
+      "dialogue_count": 30,
+      "context_count": 30,
+      "description": "the depths of her emotion roused to tumultuous activity, and with life made a new problem by new elements, she had been becoming more and more aware, with a certain terror, that her mind was continual",
+      "centrality": {
+        "degree": 0.2,
+        "betweenness": 0.0761904761904762,
+        "closeness": 0.6,
+        "eigenvector": 0.2209269378911939,
+        "dialogue": 0.05928853754940711,
+        "interaction_strength": 163
+      },
+      "spring_x": 4.112340685781146,
+      "spring_y": -7.929478269340437
+    },
+    {
+      "id": "MB",
+      "name": "Mr. Brooke",
+      "degree": 0,
+      "community": 2,
+      "dialogue_count": 3,
+      "context_count": 3,
+      "description": "n, showing the harmony of the Book of Proverbs with the results of modern research. You don't mind my fumigating you? Lydgate was more surprised at the openness of this talk than at its implied meanin",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.005928853754940711,
+        "interaction_strength": 0
+      },
+      "spring_x": -3.7005240665495838,
+      "spring_y": 0.7783481210034506
+    },
+    {
+      "id": "JC",
+      "name": "Sir James Chettam",
+      "degree": 0,
+      "community": 3,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": 3.9693125682744457,
+      "spring_y": -1.5629129063075755
+    },
+    {
+      "id": "LC",
+      "name": "Lady Chettam",
+      "degree": 0,
+      "community": 4,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": -5.110803598780307,
+      "spring_y": 4.803482558750845
+    },
+    {
+      "id": "MrsV",
+      "name": "Mrs Vincy",
+      "degree": 3,
+      "community": 0,
+      "dialogue_count": 3,
+      "context_count": 3,
+      "description": "t work! Fred was stung, and released her hand. She walked to the door, but there she turned and said: Fred, you have always been so good, so generous to me. I am not ungrateful. But never speak to me ",
+      "centrality": {
+        "degree": 0.2,
+        "betweenness": 0.07619047619047617,
+        "closeness": 0.7142857142857143,
+        "eigenvector": 0.36120610503037826,
+        "dialogue": 0.005928853754940711,
+        "interaction_strength": 20
+      },
+      "spring_x": 2.2838833652572466,
+      "spring_y": -2.8388198725658094
+    },
+    {
+      "id": "MrV",
+      "name": "Mr Vincy",
+      "degree": 2,
+      "community": 0,
+      "dialogue_count": 26,
+      "context_count": 26,
+      "description": "BOOK II. OLD AND YOUNG. CHAPTER XIII. 1st Gent. How class your man?—as better than the most, Or, seeming better, worse beneath that cloak? As saint or knave, pilgrim or hypocrite? 2d Gent. Nay, tell m",
+      "centrality": {
+        "degree": 0.13333333333333333,
+        "betweenness": 0.0,
+        "closeness": 0.6818181818181818,
+        "eigenvector": 0.26187126767358426,
+        "dialogue": 0.05138339920948617,
+        "interaction_strength": 123
+      },
+      "spring_x": 2.9518994227597193,
+      "spring_y": -5.627508321396694
+    },
+    {
+      "id": "MrsCad",
+      "name": "Mrs Cadawaller",
+      "degree": 0,
+      "community": 5,
+      "dialogue_count": 0,
+      "context_count": 0,
+      "description": "",
+      "centrality": {
+        "degree": 0.0,
+        "betweenness": 0.0,
+        "closeness": 0.0,
+        "eigenvector": 0.0,
+        "dialogue": 0.0,
+        "interaction_strength": 0
+      },
+      "spring_x": -24.06267925118758,
+      "spring_y": 50.82714036421973
+    },
+    {
+      "id": "MrF",
+      "name": "Mr Featherstone",
+      "degree": 2,
+      "community": 0,
+      "dialogue_count": 20,
+      "context_count": 20,
+      "description": "First watch for morsels, like a hound Mix well with buffets, stir them round With good thick oil of flatteries, And froth with mean self-lauding lies. Serve warm: the vessels you must choose To keep i",
+      "centrality": {
+        "degree": 0.13333333333333333,
+        "betweenness": 0.07619047619047617,
+        "closeness": 0.6818181818181818,
+        "eigenvector": 0.25062413994544935,
+        "dialogue": 0.039525691699604744,
+        "interaction_strength": 178
+      },
+      "spring_x": 1.0062370719344451,
+      "spring_y": -2.8132361294900203
+    }
+  ],
+  "edges": [
+    {
+      "source": "D",
+      "target": "Lad",
+      "weight": 553
+    },
+    {
+      "source": "B",
+      "target": "Lyd",
+      "weight": 116
+    },
+    {
+      "source": "B",
+      "target": "MrV",
+      "weight": 99
+    },
+    {
+      "source": "B",
+      "target": "D",
+      "weight": 20
+    },
+    {
+      "source": "B",
+      "target": "C",
+      "weight": 4
+    },
+    {
+      "source": "Lyd",
+      "target": "MrV",
+      "weight": 24
+    },
+    {
+      "source": "Lyd",
+      "target": "R",
+      "weight": 156
+    },
+    {
+      "source": "Lyd",
+      "target": "MrsV",
+      "weight": 8
+    },
+    {
+      "source": "Lyd",
+      "target": "MrF",
+      "weight": 4
+    },
+    {
+      "source": "F",
+      "target": "MrF",
+      "weight": 174
+    },
+    {
+      "source": "F",
+      "target": "M",
+      "weight": 452
+    },
+    {
+      "source": "F",
+      "target": "MrsV",
+      "weight": 8
+    },
+    {
+      "source": "F",
+      "target": "R",
+      "weight": 20
+    },
+    {
+      "source": "C",
+      "target": "D",
+      "weight": 151
+    },
+    {
+      "source": "C",
+      "target": "Lad",
+      "weight": 8
+    },
+    {
+      "source": "MrsV",
+      "target": "R",
+      "weight": 4
+    }
+  ],
+  "centrality_metrics": {
+    "degree": {
+      "D": 0.2,
+      "Celia": 0.0,
+      "B": 0.26666666666666666,
+      "Lyd": 0.3333333333333333,
+      "Lad": 0.13333333333333333,
+      "R": 0.2,
+      "M": 0.06666666666666667,
+      "F": 0.26666666666666666,
+      "C": 0.2,
+      "MB": 0.0,
+      "JC": 0.0,
+      "LC": 0.0,
+      "MrsV": 0.2,
+      "MrV": 0.13333333333333333,
+      "MrsCad": 0.0,
+      "MrF": 0.13333333333333333
+    },
+    "betweenness": {
+      "D": 0.0761904761904762,
+      "Celia": 0.0,
+      "B": 0.4,
+      "Lyd": 0.49523809523809526,
+      "Lad": 0.0,
+      "R": 0.07619047619047617,
+      "M": 0.0,
+      "F": 0.1904761904761905,
+      "C": 0.0761904761904762,
+      "MB": 0.0,
+      "JC": 0.0,
+      "LC": 0.0,
+      "MrsV": 0.07619047619047617,
+      "MrV": 0.0,
+      "MrsCad": 0.0,
+      "MrF": 0.07619047619047617
+    },
+    "closeness": {
+      "D": 0.6,
+      "Celia": 0.0,
+      "B": 0.7894736842105263,
+      "Lyd": 0.8823529411764706,
+      "Lad": 0.45454545454545453,
+      "R": 0.7142857142857143,
+      "M": 0.4411764705882353,
+      "F": 0.6,
+      "C": 0.6,
+      "MB": 0.0,
+      "JC": 0.0,
+      "LC": 0.0,
+      "MrsV": 0.7142857142857143,
+      "MrV": 0.6818181818181818,
+      "MrsCad": 0.0,
+      "MrF": 0.6818181818181818
+    },
+    "eigenvector": {
+      "D": 0.2209269378911939,
+      "Celia": 0.0,
+      "B": 0.3654372775791144,
+      "Lyd": 0.48994005014791925,
+      "Lad": 0.13527242233561856,
+      "R": 0.36120610503037826,
+      "M": 0.10063033065682754,
+      "F": 0.3286991131311626,
+      "C": 0.2209269378911939,
+      "MB": 0.0,
+      "JC": 0.0,
+      "LC": 0.0,
+      "MrsV": 0.36120610503037826,
+      "MrV": 0.26187126767358426,
+      "MrsCad": 0.0,
+      "MrF": 0.25062413994544935
+    },
+    "dialogue": {
+      "D": 0.1956521739130435,
+      "Celia": 0.0,
+      "B": 0.07509881422924901,
+      "Lyd": 0.17391304347826086,
+      "Lad": 0.16205533596837945,
+      "R": 0.041501976284584984,
+      "M": 0.07707509881422925,
+      "F": 0.11264822134387352,
+      "C": 0.05928853754940711,
+      "MB": 0.005928853754940711,
+      "JC": 0.0,
+      "LC": 0.0,
+      "MrsV": 0.005928853754940711,
+      "MrV": 0.05138339920948617,
+      "MrsCad": 0.0,
+      "MrF": 0.039525691699604744
+    },
+    "interaction_strength": {
+      "D": 724,
+      "Celia": 0,
+      "B": 239,
+      "Lyd": 308,
+      "Lad": 561,
+      "R": 180,
+      "M": 452,
+      "F": 654,
+      "C": 163,
+      "MB": 0,
+      "JC": 0,
+      "LC": 0,
+      "MrsV": 20,
+      "MrV": 123,
+      "MrsCad": 0,
+      "MrF": 178
+    }
+  },
+  "communities": {
+    "D": 0,
+    "Lad": 0,
+    "C": 0,
+    "B": 0,
+    "MrV": 0,
+    "Lyd": 0,
+    "MrF": 0,
+    "F": 0,
+    "R": 0,
+    "MrsV": 0,
+    "M": 0,
+    "Celia": 1,
+    "MB": 2,
+    "JC": 3,
+    "LC": 4,
+    "MrsCad": 5
+  },
+  "layouts": {
+    "spring": {
+      "D": [
+        4.131101213090787,
+        -8.069786919402356
+      ],
+      "Celia": [
+        -2.0305532781467197,
+        -3.0793659869342798
+      ],
+      "B": [
+        3.2330018261739277,
+        -6.230889261251257
+      ],
+      "Lyd": [
+        2.3660061624003434,
+        -4.5843842240805515
+      ],
+      "Lad": [
+        4.4904523247866255,
+        -8.83413972638906
+      ],
+      "R": [
+        1.7293058300475457,
+        -3.8161859550060466
+      ],
+      "M": [
+        0.5808386566806799,
+        -1.5698498582745497
+      ],
+      "F": [
+        1.0102043934778948,
+        -2.3927064446041553
+      ],
+      "C": [
+        4.112340685781146,
+        -7.929478269340437
+      ],
+      "MB": [
+        -3.7005240665495838,
+        0.7783481210034506
+      ],
+      "JC": [
+        3.9693125682744457,
+        -1.5629129063075755
+      ],
+      "LC": [
+        -5.110803598780307,
+        4.803482558750845
+      ],
+      "MrsV": [
+        2.2838833652572466,
+        -2.8388198725658094
+      ],
+      "MrV": [
+        2.9518994227597193,
+        -5.627508321396694
+      ],
+      "MrsCad": [
+        -24.06267925118758,
+        50.82714036421973
+      ],
+      "MrF": [
+        1.0062370719344451,
+        -2.8132361294900203
+      ]
+    }
+  }
+}

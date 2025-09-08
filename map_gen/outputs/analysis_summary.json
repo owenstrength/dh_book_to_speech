@@ -1,0 +1,300 @@
+{
+  "overview": {
+    "total_characters": 16,
+    "total_dialogue_instances": 4028,
+    "total_books_processed": 8,
+    "graph_variations_created": 18
+  },
+  "top_characters": {
+    "by_dialogue": [
+      {
+        "id": "D",
+        "name": "Dorothea",
+        "count": 745
+      },
+      {
+        "id": "Lyd",
+        "name": "Tertius Lydate",
+        "count": 533
+      },
+      {
+        "id": "R",
+        "name": "Rosamond Vincy",
+        "count": 389
+      },
+      {
+        "id": "Lad",
+        "name": "Will Ladislaw",
+        "count": 343
+      },
+      {
+        "id": "F",
+        "name": "Fred Vincy",
+        "count": 306
+      },
+      {
+        "id": "MB",
+        "name": "Mr. Brooke",
+        "count": 269
+      },
+      {
+        "id": "M",
+        "name": "Mary Garth",
+        "count": 233
+      },
+      {
+        "id": "B",
+        "name": "Bulstrode",
+        "count": 216
+      },
+      {
+        "id": "Celia",
+        "name": "Celia",
+        "count": 207
+      },
+      {
+        "id": "JC",
+        "name": "Sir James Chettam",
+        "count": 203
+      }
+    ],
+    "by_interactions": [
+      {
+        "id": "D",
+        "name": "Dorothea",
+        "interactions": 5335
+      },
+      {
+        "id": "R",
+        "name": "Rosamond Vincy",
+        "interactions": 3754
+      },
+      {
+        "id": "Lyd",
+        "name": "Tertius Lydate",
+        "interactions": 3196
+      },
+      {
+        "id": "Lad",
+        "name": "Will Ladislaw",
+        "interactions": 2378
+      },
+      {
+        "id": "Celia",
+        "name": "Celia",
+        "interactions": 2224
+      },
+      {
+        "id": "F",
+        "name": "Fred Vincy",
+        "interactions": 2162
+      },
+      {
+        "id": "MB",
+        "name": "Mr. Brooke",
+        "interactions": 1944
+      },
+      {
+        "id": "M",
+        "name": "Mary Garth",
+        "interactions": 1744
+      },
+      {
+        "id": "JC",
+        "name": "Sir James Chettam",
+        "interactions": 1632
+      },
+      {
+        "id": "MrsCad",
+        "name": "Mrs Cadawaller",
+        "interactions": 1400
+      }
+    ]
+  },
+  "book_statistics": [
+    {
+      "book": 1,
+      "characters": 16,
+      "total_dialogue": 872,
+      "total_interactions": 9186,
+      "unique_character_pairs": 16
+    },
+    {
+      "book": 2,
+      "characters": 16,
+      "total_dialogue": 506,
+      "total_interactions": 3602,
+      "unique_character_pairs": 11
+    },
+    {
+      "book": 3,
+      "characters": 16,
+      "total_dialogue": 343,
+      "total_interactions": 2244,
+      "unique_character_pairs": 12
+    },
+    {
+      "book": 4,
+      "characters": 16,
+      "total_dialogue": 517,
+      "total_interactions": 3978,
+      "unique_character_pairs": 14
+    },
+    {
+      "book": 5,
+      "characters": 16,
+      "total_dialogue": 477,
+      "total_interactions": 2786,
+      "unique_character_pairs": 8
+    },
+    {
+      "book": 6,
+      "characters": 16,
+      "total_dialogue": 492,
+      "total_interactions": 3116,
+      "unique_character_pairs": 13
+    },
+    {
+      "book": 7,
+      "characters": 16,
+      "total_dialogue": 292,
+      "total_interactions": 1526,
+      "unique_character_pairs": 8
+    },
+    {
+      "book": 8,
+      "characters": 16,
+      "total_dialogue": 529,
+      "total_interactions": 3628,
+      "unique_character_pairs": 14
+    }
+  ],
+  "graph_variations": [
+    {
+      "type": "all_books",
+      "weight_by": "co_occurrence",
+      "filename": "all_books_co_occurrence.json",
+      "nodes": 16,
+      "edges": 62
+    },
+    {
+      "type": "all_books",
+      "weight_by": "interaction_frequency",
+      "filename": "all_books_interaction_frequency.json",
+      "nodes": 16,
+      "edges": 62
+    },
+    {
+      "type": "book_1",
+      "weight_by": "co_occurrence",
+      "filename": "book_1_co_occurrence.json",
+      "nodes": 16,
+      "edges": 37
+    },
+    {
+      "type": "book_1",
+      "weight_by": "interaction_frequency",
+      "filename": "book_1_interaction_frequency.json",
+      "nodes": 16,
+      "edges": 37
+    },
+    {
+      "type": "book_2",
+      "weight_by": "co_occurrence",
+      "filename": "book_2_co_occurrence.json",
+      "nodes": 16,
+      "edges": 16
+    },
+    {
+      "type": "book_2",
+      "weight_by": "interaction_frequency",
+      "filename": "book_2_interaction_frequency.json",
+      "nodes": 16,
+      "edges": 16
+    },
+    {
+      "type": "book_3",
+      "weight_by": "co_occurrence",
+      "filename": "book_3_co_occurrence.json",
+      "nodes": 16,
+      "edges": 21
+    },
+    {
+      "type": "book_3",
+      "weight_by": "interaction_frequency",
+      "filename": "book_3_interaction_frequency.json",
+      "nodes": 16,
+      "edges": 21
+    },
+    {
+      "type": "book_4",
+      "weight_by": "co_occurrence",
+      "filename": "book_4_co_occurrence.json",
+      "nodes": 16,
+      "edges": 27
+    },
+    {
+      "type": "book_4",
+      "weight_by": "interaction_frequency",
+      "filename": "book_4_interaction_frequency.json",
+      "nodes": 16,
+      "edges": 27
+    },
+    {
+      "type": "book_5",
+      "weight_by": "co_occurrence",
+      "filename": "book_5_co_occurrence.json",
+      "nodes": 16,
+      "edges": 14
+    },
+    {
+      "type": "book_5",
+      "weight_by": "interaction_frequency",
+      "filename": "book_5_interaction_frequency.json",
+      "nodes": 16,
+      "edges": 14
+    },
+    {
+      "type": "book_6",
+      "weight_by": "co_occurrence",
+      "filename": "book_6_co_occurrence.json",
+      "nodes": 16,
+      "edges": 24
+    },
+    {
+      "type": "book_6",
+      "weight_by": "interaction_frequency",
+      "filename": "book_6_interaction_frequency.json",
+      "nodes": 16,
+      "edges": 24
+    },
+    {
+      "type": "book_7",
+      "weight_by": "co_occurrence",
+      "filename": "book_7_co_occurrence.json",
+      "nodes": 16,
+      "edges": 9
+    },
+    {
+      "type": "book_7",
+      "weight_by": "interaction_frequency",
+      "filename": "book_7_interaction_frequency.json",
+      "nodes": 16,
+      "edges": 9
+    },
+    {
+      "type": "book_8",
+      "weight_by": "co_occurrence",
+      "filename": "book_8_co_occurrence.json",
+      "nodes": 16,
+      "edges": 24
+    },
+    {
+      "type": "book_8",
+      "weight_by": "interaction_frequency",
+      "filename": "book_8_interaction_frequency.json",
+      "nodes": 16,
+      "edges": 24
+    }
+  ]
+}
