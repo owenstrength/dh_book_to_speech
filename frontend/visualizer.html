@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Middlemarch Character Maps</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .sidebar {
+            width: 350px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+        
+        .main {
+            flex: 1;
+            position: relative;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        svg {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+        
+        svg:active { cursor: grabbing; }
+        
+        .node {
+            cursor: pointer;
+            stroke: #fff;
+            stroke-width: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .node:hover {
+            stroke: #333;
+            stroke-width: 3px;
+            filter: brightness(1.1);
+        }
+        
+        .link {
+            stroke: #999;
+            stroke-opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .node-label {
+            font-size: 11px;
+            text-anchor: middle;
+            pointer-events: none;
+            font-weight: 600;
+            fill: #444;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(33, 37, 41, 0.95);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            max-width: 300px;
+        }
+        
+        .controls {
+            margin-bottom: 25px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(248,249,250,0.8);
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .control-group h4 {
+            margin: 0 0 10px 0;
+            color: #495057;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #495057;
+            font-size: 12px;
+        }
+        
+        select, input[type="range"] {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background: white;
+            font-size: 12px;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 2px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .stats {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .stats h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 11px;
+        }
+        
+        .character-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .character-item {
+            padding: 12px;
+            border: 1px solid #e9ecef;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .character-item:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .character-name {
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 4px;
+        }
+        
+        .character-stats {
+            font-size: 10px;
+            color: #6c757d;
+            margin-bottom: 4px;
+        }
+        
+        .character-description {
+            font-size: 9px;
+            color: #868e96;
+            font-style: italic;
+            line-height: 1.3;
+        }
+        
+        .legend {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(248,249,250,0.8);
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: #495057;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+            font-size: 11px;
+        }
+        
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .filter-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2 style="margin-top: 0; color: #212529; font-size: 18px;">Character Maps</h2>
+            
+            <div class="control-group">
+                <h4>Data Source</h4>
+                <label>Load Graph:</label>
+                <select id="graphSelect">
+                    <option value="../map_gen/outputs/all_books_co_occurrence.json">All Books - Co-occurrence</option>
+                    <option value="../map_gen/outputs/all_books_interaction_frequency.json">All Books - Interaction Frequency</option>
+                    <option value="../map_gen/outputs/book_1_co_occurrence.json">Book 1 - Co-occurrence</option>
+                    <option value="../map_gen/outputs/book_1_interaction_frequency.json">Book 1 - Interaction Frequency</option>
+                    <option value="../map_gen/outputs/book_2_co_occurrence.json">Book 2 - Co-occurrence</option>
+                    <option value="../map_gen/outputs/book_3_co_occurrence.json">Book 3 - Co-occurrence</option>
+                    <option value="../map_gen/outputs/book_4_co_occurrence.json">Book 4 - Co-occurrence</option>
+                    <option value="../map_gen/outputs/book_5_co_occurrence.json">Book 5 - Co-occurrence</option>
+                </select>
+                <button class="btn" onclick="loadSelectedGraph()">Load Graph</button>
+            </div>
+            
+            <div class="stats" id="graphStats">
+                <h3>Graph Statistics</h3>
+                <div class="stats-grid">
+                    <div>Characters: <span id="nodeCount">-</span></div>
+                    <div>Relationships: <span id="edgeCount">-</span></div>
+                    <div>Communities: <span id="communityCount">-</span></div>
+                    <div>Avg Connections: <span id="avgDegree">-</span></div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <h4>Visual Style</h4>
+                    <label>Color Nodes By:</label>
+                    <select id="colorBy">
+                        <option value="community">Community</option>
+                        <option value="degree">Degree Centrality</option>
+                        <option value="betweenness">Betweenness Centrality</option>
+                        <option value="closeness">Closeness Centrality</option>
+                        <option value="dialogue">Dialogue Frequency</option>
+                        <option value="interaction_strength">Interaction Strength</option>
+                    </select>
+                    
+                    <label>Size Nodes By:</label>
+                    <select id="sizeBy">
+                        <option value="degree">Degree</option>
+                        <option value="betweenness">Betweenness Centrality</option>
+                        <option value="closeness">Closeness Centrality</option>
+                        <option value="dialogue">Dialogue Count</option>
+                        <option value="interaction_strength">Interaction Strength</option>
+                    </select>
+                    
+                    <label>Show Labels:</label>
+                    <select id="showLabels">
+                        <option value="all">All Characters</option>
+                        <option value="major">Major Characters Only</option>
+                        <option value="none">No Labels</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <h4>Filters</h4>
+                    <label>Min Dialogue Count: <span id="dialogueValue">0</span></label>
+                    <input type="range" id="minDialogue" min="0" max="100" value="0">
+                    
+                    <label>Min Connections: <span id="connectionValue">0</span></label>
+                    <input type="range" id="minConnections" min="0" max="20" value="0">
+                    
+                    <div class="filter-controls">
+                        <button class="btn" onclick="resetFilters()">Reset</button>
+                        <button class="btn" onclick="exportView()">Export</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="legend" id="legend"></div>
+            
+            <div class="character-list" id="characterList"></div>
+        </div>
+        
+        <div class="main">
+            <svg id="graph"></svg>
+            <div class="tooltip" id="tooltip"></div>
+            <div class="loading" id="loading">
+                Loading character data...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let graphData;
+        let filteredData;
+        let simulation;
+        let svg, g, link, node, label;
+        let isInitialized = false;
+        
+        const width = window.innerWidth - 350;
+        const height = window.innerHeight;
+        
+        const communityColors = ['#2196f3', '#ff9800', '#4caf50', '#e91e63', '#9c27b0', '#00bcd4', '#ff5722', '#795548'];
+        
+        function initVisualization() {
+            svg = d3.select("#graph").attr("width", width).attr("height", height);
+            g = svg.append("g");
+            
+            const zoom = d3.zoom()
+                .scaleExtent([0.2, 4])
+                .on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                });
+            
+            svg.call(zoom);
+            
+            loadGraph("../map_gen/outputs/all_books_co_occurrence.json");
+        }
+        
+        async function loadGraph(filename) {
+            d3.select("#loading").style("display", "block");
+            
+            try {
+                const data = await d3.json(filename);
+                graphData = data;
+                filteredData = JSON.parse(JSON.stringify(data));
+                updateStats();
+                setupControls();
+                updateVisualization();
+                populateCharacterList();
+                updateLegend();
+                isInitialized = true;
+                d3.select("#loading").style("display", "none");
+                
+                console.log("Loaded graph:", data.metadata || "No metadata");
+            } catch (error) {
+                console.error("Error loading graph:", error);
+                d3.select("#loading").html("Error loading graph data. Please check if files exist in map_gen/outputs/");
+            }
+        }
+        
+        function loadSelectedGraph() {
+            const filename = d3.select("#graphSelect").property("value");
+            loadGraph(filename);
+        }
+        
+        function updateStats() {
+            if (!graphData) return;
+            
+            const nodes = graphData.nodes;
+            const edges = graphData.edges;
+            const communities = new Set(nodes.map(d => d.community || 0)).size;
+            const avgDegree = nodes.length ? (edges.length * 2 / nodes.length).toFixed(1) : 0;
+            
+            d3.select("#nodeCount").text(nodes.length);
+            d3.select("#edgeCount").text(edges.length);
+            d3.select("#communityCount").text(communities);
+            d3.select("#avgDegree").text(avgDegree);
+        }
+        
+        function setupControls() {
+            d3.select("#colorBy").on("change", () => { updateVisualization(); updateLegend(); });
+            d3.select("#sizeBy").on("change", updateVisualization);
+            d3.select("#showLabels").on("change", updateVisualization);
+            
+            const maxDialogue = d3.max(graphData.nodes, d => d.dialogue_count || 0) || 100;
+            const maxConnections = d3.max(graphData.nodes, d => d.degree || 0) || 20;
+            
+            d3.select("#minDialogue").attr("max", maxDialogue);
+            d3.select("#minConnections").attr("max", maxConnections);
+            
+            d3.select("#minDialogue").on("input", function() {
+                d3.select("#dialogueValue").text(this.value);
+                applyFilters();
+            });
+            
+            d3.select("#minConnections").on("input", function() {
+                d3.select("#connectionValue").text(this.value);
+                applyFilters();
+            });
+        }
+        
+        function applyFilters() {
+            if (!graphData) return;
+            
+            const minDialogue = +d3.select("#minDialogue").property("value");
+            const minConnections = +d3.select("#minConnections").property("value");
+            
+            const filteredNodes = graphData.nodes.filter(d => 
+                (d.dialogue_count || 0) >= minDialogue && 
+                (d.degree || 0) >= minConnections
+            );
+            
+            const nodeIds = new Set(filteredNodes.map(d => d.id));
+            
+            const filteredEdges = graphData.edges.filter(d => 
+                nodeIds.has(d.source) && nodeIds.has(d.target)
+            );
+            
+            filteredData = {
+                ...graphData,
+                nodes: filteredNodes,
+                edges: filteredEdges
+            };
+            
+            updateVisualization();
+            populateCharacterList();
+            updateStats();
+        }
+        
+        function resetFilters() {
+            d3.select("#minDialogue").property("value", 0);
+            d3.select("#minConnections").property("value", 0);
+            d3.select("#dialogueValue").text("0");
+            d3.select("#connectionValue").text("0");
+            
+            if (graphData) {
+                filteredData = JSON.parse(JSON.stringify(graphData));
+                updateVisualization();
+                populateCharacterList();
+                updateStats();
+            }
+        }
+        
+        function setupSimulation() {
+            if (!filteredData.nodes.length) return;
+            
+            simulation = d3.forceSimulation(filteredData.nodes)
+                .force("link", d3.forceLink(filteredData.edges).id(d => d.id).distance(80).strength(0.6))
+                .force("charge", d3.forceManyBody().strength(-400))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collision", d3.forceCollide().radius(d => getNodeRadius(d) + 5));
+        }
+        
+        function createElements() {
+            g.selectAll("*").remove();
+            
+            link = g.append("g")
+                .selectAll("line")
+                .data(filteredData.edges)
+                .enter().append("line")
+                .attr("class", "link");
+            
+            node = g.append("g")
+                .selectAll("circle")
+                .data(filteredData.nodes)
+                .enter().append("circle")
+                .attr("class", "node")
+                .call(drag(simulation))
+                .on("mouseover", showTooltip)
+                .on("mouseout", hideTooltip)
+                .on("click", centerOnNode);
+            
+            label = g.append("g")
+                .selectAll("text")
+                .data(filteredData.nodes)
+                .enter().append("text")
+                .attr("class", "node-label")
+                .text(d => d.name);
+            
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+                
+                node
+                    .attr("cx", d => d.x)
+                    .attr("cy", d => d.y);
+                
+                label
+                    .attr("x", d => d.x)
+                    .attr("y", d => d.y - getNodeRadius(d) - 8);
+            });
+        }
+        
+        function updateVisualization() {
+            if (!isInitialized || !filteredData) return;
+            
+            const colorBy = d3.select("#colorBy").property("value");
+            const sizeBy = d3.select("#sizeBy").property("value");
+            const showLabels = d3.select("#showLabels").property("value");
+            
+            setupSimulation();
+            createElements();
+            
+            node.transition()
+                .duration(500)
+                .attr("r", d => getNodeRadius(d, sizeBy))
+                .style("fill", d => getNodeColor(d, colorBy));
+            
+            link.transition()
+                .duration(500)
+                .style("stroke-width", d => Math.sqrt(d.weight || 1) * 1.5)
+                .style("stroke-opacity", 0.6);
+            
+            label.transition()
+                .duration(300)
+                .style("opacity", d => {
+                    if (showLabels === "none") return 0;
+                    if (showLabels === "major") return (d.degree || 0) > 5 ? 1 : 0;
+                    return 1;
+                });
+        }
+        
+        function getNodeRadius(d, sizeBy = "degree") {
+            const baseSize = 6;
+            const maxSize = 30;
+            
+            let value = 0;
+            switch(sizeBy) {
+                case "degree":
+                    value = (d.degree || 0) / 15;
+                    break;
+                case "dialogue":
+                    value = (d.dialogue_count || 0) / 50;
+                    break;
+                case "interaction_strength":
+                    value = (d.centrality?.interaction_strength || 0) / 100;
+                    break;
+                default:
+                    value = d.centrality?.[sizeBy] || 0;
+            }
+            
+            return baseSize + Math.min(value, 1) * (maxSize - baseSize);
+        }
+        
+        function getNodeColor(d, colorBy) {
+            switch(colorBy) {
+                case "community":
+                    return communityColors[(d.community || 0) % communityColors.length];
+                case "dialogue":
+                    const dialogueScale = d3.scaleSequential(d3.interpolateOranges)
+                        .domain([0, d3.max(filteredData.nodes, n => n.dialogue_count || 0)]);
+                    return dialogueScale(d.dialogue_count || 0);
+                case "interaction_strength":
+                    const strengthScale = d3.scaleSequential(d3.interpolatePurples)
+                        .domain([0, d3.max(filteredData.nodes, n => n.centrality?.interaction_strength || 0)]);
+                    return strengthScale(d.centrality?.interaction_strength || 0);
+                default:
+                    const centralityScale = d3.scaleSequential(d3.interpolateViridis)
+                        .domain([0, d3.max(filteredData.nodes, n => n.centrality?.[colorBy] || 0)]);
+                    return centralityScale(d.centrality?.[colorBy] || 0);
+            }
+        }
+        
+        function updateLegend() {
+            const colorBy = d3.select("#colorBy").property("value");
+            const legend = d3.select("#legend");
+            
+            legend.html("");
+            
+            const title = legend.append("div").attr("class", "legend-title");
+            
+            if (colorBy === "community") {
+                title.text("Communities");
+                
+                const communities = [...new Set(filteredData.nodes.map(d => d.community || 0))];
+                communities.forEach(community => {
+                    const item = legend.append("div").attr("class", "legend-item");
+                    item.append("div")
+                        .attr("class", "legend-color")
+                        .style("background-color", communityColors[community % communityColors.length]);
+                    item.append("span").text(`Community ${community}`);
+                });
+            } else {
+                title.text(`${colorBy.charAt(0).toUpperCase() + colorBy.slice(1).replace('_', ' ')}`);
+                
+                const item = legend.append("div").attr("class", "legend-item");
+                item.append("div").style("font-size", "11px").text("Low → High values");
+            }
+        }
+        
+        function centerOnNode(event, d) {
+            const scale = 1.5;
+            const x = width / 2 - d.x * scale;
+            const y = height / 2 - d.y * scale;
+            
+            svg.transition()
+                .duration(750)
+                .call(
+                    d3.zoom().transform,
+                    d3.zoomIdentity.translate(x, y).scale(scale)
+                );
+        }
+        
+        function drag(simulation) {
+            return d3.drag()
+                .on("start", event => {
+                    if (!event.active) simulation.alphaTarget(0.1).restart();
+                    event.subject.fx = event.subject.x;
+                    event.subject.fy = event.subject.y;
+                })
+                .on("drag", event => {
+                    event.subject.fx = event.x;
+                    event.subject.fy = event.y;
+                })
+                .on("end", event => {
+                    if (!event.active) simulation.alphaTarget(0);
+                    event.subject.fx = null;
+                    event.subject.fy = null;
+                });
+        }
+        
+        function showTooltip(event, d) {
+            const tooltip = d3.select("#tooltip");
+            tooltip.style("opacity", 1)
+                .html(`
+                    <strong>${d.name}</strong><br>
+                    Community: ${d.community || 0}<br>
+                    Connections: ${d.degree || 0}<br>
+                    Dialogue: ${d.dialogue_count || 0}<br>
+                    Contexts: ${d.context_count || 0}<br>
+                    <br>
+                    <em>Centrality Scores:</em><br>
+                    Degree: ${(d.centrality?.degree || 0).toFixed(3)}<br>
+                    Betweenness: ${(d.centrality?.betweenness || 0).toFixed(3)}<br>
+                    Closeness: ${(d.centrality?.closeness || 0).toFixed(3)}<br>
+                    Dialogue: ${(d.centrality?.dialogue || 0).toFixed(3)}<br>
+                    ${d.description ? `<br><em>Description:</em><br>${d.description.substring(0, 100)}...` : ''}
+                `)
+                .style("left", (event.pageX + 15) + "px")
+                .style("top", (event.pageY - 10) + "px");
+        }
+        
+        function hideTooltip() {
+            d3.select("#tooltip").style("opacity", 0);
+        }
+        
+        function populateCharacterList() {
+            const characterList = d3.select("#characterList");
+            const sortedCharacters = filteredData.nodes
+                .slice()
+                .sort((a, b) => (b.centrality?.degree || 0) - (a.centrality?.degree || 0));
+            
+            characterList.selectAll("*").remove();
+            
+            characterList.selectAll(".character-item")
+                .data(sortedCharacters)
+                .enter()
+                .append("div")
+                .attr("class", "character-item")
+                .html(d => `
+                    <div class="character-name">${d.name}</div>
+                    <div class="character-stats">
+                        ${d.degree || 0} connections | ${d.dialogue_count || 0} dialogue | Community ${d.community || 0}
+                    </div>
+                    ${d.description ? `<div class="character-description">${d.description.substring(0, 80)}...</div>` : ''}
+                `)
+                .on("click", (event, d) => centerOnNode(event, d));
+        }
+        
+        function exportView() {
+            const dataStr = JSON.stringify(filteredData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'character_map_export.json';
+            link.click();
+        }
+        
+        initVisualization();
+    </script>
+</body>
+</html>
