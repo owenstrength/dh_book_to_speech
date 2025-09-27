@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini TTS Pipeline Frontend</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font and base styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+            min-height: 100vh;
+        }
+        /* Custom styles for modern appearance */
+        .card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid #10b981; /* Primary color border */
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#10b981', /* Emerald 500 */
+                        'accent': '#f97316', /* Orange 500 */
+                    }
+                }
+            }
+        }
+
+        // =========================================================
+        // TTS AUDIO PROCESSING HELPERS
+        // The Gemini TTS API returns raw PCM data, which must be
+        // wrapped in a WAV file header to be played in the browser.
+        // =========================================================
+        
+        // Converts base64 to ArrayBuffer
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // Writes a string to the DataView
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        // Converts PCM data to a playable WAV Blob
+        function pcmToWav(pcm16, sampleRate) {
+            const numChannels = 1;
+            const bytesPerSample = 2; // 16-bit PCM
+            const blockAlign = numChannels * bytesPerSample;
+            
+            const buffer = new ArrayBuffer(44 + pcm16.length * bytesPerSample);
+            const view = new DataView(buffer);
+            
+            // RIFF chunk
+            writeString(view, 0, 'RIFF'); // ChunkID
+            view.setUint32(4, 36 + pcm16.length * bytesPerSample, true); // ChunkSize
+            writeString(view, 8, 'WAVE'); // Format
+            
+            // FMT sub-chunk
+            writeString(view, 12, 'fmt '); // Subchunk1ID
+            view.setUint32(16, 16, true); // Subchunk1Size (16 for PCM)
+            view.setUint16(20, 1, true); // AudioFormat (1 for PCM)
+            view.setUint16(22, numChannels, true); // NumChannels
+            view.setUint32(24, sampleRate, true); // SampleRate
+            view.setUint32(28, sampleRate * blockAlign, true); // ByteRate
+            view.setUint16(32, blockAlign, true); // BlockAlign
+            view.setUint16(34, 16, true); // BitsPerSample (16-bit)
+            
+            // DATA sub-chunk
+            writeString(view, 36, 'data'); // Subchunk2ID
+            view.setUint32(40, pcm16.length * bytesPerSample, true); // Subchunk2Size
+            
+            // Write the PCM data
+            for (let i = 0; i < pcm16.length; i++) {
+                view.setInt16(44 + i * bytesPerSample, pcm16[i], true);
+            }
+            
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+
+        // =========================================================
+        // MAIN TTS GENERATION LOGIC (MIMICKING BACKEND)
+        // =========================================================
+        
+        async function generateAndPlayTTS() {
+            const apiKey = document.getElementById('apiKey').value || ""; // Canvas auto-injects if empty
+            const textInput = document.getElementById('ttsInput');
+            const voiceSelect = document.getElementById('voiceSelect');
+            const statusDiv = document.getElementById('statusMessage');
+            const audioPlayer = document.getElementById('audioPlayer');
+
+            const prompt = textInput.value.trim();
+            const voiceName = voiceSelect.value;
+            
+            statusDiv.textContent = '';
+            statusDiv.className = 'text-center p-3 rounded-lg text-gray-700';
+            audioPlayer.src = '';
+
+            if (!prompt) {
+                statusDiv.textContent = 'Please enter the text you want to convert to speech.';
+                statusDiv.classList.add('bg-yellow-100', 'text-yellow-700');
+                return;
+            }
+
+            // Set loading state
+            statusDiv.textContent = 'Generating speech... This may take a moment.';
+            statusDiv.classList.add('bg-blue-100', 'text-blue-700');
+            const runButton = document.getElementById('runButton');
+            runButton.disabled = true;
+            runButton.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Generating...';
+            statusDiv.classList.remove('bg-yellow-100', 'text-yellow-700');
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{
+                    parts: [{ text: prompt }]
+                }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: voiceName }
+                        }
+                    }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            // Implementation of exponential backoff for API robustness
+            const maxRetries = 5;
+            let currentRetry = 0;
+            let response;
+            
+            while (currentRetry < maxRetries) {
+                try {
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        break; // Success, exit retry loop
+                    } else if (response.status === 429) {
+                        // Rate limit exceeded, implement exponential backoff
+                        const delay = Math.pow(2, currentRetry) * 1000 + Math.random() * 1000;
+                        currentRetry++;
+                        if (currentRetry >= maxRetries) throw new Error("API rate limit exceeded after multiple retries.");
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        continue;
+                    } else {
+                        throw new Error(`API error: ${response.status} ${response.statusText}`);
+                    }
+                } catch (error) {
+                    currentRetry++;
+                    if (currentRetry >= maxRetries) {
+                        console.error('Final API call failed:', error);
+                        statusDiv.textContent = `Error: Failed to generate audio. ${error.message}`;
+                        statusDiv.className = 'text-center p-3 rounded-lg bg-red-100 text-red-700 font-semibold';
+                        runButton.disabled = false;
+                        runButton.textContent = 'Generate Speech';
+                        return;
+                    }
+                    const delay = Math.pow(2, currentRetry) * 1000 + Math.random() * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+
+
+            try {
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                    // Extract sample rate from mimeType, e.g., audio/L16;rate=24000
+                    const rateMatch = mimeType.match(/rate=(\d+)/);
+                    if (!rateMatch) throw new Error("Could not determine audio sample rate from API response.");
+                    const sampleRate = parseInt(rateMatch[1], 10);
+                    
+                    // Convert base64 audio data to ArrayBuffer
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    
+                    // API returns signed PCM16 audio data.
+                    const pcm16 = new Int16Array(pcmData);
+                    
+                    // Convert PCM data into a playable WAV blob
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    
+                    // Update UI for success
+                    audioPlayer.src = audioUrl;
+                    audioPlayer.classList.remove('hidden');
+                    statusDiv.textContent = 'Speech generated and ready to play!';
+                    statusDiv.className = 'text-center p-3 rounded-lg bg-primary text-white font-semibold';
+                    
+                } else {
+                    const errorDetail = JSON.stringify(result.error || result.candidates?.[0]?.finishReason || "Unknown response structure", null, 2);
+                    throw new Error(`Invalid audio data in response. Details: ${errorDetail}`);
+                }
+            } catch (error) {
+                console.error('Processing or JSON error:', error);
+                statusDiv.textContent = `Error: ${error.message}`;
+                statusDiv.className = 'text-center p-3 rounded-lg bg-red-100 text-red-700 font-semibold';
+            } finally {
+                // Restore button state
+                runButton.disabled = false;
+                runButton.textContent = 'Generate Speech';
+            }
+        }
+    </script>
+</head>
+<body class="p-8">
+
+    <div class="max-w-3xl mx-auto space-y-8">
+        
+        <!-- Header -->
+        <header class="text-center pb-4">
+            <h1 class="text-4xl font-extrabold text-gray-800">
+                <span class="text-primary">TTS</span> Pipeline Sandbox
+            </h1>
+            <p class="mt-2 text-gray-500">
+                Demonstrates the core text-to-speech functionality of your Python utility.
+            </p>
+        </header>
+        
+        <!-- API Key and Controls -->
+        <div class="card space-y-5">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">TTS Generation Controls</h2>
+            
+            <!-- API Key Input -->
+            <div class="mb-4">
+                <label for="apiKey" class="block text-sm font-medium text-gray-700">OpenAI API Key (Optional)</label>
+                <input type="password" id="apiKey" class="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-accent focus:border-accent transition duration-150" placeholder="Required if not running in a canvas environment">
+                <p class="text-xs text-gray-500 mt-1">Your Python script uses the OpenAI API; this frontend uses the Gemini TTS API for demonstration.</p>
+            </div>
+            
+            <!-- Voice Selector -->
+            <div class="mb-4">
+                <label for="voiceSelect" class="block text-sm font-medium text-gray-700">Select Voice (Simulates Narrator/Character)</label>
+                <select id="voiceSelect" class="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-accent focus:border-accent bg-white appearance-none transition duration-150">
+                    <option value="Kore">Kore (Firm/Narrator)</option>
+                    <option value="Puck">Puck (Upbeat/Character 1)</option>
+                    <option value="Zephyr">Zephyr (Bright/Character 2)</option>
+                    <option value="Charon">Charon (Informative/Character 3)</option>
+                </select>
+                <p class="text-xs text-gray-500 mt-1">The voice selection allows you to test the multi-voice feature of your pipeline.</p>
+            </div>
+            
+            <!-- Text Input -->
+            <div class="mb-6">
+                <label for="ttsInput" class="block text-sm font-medium text-gray-700">Text to Convert (Max ~200 words)</label>
+                <textarea id="ttsInput" rows="4" class="mt-1 w-full p-3 border border-gray-300 rounded-lg focus:ring-accent focus:border-accent transition duration-150" placeholder="Enter the text you want to generate speech for... For example: 'Dorothea's mind was busied with the construction of a world which she believed herself capable of making better.'">Dorothea's mind was busied with the construction of a world which she believed herself capable of making better.</textarea>
+            </div>
+            
+            <!-- Run Button -->
+            <button id="runButton" onclick="generateAndPlayTTS()" class="w-full bg-accent hover:bg-orange-600 text-white font-bold py-3 px-4 rounded-xl transition duration-300 shadow-md transform hover:-translate-y-0.5">
+                Generate Speech
+            </button>
+        </div>
+
+        <!-- Status and Output -->
+        <div class="card space-y-4">
+            <h2 class="text-2xl font-bold text-gray-800">Output</h2>
+            
+            <div id="statusMessage" class="text-center p-3 rounded-lg text-gray-700">
+                Awaiting input...
+            </div>
+            
+            <audio id="audioPlayer" controls class="w-full hidden rounded-lg shadow-md bg-gray-100 p-2"></audio>
+        </div>
+
+    </div>
+
+</body>
+</html>
