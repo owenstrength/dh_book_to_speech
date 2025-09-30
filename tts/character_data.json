@@ -1,0 +1,176 @@
+{
+  "metadata": {
+    "source": "Middlemarch by George Eliot",
+    "total_characters": 16,
+    "extraction_date": "auto-generated",
+    "available_voices": {
+      "male": [
+        "echo",
+        "fable",
+        "onyx"
+      ],
+      "female": [
+        "alloy",
+        "nova",
+        "shimmer",
+        "coral"
+      ],
+      "narrator": [
+        "onyx"
+      ]
+    },
+    "instructions": {
+      "gender": "Set to 'male', 'female', or 'auto-detect'",
+      "suggested_voice": "Choose from available voices or 'auto-assign'",
+      "custom_instructions": "Custom TTS instructions for this character",
+      "voice_notes": "Additional voice direction notes",
+      "enabled": "Set to false to skip this character during TTS"
+    }
+  },
+  "characters": {
+    "D": {
+      "name": "Dorothea",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Dorothea with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "Celia": {
+      "name": "Celia",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Celia with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "B": {
+      "name": "Bulstrode",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Bulstrode with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "Lyd": {
+      "name": "Tertius Lydate",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Tertius Lydate with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "Lad": {
+      "name": "Will Ladislaw",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Will Ladislaw with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "R": {
+      "name": "Rosamond Vincy",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Rosamond Vincy with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "M": {
+      "name": "Mary Garth",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Mary Garth with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "F": {
+      "name": "Fred Vincy",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Fred Vincy with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "C": {
+      "name": "Mr. Casaubon",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Mr. Casaubon with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "MB": {
+      "name": "Mr. Brooke",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Mr. Brooke with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "JC": {
+      "name": "Sir James Chettam",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Sir James Chettam with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "LC": {
+      "name": "Lady Chettam",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Lady Chettam with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "MrsV": {
+      "name": "Mrs Vincy",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Mrs Vincy with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "MrV": {
+      "name": "Mr Vincy",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Mr Vincy with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "MrsCad": {
+      "name": "Mrs Cadawaller",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Mrs Cadawaller with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    },
+    "MrF": {
+      "name": "Mr Featherstone",
+      "gender": "auto-detect",
+      "suggested_voice": "auto-assign",
+      "ai_description": "Will be generated automatically",
+      "custom_instructions": "Read as Mr Featherstone with appropriate character voice",
+      "voice_notes": "Add specific voice directions here (e.g., 'authoritative', 'gentle', 'nervous')",
+      "enabled": true
+    }
+  }
+}

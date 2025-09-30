@@ -60,7 +60,7 @@ class AudioBookPlayer:
     
     def play_book(self, book_number, mode="multi_voice", interactive=True):
         """Play all audio files for a book in order"""
-        print(f"🎧 Loading audiobook for Book {book_number} ({mode} mode)...")
+        print(f"Loading audiobook for Book {book_number} ({mode} mode)...")
         
         metadata = self.load_metadata(book_number, mode)
         if not metadata:
@@ -76,7 +76,7 @@ class AudioBookPlayer:
         if interactive:
             input("\nPress Enter to start playback...")
         
-        print(f"\n🎵 Starting playback of {len(audio_files)} clips...")
+        print(f"\nStarting playback of {len(audio_files)} clips...")
         print("="*60)
         
         for i, audio_info in enumerate(audio_files, 1):
@@ -85,13 +85,13 @@ class AudioBookPlayer:
             
             # Format display based on content type
             if content_type == 'narrative':
-                print(f"\n[{i}/{len(audio_files)}] 📖 NARRATOR: {speaker}")
+                print(f"\n[{i}/{len(audio_files)}] NARRATOR: {speaker}")
             elif content_type == 'epigraph':
-                print(f"\n[{i}/{len(audio_files)}] ✨ EPIGRAPH: {speaker}")
+                print(f"\n[{i}/{len(audio_files)}] EPIGRAPH: {speaker}")
             elif content_type in ['chapter_title', 'main_title', 'subtitle', 'section_title']:
-                print(f"\n[{i}/{len(audio_files)}] 📚 {content_type.upper()}: {speaker}")
+                print(f"\n[{i}/{len(audio_files)}] {content_type.upper()}: {speaker}")
             else:
-                print(f"\n[{i}/{len(audio_files)}] 💬 {speaker}:")
+                print(f"\n[{i}/{len(audio_files)}] {speaker}:")
                 
             print(f"Type: {content_type}")
             print(f"File: {audio_info['filename']}")
@@ -106,20 +106,20 @@ class AudioBookPlayer:
             
             # Check if file exists
             if not os.path.exists(audio_info['file_path']):
-                print(f"⚠️ Audio file not found: {audio_info['file_path']}")
+                print(f"Audio file not found: {audio_info['file_path']}")
                 continue
             
-            print("▶️ Playing...")
+            print("Playing...")
             try:
                 self.play_audio_file(audio_info['file_path'])
-                print("✅ Finished")
+                print("Finished")
             except Exception as e:
-                print(f"❌ Error playing audio: {e}")
+                print(f"Error playing audio: {e}")
             
             if interactive:
                 print("-" * 40)
         
-        print(f"\n🎉 Finished playing Book {book_number}!")
+        print(f"\nFinished playing Book {book_number}!")
     
     def list_available_books(self):
         """List all available books and modes"""
