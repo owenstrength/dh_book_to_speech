@@ -106,7 +106,12 @@ class TTSPipeline:
             
             result = self.audio_generator.generate_speech_for_block(block, mode)
             if result:
-                results.append(result)
+                # Handle both single result and list of results (for split text)
+                if isinstance(result, list):
+                    results.extend(result)
+                    print(f"  Generated {len(result)} audio chunks for this block")
+                else:
+                    results.append(result)
                 
                 if len(results) % 10 == 0 or block.get('content_type') == 'chapter_title':
                     print(f"Saving progress... ({len(results)} blocks completed)")

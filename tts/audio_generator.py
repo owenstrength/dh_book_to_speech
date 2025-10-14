@@ -1,6 +1,7 @@
 import hashlib
 import os
 import json
+import re
 from pathlib import Path
 from openai import OpenAI
 
@@ -191,6 +192,49 @@ class AudioGenerator:
             self.character_voices[char_id] = voice
             print(f"Assigned {voice} voice to {char_name} ({gender})")
     
+    def split_text_at_sentences(self, text, max_length=4096):
+        """
+        Split text into chunks at sentence boundaries, ensuring no chunk exceeds max_length.
+        Returns a list of text chunks.
+        """
+        if len(text) <= max_length:
+            return [text]
+        
+        # Split text into sentences using regex that handles various punctuation
+        sentence_pattern = r'(?<=[.!?])\s+'
+        sentences = re.split(sentence_pattern, text)
+        
+        chunks = []
+        current_chunk = ""
+        
+        for sentence in sentences:
+            # If adding this sentence would exceed the limit
+            if len(current_chunk) + len(sentence) + 1 > max_length:
+                if current_chunk:
+                    chunks.append(current_chunk.strip())
+                    current_chunk = sentence
+                else:
+                    # Single sentence is too long, split it at word boundaries
+                    words = sentence.split()
+                    for word in words:
+                        if len(current_chunk) + len(word) + 1 > max_length:
+                            if current_chunk:
+                                chunks.append(current_chunk.strip())
+                                current_chunk = word
+                            else:
+                                # Single word is too long, just add it
+                                chunks.append(word)
+                                current_chunk = ""
+                        else:
+                            current_chunk = current_chunk + " " + word if current_chunk else word
+            else:
+                current_chunk = current_chunk + " " + sentence if current_chunk else sentence
+        
+        if current_chunk:
+            chunks.append(current_chunk.strip())
+        
+        return chunks
+
     def analyze_dialogue_sentiment(self, dialogue_text):
         prompt = f"""
         Analyze the tone and emotion of this dialogue from Middlemarch. 
@@ -219,9 +263,11 @@ class AudioGenerator:
         text = content_block['text']
         content_type = content_block.get('content_type', 'dialogue')
         
+        # Split text if it's longer than 4096 characters
+        text_chunks = self.split_text_at_sentences(text)
+        
         if char_id == 'NARRATOR' or mode == "single_narrator":
             voice = "onyx"
-            tts_input = text
             
             if content_type == 'chapter_title':
                 instructions = f"Narrator reading chapter title with dramatic emphasis"
@@ -253,8 +299,6 @@ class AudioGenerator:
                 char_description = self.character_descriptions.get(char_id, f"A character named {char_name}")
                 sentiment = self.analyze_dialogue_sentiment(text)
                 instructions = f"{char_name} ({sentiment}): {char_description}"
-            
-            tts_input = text
         
         chapter_dir = Path(self.output_dir) / f"book_{book_number:02d}" / f"chapter_{chapter_number:02d}"
         chapter_dir.mkdir(parents=True, exist_ok=True)
@@ -267,43 +311,100 @@ class AudioGenerator:
         elif content_type == 'title_combined':
             content_suffix = "title_combined"
         
-        filename = f"{global_index:04d}_B{book_number:02d}C{chapter_number:02d}_{char_id}_{content_suffix}_{text_hash}.mp3"
-        speech_file_path = chapter_dir / filename
+        # If text needs to be split, generate multiple files
+        if len(text_chunks) > 1:
+            print(f"Text too long ({len(text)} chars), splitting into {len(text_chunks)} chunks")
+            results = []
+            
+            for chunk_idx, chunk_text in enumerate(text_chunks):
+                chunk_hash = hashlib.md5(chunk_text.encode()).hexdigest()[:8]
+                filename = f"{global_index:04d}_B{book_number:02d}C{chapter_number:02d}_{char_id}_{content_suffix}_part{chunk_idx+1:02d}_{chunk_hash}.mp3"
+                speech_file_path = chapter_dir / filename
+                
+                try:
+                    response = self.client.audio.speech.create(
+                        model="tts-1",
+                        voice=voice,
+                        input=chunk_text,
+                    )
+                    
+                    with open(speech_file_path, "wb") as f:
+                        f.write(response.content)
+                    
+                    result = {
+                        'global_index': global_index,
+                        'book_number': book_number,
+                        'chapter_number': chapter_number,
+                        'character_id': char_id,
+                        'character_name': char_name,
+                        'content_type': content_type,
+                        'voice': voice,
+                        'file_path': str(speech_file_path),
+                        'filename': filename,
+                        'text': chunk_text,
+                        'instructions': instructions,
+                        'is_split': True,
+                        'chunk_index': chunk_idx + 1,
+                        'total_chunks': len(text_chunks),
+                        'original_text_length': len(text)
+                    }
+                    
+                    if content_type == 'narrative_combined':
+                        result['original_block_count'] = content_block.get('original_block_count', 1)
+                        result['original_indices'] = content_block.get('original_indices', [global_index])
+                    elif content_type == 'title_combined':
+                        result['original_block_count'] = content_block.get('original_block_count', 1)
+                        result['original_indices'] = content_block.get('original_indices', [global_index])
+                        result['original_types'] = content_block.get('original_types', [])
+                    
+                    results.append(result)
+                    
+                except Exception as e:
+                    print(f"Error generating speech for {char_name} chunk {chunk_idx+1}: {e}")
+                    return None
+            
+            return results
         
-        try:
-            response = self.client.audio.speech.create(
-                model="tts-1",
-                voice=voice,
-                input=tts_input,
-            )
+        else:
+            # Single file generation (original logic)
+            filename = f"{global_index:04d}_B{book_number:02d}C{chapter_number:02d}_{char_id}_{content_suffix}_{text_hash}.mp3"
+            speech_file_path = chapter_dir / filename
             
-            with open(speech_file_path, "wb") as f:
-                f.write(response.content)
+            try:
+                response = self.client.audio.speech.create(
+                    model="tts-1",
+                    voice=voice,
+                    input=text,
+                )
+                
+                with open(speech_file_path, "wb") as f:
+                    f.write(response.content)
+                
+                result = {
+                    'global_index': global_index,
+                    'book_number': book_number,
+                    'chapter_number': chapter_number,
+                    'character_id': char_id,
+                    'character_name': char_name,
+                    'content_type': content_type,
+                    'voice': voice,
+                    'file_path': str(speech_file_path),
+                    'filename': filename,
+                    'text': text,
+                    'instructions': instructions,
+                    'is_split': False
+                }
+                
+                if content_type == 'narrative_combined':
+                    result['original_block_count'] = content_block.get('original_block_count', 1)
+                    result['original_indices'] = content_block.get('original_indices', [global_index])
+                elif content_type == 'title_combined':
+                    result['original_block_count'] = content_block.get('original_block_count', 1)
+                    result['original_indices'] = content_block.get('original_indices', [global_index])
+                    result['original_types'] = content_block.get('original_types', [])
+                
+                return result
             
-            result = {
-                'global_index': global_index,
-                'book_number': book_number,
-                'chapter_number': chapter_number,
-                'character_id': char_id,
-                'character_name': char_name,
-                'content_type': content_type,
-                'voice': voice,
-                'file_path': str(speech_file_path),
-                'filename': filename,
-                'text': text,
-                'instructions': instructions
-            }
-            
-            if content_type == 'narrative_combined':
-                result['original_block_count'] = content_block.get('original_block_count', 1)
-                result['original_indices'] = content_block.get('original_indices', [global_index])
-            elif content_type == 'title_combined':
-                result['original_block_count'] = content_block.get('original_block_count', 1)
-                result['original_indices'] = content_block.get('original_indices', [global_index])
-                result['original_types'] = content_block.get('original_types', [])
-            
-            return result
-        
-        except Exception as e:
-            print(f"Error generating speech for {char_name}: {e}")
-            return None
+            except Exception as e:
+                print(f"Error generating speech for {char_name}: {e}")
+                return None
