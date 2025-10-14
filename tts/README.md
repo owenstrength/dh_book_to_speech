@@ -2,6 +2,10 @@
 
 A modular text-to-speech pipeline for generating audiobooks from XML-formatted literary texts, specifically designed for Middlemarch by George Eliot.
 
+- works for any book with the same XML structure
+- supports multi-voice narration with character-specific voices
+- backend run once to generate audio files, then frontend reads from output folder. so there is an upfront cost but then low cost to host frontend
+
 ## 🏗️ Architecture
 
 The pipeline uses a modular design with focused components:

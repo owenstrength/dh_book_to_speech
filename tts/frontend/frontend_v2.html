@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Middlemarch TTS Pipeline</title>
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Middlemarch TTS Pipeline</title>
+  <style>
+    /* Base reset & typography */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Georgia, “Times New Roman”, serif;
+      color: #333;
+      background-color: #fafafa;
+      line-height: 1.6;
+    }
+    a { color: #0074cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1, h2, h3 { margin: 0 0 0.5em; }
+    p { margin: 0 0 1em; }
+
+    /* Centered header nav */
+    header.site-header {
+      text-align: center;
+      padding: 1.5em 0;
+      border-bottom: 1px solid #ddd;
+      background-color: #fff;
+    }
+    header.site-header .site-title {
+      font-size: 2em;
+    }
+    header.site-header .site-subtitle {
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    /* Main container */
+    .site-content {
+      max-width: 960px;
+      margin: 2em auto;
+      padding: 0 1em;
+    }
+
+    /* Panel/card style sections */
+    .panel {
+      background-color: #fff;
+      padding: 1.5em;
+      margin-bottom: 2em;
+      border: 1px solid #ddd;
+    }
+
+    .panel h2 {
+      border-bottom: 1px solid #eee;
+      margin-bottom: 1em;
+      padding-bottom: 0.5em;
+      color: #222;
+    }
+
+    label {
+      display: block;
+      margin: 0.75em 0 0.25em;
+      font-weight: bold;
+    }
+    input[type="file"], select {
+      width: 100%;
+      padding: 0.5em;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+    button {
+      padding: 0.6em 1.2em;
+      border: none;
+      border-radius: 4px;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    button.primary {
+      background-color: #0074cc;
+      color: white;
+    }
+    button.primary:hover {
+      background-color: #005fa3;
+    }
+    button.secondary {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+    button.secondary:hover {
+      background-color: #e0e0e0;
+    }
+
+    .flex { display: flex; }
+    .gap { gap: 1em; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .mt { margin-top: 1em; }
+    .mb { margin-bottom: 1em; }
+
+    .muted { color: #666; }
+    .mono { font-family: “Courier New”, Courier, monospace; font-size: 0.9em; }
+
+    /* Progress bar */
+    .progress-container {
+      background: #eee;
+      border-radius: 4px;
+      overflow: hidden;
+      height: 1em;
+      margin-top: 0.5em;
+    }
+    .progress-bar {
+      background-color: #0074cc;
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Character list */
+    .character-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .character-item {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0.75em;
+      margin-bottom: 0.75em;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Log and results */
+    .log {
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+      padding: 1em;
+      font-family: monospace;
+      font-size: 0.9em;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .results { margin-top: 1em; }
+    .artifact {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #eee;
+      padding: 0.75em 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-title">Middlemarch &ndash; TTS Pipeline</div>
+    <div class="site-subtitle">Generate multi-character audiobook audio from XML text</div>
+  </header>
+
+  <div class="site-content">
+    <div class="panel">
+      <h2>Controls</h2>
+      <label for="fileInput">Book XML / ZIP</label>
+      <input id="fileInput" type="file" accept=".xml,.zip" />
+
+      <label for="modeSelect">Processing Mode</label>
+      <select id="modeSelect">
+        <option value="multi_voice">Multi-voice</option>
+        <option value="single_narrator">Single narrator</option>
+      </select>
+
+      <label><input id="consistencyToggle" type="checkbox" checked /> Enforce voice consistency</label>
+      <label><input id="sentimentToggle" type="checkbox" checked /> Enable sentiment tone adjustment</label>
+
+      <div class="mt flex gap items-center">
+        <button id="startBtn" class="primary">Start Processing</button>
+        <button id="previewBtn" class="secondary">Preview Voice</button>
+      </div>
+
+      <p class="mt muted">Expects backend endpoints like <span class="mono">/api/extract_characters</span>, <span class="mono">/api/process_book</span>, etc.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Characters & Voice Assignment</h2>
+      <p class="muted">Detected characters from Book 1. Override voices if desired.</p>
+      <div id="characterList" class="character-list">
+        <div class="muted">No characters loaded yet.</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Progress & Output</h2>
+      <div id="status">Idle</div>
+      <div class="progress-container"><div id="progressBar" class="progress-bar"></div></div>
+
+      <div class="log mt" id="log"></div>
+
+      <div id="results" class="results" hidden>
+        <h3>Artifacts</h3>
+        <div id="files"></div>
+        <button id="downloadMeta" class="primary mt">Download Metadata</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // (Use the same JavaScript logic from before, adapted if needed)
+    // For brevity I’ll omit it here; you can plug your prior script into this structure.
+  </script>
+</body>
+</html>
