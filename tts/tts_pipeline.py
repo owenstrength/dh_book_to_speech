@@ -8,7 +8,7 @@ from progress_manager import ProgressManager
 
 
 class TTSPipeline:
-    def __init__(self, data_dir="/Users/owenstrength/Documents/school/senior_design/character_maps/Middlemarch-8_books_byCJ", output_dir="audio_output", api_key=None):
+    def __init__(self, data_dir="./Middlemarch-8_books_byCJ", output_dir="audio_output", api_key=None):
         print(f"Initializing TTSPipeline with data_dir: {data_dir}")
         self.data_dir = data_dir
         self.output_dir = output_dir
@@ -16,6 +16,9 @@ class TTSPipeline:
         self.content_extractor = ContentExtractor()
         self.audio_generator = AudioGenerator(api_key=api_key, output_dir=output_dir)
         self.progress_manager = ProgressManager(output_dir=output_dir)
+        
+        # Keep track of all characters across all books
+        self.all_characters = {}
         
         os.makedirs(output_dir, exist_ok=True)
     
@@ -47,15 +50,63 @@ class TTSPipeline:
                 if existing_data.get('character_genders'):
                     self.audio_generator.character_genders.update(existing_data['character_genders'])
         
-        print("Loading character definitions from book1.xml...")
-        book1_file = os.path.join(self.data_dir, 'book1.xml')
-        characters = self.content_extractor.extract_characters_from_xml(book1_file)
-        print(f"Found {len(characters)} characters in definition list")
+        # Load character definitions from ALL books to ensure we have all characters
+        # This is important when resuming from a book that is not the first book
+        print("Loading character definitions from ALL books...")
+        for book_num in self.get_available_books():
+            book_file = os.path.join(self.data_dir, f'book{book_num}.xml')
+            if os.path.exists(book_file):
+                book_characters = self.content_extractor.extract_characters_from_xml(book_file)
+                print(f"Found {len(book_characters)} characters in book{book_num}.xml")
+                
+                # Add characters from this book to our global collection
+                for char_id, char_name in book_characters.items():
+                    if char_id not in self.all_characters:
+                        self.all_characters[char_id] = char_name
         
-        if not self.audio_generator.character_voices:
-            self.audio_generator.assign_voices_to_characters(characters)
+        print(f"Total characters across all books: {len(self.all_characters)}")
+        
+        # Extract character definitions specifically for the current book
+        print(f"Loading current book {book_number} character definitions...")
+        book_file = os.path.join(self.data_dir, f'book{book_number}.xml')
+        current_book_characters = self.content_extractor.extract_characters_from_xml(book_file)
+        print(f"Found {len(current_book_characters)} characters in current book definition list")
+        
+        # Only assign voices to characters that don't already have them
+        unassigned_characters = {}
+        for char_id, char_name in self.all_characters.items():
+            if char_id not in self.audio_generator.character_voices:
+                unassigned_characters[char_id] = char_name
+        
+        if unassigned_characters:
+            print(f"Assigning voices to {len(unassigned_characters)} new characters")
+            # Create a temporary AudioGenerator instance to assign voices without affecting existing ones
+            for char_id, char_name in unassigned_characters.items():
+                gender = self.audio_generator.determine_character_gender(char_name, char_id)
+                self.audio_generator.character_genders[char_id] = gender
+                
+                description = self.audio_generator.generate_character_description(char_name, char_id)
+                self.audio_generator.character_descriptions[char_id] = description
+                
+                # Use the same voice assignment logic as original
+                if gender == "male":
+                    available_voices = self.audio_generator.male_voices
+                    voice_index = sum(1 for v in self.audio_generator.character_voices.values() if v in self.audio_generator.male_voices)
+                    voice = available_voices[voice_index % len(available_voices)]
+                elif gender == "female":
+                    available_voices = self.audio_generator.female_voices
+                    voice_index = sum(1 for v in self.audio_generator.character_voices.values() if v in self.audio_generator.female_voices)
+                    voice = available_voices[voice_index % len(available_voices)]
+                else:
+                    # Default to female voice
+                    available_voices = self.audio_generator.female_voices
+                    voice_index = sum(1 for v in self.audio_generator.character_voices.values() if v in self.audio_generator.female_voices)
+                    voice = available_voices[voice_index % len(available_voices)]
+                
+                self.audio_generator.character_voices[char_id] = voice
+                print(f"Assigned {voice} voice to {char_name} ({gender})")
         else:
-            print("Using previously assigned character voices")
+            print("All characters already have assigned voices")
         
         print(f"\nLoading book {book_number}...")
         book_file = os.path.join(self.data_dir, f'book{book_number}.xml')
@@ -64,7 +115,7 @@ class TTSPipeline:
             return None
         
         print("Extracting all content blocks (narrative + dialogue)...")
-        content_blocks = self.content_extractor.extract_all_content_blocks(book_file, characters, book_number)
+        content_blocks = self.content_extractor.extract_all_content_blocks(book_file, self.all_characters, book_number)
         print(f"Found {len(content_blocks)} total content blocks")
         
         if len(content_blocks) == 0:
@@ -144,6 +195,57 @@ class TTSPipeline:
     
     def show_progress(self, book_number, mode="multi_voice"):
         return self.progress_manager.show_progress(book_number, mode)
+    
+    def get_available_books(self):
+        """Get all available book numbers from the data directory"""
+        import re
+        book_files = []
+        for filename in os.listdir(self.data_dir):
+            if filename.startswith('book') and filename.endswith('.xml'):
+                match = re.match(r'book(\d+)\.xml', filename)
+                if match:
+                    book_files.append(int(match.group(1)))
+        
+        return sorted(book_files)
+    
+    def is_book_fully_processed(self, book_number, mode="multi_voice"):
+        """
+        Check if a book has been fully processed by comparing the number of 
+        completed blocks with the total possible blocks in the book.
+        """
+        # Load existing progress
+        existing_data = self.progress_manager.load_existing_progress(book_number, mode)
+        
+        if existing_data is None:
+            # No progress file exists, so book is not processed at all
+            return False
+        
+        completed_blocks = existing_data.get('audio_files', [])
+        completed_count = len(completed_blocks)
+        
+        # Load the book to get total possible blocks
+        book_file = os.path.join(self.data_dir, f'book{book_number}.xml')
+        if not os.path.exists(book_file):
+            print(f"Book {book_number} not found at {book_file}")
+            return False
+            
+        # Extract characters from the current book
+        current_book_characters = self.content_extractor.extract_characters_from_xml(book_file)
+        
+        # Add these characters to our global collection temporarily (for content extraction)
+        temp_all_characters = self.all_characters.copy()
+        for char_id, char_name in current_book_characters.items():
+            if char_id not in temp_all_characters:
+                temp_all_characters[char_id] = char_name
+        
+        # Get all content blocks for the book
+        total_content_blocks = self.content_extractor.extract_all_content_blocks(book_file, temp_all_characters, book_number)
+        total_count = len(total_content_blocks)
+        
+        print(f"Book {book_number}: {completed_count} blocks completed out of {total_count} total")
+        
+        # Return True if all blocks have been processed
+        return completed_count >= total_count
 
 
 if __name__ == "__main__":
@@ -165,10 +267,34 @@ if __name__ == "__main__":
     pipeline = TTSPipeline()
     print("Pipeline initialized")
     
-    print("\nChecking existing progress...")
-    pipeline.show_progress(1, mode="multi_voice")
+    # Get all available books
+    available_books = pipeline.get_available_books()
+    print(f"\nFound available books: {available_books}")
     
-    result = pipeline.process_book(1, mode="multi_voice", resume=True)
+    # Process only unprocessed or partially processed books
+    for book_num in available_books:
+        print(f"\n{'='*50}")
+        print(f"Checking status for Book {book_num}")
+        print(f"{'='*50}")
+        
+        # Check if the book is fully processed
+        if pipeline.is_book_fully_processed(book_num, mode="multi_voice"):
+            print(f"Book {book_num} is already fully processed. Skipping...")
+            continue
+        
+        print(f"Book {book_num} needs processing...")
+        print(f"\nChecking existing progress for book {book_num}...")
+        pipeline.show_progress(book_num, mode="multi_voice")
+        
+        result = pipeline.process_book(book_num, mode="multi_voice", resume=True)
+        
+        if result:
+            print(f"\nCompleted processing for book {book_num}")
+            print(f"Final progress summary for book {book_num}:")
+            pipeline.show_progress(book_num, mode="multi_voice")
+        else:
+            print(f"\nFailed to process book {book_num}")
     
-    print("\nFinal progress summary:")
-    pipeline.show_progress(1, mode="multi_voice")
+    print(f"\n{'='*50}")
+    print("All books processed!")
+    print(f"{'='*50}")
