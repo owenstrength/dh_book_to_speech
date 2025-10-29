@@ -1,4 +1,5 @@
 __pycache__
 .claude
-audio_output*
 .env
+audio_output.zip
+audio_output*
