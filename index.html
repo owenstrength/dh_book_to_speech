@@ -420,7 +420,7 @@
     </div>
   </div>
   
-  <audio class="audio-element" id="audio-player"></audio>
+  <audio class="audio-element" id="audio-player" crossorigin="anonymous"></audio>
     
     <script>
         // Audiobook Player Implementation
@@ -454,14 +454,14 @@
                     'middlemarch': {
                         name: 'Middlemarch',
                         books: [
-                            { id: 'book1', name: 'Book 1', path: 'audio_output/book_1_multi_voice_metadata.json' },
-                            { id: 'book2', name: 'Book 2', path: 'audio_output/book_2_multi_voice_metadata.json' },
-                            { id: 'book3', name: 'Book 3', path: 'audio_output/book_3_multi_voice_metadata.json' },
-                            { id: 'book4', name: 'Book 4', path: 'audio_output/book_4_multi_voice_metadata.json' },
-                            { id: 'book5', name: 'Book 5', path: 'audio_output/book_5_multi_voice_metadata.json' },
-                            { id: 'book6', name: 'Book 6', path: 'audio_output/book_6_multi_voice_metadata.json' },
-                            { id: 'book7', name: 'Book 7', path: 'audio_output/book_7_multi_voice_metadata.json' },
-                            { id: 'book8', name: 'Book 8', path: 'audio_output/book_8_multi_voice_metadata.json' }
+                            { id: 'book1', name: 'Book 1', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_1_multi_voice_metadata.json' },
+                            { id: 'book2', name: 'Book 2', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_2_multi_voice_metadata.json' },
+                            { id: 'book3', name: 'Book 3', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_3_multi_voice_metadata.json' },
+                            { id: 'book4', name: 'Book 4', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_4_multi_voice_metadata.json' },
+                            { id: 'book5', name: 'Book 5', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_5_multi_voice_metadata.json' },
+                            { id: 'book6', name: 'Book 6', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_6_multi_voice_metadata.json' },
+                            { id: 'book7', name: 'Book 7', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_7_multi_voice_metadata.json' },
+                            { id: 'book8', name: 'Book 8', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_8_multi_voice_metadata.json' }
                         ]
                     }
                     // To add another story, uncomment and modify this template:
@@ -469,8 +469,8 @@
                     'another_story': {
                         name: 'Another Story Name',
                         books: [
-                            { id: 'book1', name: 'Book 1', path: 'path/to/another_story_book1_metadata.json' },
-                            { id: 'book2', name: 'Book 2', path: 'path/to/another_story_book2_metadata.json' }
+                            { id: 'book1', name: 'Book 1', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/path/to/another_story_book1_metadata.json' },
+                            { id: 'book2', name: 'Book 2', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/path/to/another_story_book2_metadata.json' }
                         ]
                     }
                     */
@@ -532,8 +532,7 @@
                             // Create a temporary audio element for preloading
                             const audio = new Audio();
                             audio.preload = 'auto';
-                            let preloadFilePath = this.tracks[i].filePath;
-                            const audioPath = preloadFilePath;  // Use path from metadata directly
+                            const audioPath = this.tracks[i].filePath;  // Already converted to CDN URL when loading metadata
                             audio.src = audioPath;
                             
                             // Store in buffer map
@@ -632,7 +631,8 @@
                 // Handle errors in loading audio
                 this.audio.addEventListener('error', (e) => {
                     console.error('Error loading audio:', e.target.error);
-                    alert(`Error loading audio file. Make sure the file exists at the expected path and you're serving this page via a web server.`);
+                    console.error('Audio src that failed:', this.audio.src);
+                    alert(`Error loading audio file from CDN. Make sure the file exists at the expected CDN path.\n\nAudio URL: ${this.audio.src}`);
                 });
                 
                 this.audio.addEventListener('ended', () => {
@@ -725,16 +725,12 @@
                 // Update UI to indicate loading
                 document.getElementById('play-icon').textContent = '⏳';
                 
-                let playFilePath = this.tracks[index].filePath;
+                const audioPath = this.tracks[index].filePath;
                 
-                // The filePath from metadata should already be relative to the project root
-                // So we just need to use it directly
-                const audioPath = playFilePath;
-                
-                console.log('Attempting to play audio file:', playFilePath);
+                console.log('Attempting to play audio file:', audioPath);
                 console.log('Audio path:', audioPath);
                 
-                // Set the audio source
+                // Set the audio source (already converted to CDN URL when loading metadata)
                 this.audio.src = audioPath;
                 
                 // Wait for the audio to load and play
@@ -763,7 +759,7 @@
                             document.getElementById('play-icon').textContent = '▶';
                             
                             // Show error message to user
-                            alert(`Could not play audio file: ${playFilePath}\nMake sure the file exists and you're serving the site via a web server.\nActual path: ${audioPath}`);
+                            alert(`Could not play audio file: ${audioPath}\nMake sure the file exists and you're serving the site via a web server.\nActual path: ${audioPath}`);
                         }
                     }, 100);
                 }
@@ -1015,18 +1011,25 @@
                     }
                     const metadata = await response.json();
                     
-                    // Extract tracks from metadata
-                    this.tracks = metadata.audio_files.map((file, index) => ({
-                        id: index,
-                        title: file.text.substring(0, 60) + (file.text.length > 60 ? '...' : ''),
-                        character: file.character_name,
-                        characterId: file.character_id,
-                        book: file.book_number,
-                        chapter: file.chapter_number,
-                        filePath: file.file_path,
-                        fullText: file.text,
-                        contentType: file.content_type
-                    }));
+                    // Extract tracks from metadata and convert local file paths to CDN paths
+                    // Using Cloudflare R2 for audio files
+                    this.tracks = metadata.audio_files.map((file, index) => {
+                        const cdnPath = file.file_path.startsWith('audio_output/') 
+                            ? `https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/${file.file_path}`
+                            : file.file_path;
+                        console.log('Converted audio path:', file.file_path, '->', cdnPath);
+                        return {
+                            id: index,
+                            title: file.text.substring(0, 60) + (file.text.length > 60 ? '...' : ''),
+                            character: file.character_name,
+                            characterId: file.character_id,
+                            book: file.book_number,
+                            chapter: file.chapter_number,
+                            filePath: cdnPath,
+                            fullText: file.text,
+                            contentType: file.content_type
+                        };
+                    });
                     
                     // Update the UI with tracks
                     this.updatePlaylist();
@@ -1038,9 +1041,8 @@
                     // Preload first few tracks and prepare the first track
                     if (this.tracks.length > 0) {
                         this.currentTrackIndex = 0;
-                        let firstFilePath = this.tracks[0].filePath;
-                        const audioPath = `../${firstFilePath}`;
-                        this.audio.src = audioPath;
+                        this.audio.src = this.tracks[0].filePath;  // Already converted to CDN URL when loading metadata
+                        console.log('Set initial audio source to:', this.audio.src);
                         
                         // Update display to show first track info
                         this.updateTrackInfo();
