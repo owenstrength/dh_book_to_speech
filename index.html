@@ -11,7 +11,7 @@
           padding: 0;
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
           color: #333;
-          background-color: #f5f5f7;
+          background-color: #FFF8DC;
           line-height: 1.5;
           -webkit-font-smoothing: antialiased;
         }
@@ -68,8 +68,8 @@
         
         .book-selector:focus {
           outline: none;
-          border-color: #34C759;
-          box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.2);
+          border-color: #C72E2E;
+          box-shadow: 0 0 0 3px rgba(199, 46, 46, 0.2);
         }
         
         .book-selector option {
@@ -157,7 +157,7 @@
           cursor: pointer;
         }
         .progress-bar {
-          background: #34C759;
+          background: #C72E2E;
           height: 100%;
           width: 0%;
           border-radius: 3px;
@@ -193,12 +193,12 @@
         }
         
         .control-btn.primary {
-          background: #34C759;
+          background: #C72E2E;
           color: white;
         }
         
         .control-btn.primary:active {
-          background: #21A947;
+          background: #A82525;
         }
 
         /* Volume and speed controls */
@@ -225,7 +225,7 @@
           width: 18px;
           height: 18px;
           border-radius: 50%;
-          background: #34C759;
+          background: #C72E2E;
           cursor: pointer;
         }
         
@@ -302,8 +302,8 @@
         }
         
         .playlist-item.active {
-          background-color: #F0F9F3;
-          border-left: 3px solid #34C759;
+          background-color: #FFF0F0;
+          border-left: 3px solid #C72E2E;
         }
         
         .playlist-item .track-title {
@@ -339,8 +339,6 @@
           }
         }
     </style>
-    </style>
-    </style>
 </head>
 <body>
   <div class="app-header">
@@ -352,10 +350,6 @@
       <select id="book-selector" class="book-selector" disabled>
         <option value="">Select a book...</option>
       </select>
-      <div id="selectors-arrows" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #666;">
-        <div style="position: absolute; left: -30px;">▼</div>
-        <div style="position: absolute; left: 0;">▼</div>
-      </div>
     </div>
     <div class="app-subtitle">Character-specific voices</div>
   </div>
@@ -443,13 +437,12 @@
                 this.speedDownBtn = document.getElementById('speed-down');
                 this.speedUpBtn = document.getElementById('speed-up');
                 this.speedDisplay = document.getElementById('speed-display');
-                this.progressContainer = document.getElementById('progress-container'); // Updated reference
+                this.progressContainer = document.getElementById('progress-container');
                 this.chapterPrevBtn = document.getElementById('chapter-prev-btn');
                 this.chapterNextBtn = document.getElementById('chapter-next-btn');
                 this.storySelector = document.getElementById('story-selector');
                 this.bookSelector = document.getElementById('book-selector');
                 
-                // Define the available stories and their books
                 this.stories = {
                     'middlemarch': {
                         name: 'Middlemarch',
@@ -464,23 +457,13 @@
                             { id: 'book8', name: 'Book 8', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_8_multi_voice_metadata.json' }
                         ]
                     }
-                    // To add another story, uncomment and modify this template:
-                    /*
-                    'another_story': {
-                        name: 'Another Story Name',
-                        books: [
-                            { id: 'book1', name: 'Book 1', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/path/to/another_story_book1_metadata.json' },
-                            { id: 'book2', name: 'Book 2', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/path/to/another_story_book2_metadata.json' }
-                        ]
-                    }
-                    */
                 };
                 
-                this.currentTrackIndex = -1; // Start with no track selected
-                this.currentSpeed = 1.0; // Default playback speed
+                this.currentTrackIndex = -1;
+                this.currentSpeed = 1.0;
                 this.tracks = [];
-                this.audioBuffers = new Map(); // For seamless playback
-                this.preloadQueue = []; // Queue for preloading
+                this.audioBuffers = new Map();
+                this.preloadQueue = [];
                 this.isReady = false;
                 this.isPlaying = false;
                 
@@ -489,26 +472,13 @@
             
             async init() {
                 try {
-                    // Add event listeners first
                     this.addEventListeners();
-                    
-                    // Initialize story selector with available stories
                     this.initStorySelector();
-                    
-                    // Set the story selector to Middlemarch by default
                     this.storySelector.value = 'middlemarch';
-                    // Enable book selector and populate with books for Middlemarch
                     this.updateBookSelector();
-                    
-                    // Set the book selector to Book 1 by default
                     this.bookSelector.value = 'book1';
-                    
-                    // Load the metadata for the default book (Middlemarch Book 1)
                     await this.loadBook('book1');
-                    
-                    // Set initial volume
                     this.audio.volume = this.volumeSlider.value;
-                    
                     this.isReady = true;
                     console.log('Audiobook player initialized with', this.tracks.length, 'tracks');
                 } catch (error) {
@@ -516,29 +486,20 @@
                     const currentInfoEl = document.querySelector('.current-info');
                     if (currentInfoEl) {
                         currentInfoEl.innerHTML = '<div class="muted">Error loading audiobook data. Please check if the metadata file exists.</div>';
-                    } else {
-                        // Fallback if the element doesn't exist
-                        console.error('Could not find .current-info element to display error message');
                     }
                 }
             }
             
             preloadTracks(startIndex, count) {
-                // Schedule preloading asynchronously to avoid blocking
                 setTimeout(() => {
                     const endIndex = Math.min(startIndex + count, this.tracks.length);
                     for (let i = startIndex; i < endIndex; i++) {
                         if (!this.audioBuffers.has(i)) {
-                            // Create a temporary audio element for preloading
                             const audio = new Audio();
                             audio.preload = 'auto';
-                            const audioPath = this.tracks[i].filePath;  // Already converted to CDN URL when loading metadata
+                            const audioPath = this.tracks[i].filePath;
                             audio.src = audioPath;
-                            
-                            // Store in buffer map
                             this.audioBuffers.set(i, audio);
-                            
-                            // Only preload the first part of the file
                             audio.load();
                         }
                     }
@@ -546,12 +507,10 @@
             }
             
             addEventListeners() {
-                // Play/Pause button
                 this.playBtn.addEventListener('click', () => {
                     if (this.tracks.length === 0) return;
                     
                     if (this.audio.paused) {
-                        // If no source is set or it's the initial state, load the first track
                         if (!this.audio.src || this.audio.src === window.location.href) {
                             this.playTrack(0);
                         } else {
@@ -566,39 +525,32 @@
                     }
                 });
                 
-                // Next button
                 this.nextBtn.addEventListener('click', () => {
                     this.nextTrack();
                 });
                 
-                // Previous button
                 this.prevBtn.addEventListener('click', () => {
                     this.prevTrack();
                 });
                 
-                // Chapter next button
                 this.chapterNextBtn.addEventListener('click', () => {
                     this.nextChapter();
                 });
                 
-                // Chapter previous button
                 this.chapterPrevBtn.addEventListener('click', () => {
                     this.prevChapter();
                 });
                 
-                // Progress bar click
                 this.progressContainer.addEventListener('click', (e) => {
                     const rect = this.progressContainer.getBoundingClientRect();
                     const pos = (e.clientX - rect.left) / rect.width;
                     this.audio.currentTime = pos * this.audio.duration;
                 });
                 
-                // Volume control
                 this.volumeSlider.addEventListener('input', () => {
                     this.audio.volume = this.volumeSlider.value;
                 });
                 
-                // Volume buttons
                 const volumeDownBtn = document.querySelector('.volume-btn:first-child');
                 const volumeUpBtn = document.querySelector('.volume-btn:last-child');
                 
@@ -614,7 +566,6 @@
                     this.volumeSlider.value = newVolume;
                 });
                 
-                // Audio events
                 this.audio.addEventListener('timeupdate', () => {
                     if (this.audio.duration) {
                         const progressPercent = (this.audio.currentTime / this.audio.duration) * 100;
@@ -628,7 +579,6 @@
                     this.totalTimeEl.textContent = this.formatTime(this.audio.duration);
                 });
                 
-                // Handle errors in loading audio
                 this.audio.addEventListener('error', (e) => {
                     console.error('Error loading audio:', e.target.error);
                     console.error('Audio src that failed:', this.audio.src);
@@ -649,18 +599,15 @@
                     document.getElementById('play-icon').textContent = '▶';
                 });
                 
-                // Preload next track when current track is almost finished
                 this.audio.addEventListener('timeupdate', () => {
                     if (this.audio.duration) {
                         const timeRemaining = this.audio.duration - this.audio.currentTime;
                         if (timeRemaining < 10 && this.currentTrackIndex + 1 < this.tracks.length) {
-                            // Preload the next track to ensure smooth transition
                             this.preloadTracks(this.currentTrackIndex + 1, 1);
                         }
                     }
                 });
                 
-                // Speed control events
                 this.speedDownBtn.addEventListener('click', () => {
                     this.changeSpeed(-0.25);
                 });
@@ -669,19 +616,16 @@
                     this.changeSpeed(0.25);
                 });
                 
-                // Story selector change
                 this.storySelector.addEventListener('change', (e) => {
                     const selectedStory = e.target.value;
                     if (selectedStory) {
                         this.updateBookSelector();
                     } else {
-                        // If no story selected, disable book selector
                         this.bookSelector.disabled = true;
                         this.bookSelector.innerHTML = '<option value="">Select a book...</option>';
                     }
                 });
                 
-                // Book selector change
                 this.bookSelector.addEventListener('change', (e) => {
                     const selectedBook = e.target.value;
                     if (selectedBook) {
@@ -689,7 +633,6 @@
                     }
                 });
                 
-                // Playlist toggle
                 const playlistToggle = document.getElementById('playlist-toggle');
                 const playlistContainer = document.getElementById('playlist-container');
                 const toggleIcon = playlistToggle.querySelector('.toggle-icon');
@@ -698,15 +641,13 @@
                     playlistContainer.classList.toggle('hidden');
                     toggleIcon.classList.toggle('rotate-180');
                     
-                    // Update icon based on visibility
                     if (playlistContainer.classList.contains('hidden')) {
-                        toggleIcon.textContent = '▶'; // Right pointing arrow when collapsed
+                        toggleIcon.textContent = '▶';
                     } else {
-                        toggleIcon.textContent = '▼'; // Down pointing arrow when expanded
+                        toggleIcon.textContent = '▼';
                     }
                 });
                 
-                // Initially collapse the playlist
                 playlistContainer.classList.add('hidden');
                 toggleIcon.textContent = '▶';
             }
@@ -715,62 +656,41 @@
                 if (index < 0 || index >= this.tracks.length) return;
                 
                 this.currentTrackIndex = index;
-                
-                // Update track info display
                 this.updateTrackInfo();
-                
-                // Update playlist highlighting
                 this.updatePlaylist();
-                
-                // Update UI to indicate loading
                 document.getElementById('play-icon').textContent = '⏳';
                 
                 const audioPath = this.tracks[index].filePath;
-                
                 console.log('Attempting to play audio file:', audioPath);
-                console.log('Audio path:', audioPath);
                 
-                // Set the audio source (already converted to CDN URL when loading metadata)
                 this.audio.src = audioPath;
                 
-                // Wait for the audio to load and play
                 try {
-                    // Apply current playback rate before playing
                     this.audio.playbackRate = this.currentSpeed;
-                    
                     await this.audio.play();
                     this.isPlaying = true;
                     document.getElementById('play-icon').textContent = '⏸';
                 } catch (error) {
                     console.error('Error playing audio:', error);
-                    console.log('Failed to load audio from path:', audioPath);
-                    
-                    // If play fails due to user interaction requirements, try again after brief pause
                     setTimeout(async () => {
                         try {
-                            // Apply current playback rate before playing
                             this.audio.playbackRate = this.currentSpeed;
-                            
                             await this.audio.play();
                             this.isPlaying = true;
                             document.getElementById('play-icon').textContent = '⏸';
                         } catch (err) {
                             console.error('Unable to play audio after retry:', err);
                             document.getElementById('play-icon').textContent = '▶';
-                            
-                            // Show error message to user
-                            alert(`Could not play audio file: ${audioPath}\nMake sure the file exists and you're serving the site via a web server.\nActual path: ${audioPath}`);
+                            alert(`Could not play audio file: ${audioPath}\nMake sure the file exists and you're serving the site via a web server.`);
                         }
                     }, 100);
                 }
                 
-                // Preload next few tracks in background
                 this.preloadTracks(index + 1, 3);
             }
             
             play() {
                 if (this.isReady && this.tracks.length > 0) {
-                    // If no track has been selected yet, start with the first track
                     if (this.currentTrackIndex < 0 || this.currentTrackIndex >= this.tracks.length) {
                         this.currentTrackIndex = 0;
                         this.playTrack(0);
@@ -789,21 +709,11 @@
             }
             
             changeSpeed(delta) {
-                // Calculate new speed (min 0.5x, max 2.0x)
                 let newSpeed = this.currentSpeed + delta;
-                
-                // Limit speed between 0.5x and 2.0x
                 newSpeed = Math.max(0.5, Math.min(2.0, newSpeed));
-                
-                // Round to 2 decimal places to avoid floating point issues
                 newSpeed = Math.round(newSpeed * 100) / 100;
-                
                 this.currentSpeed = newSpeed;
-                
-                // Apply the speed to the audio element
                 this.audio.playbackRate = this.currentSpeed;
-                
-                // Update the display
                 this.speedDisplay.textContent = `${this.currentSpeed}x`;
             }
             
@@ -813,10 +723,8 @@
                 const currentChapter = this.tracks[this.currentTrackIndex].chapter;
                 const currentBook = this.tracks[this.currentTrackIndex].book;
                 
-                // Find the next chapter in the same book
                 for (let i = this.currentTrackIndex + 1; i < this.tracks.length; i++) {
                     if (this.tracks[i].book === currentBook && this.tracks[i].chapter > currentChapter) {
-                        // Found the next chapter, now find the first track in that chapter
                         for (let j = i; j < this.tracks.length; j++) {
                             if (this.tracks[j].chapter === this.tracks[i].chapter && this.tracks[j].book === currentBook) {
                                 this.playTrack(j);
@@ -826,7 +734,6 @@
                         return;
                     }
                     
-                    // If we've moved to a new book, find the first chapter in that book
                     if (this.tracks[i].book > currentBook) {
                         for (let j = i; j < this.tracks.length; j++) {
                             if (this.tracks[j].book === this.tracks[i].book && this.tracks[j].chapter === 1) {
@@ -845,14 +752,10 @@
                 const currentChapter = this.tracks[this.currentTrackIndex].chapter;
                 const currentBook = this.tracks[this.currentTrackIndex].book;
                 
-                // Find the previous chapter in the same book or previous book
                 for (let i = this.currentTrackIndex - 1; i >= 0; i--) {
-                    // If we're still in the same book but different chapter
                     if (this.tracks[i].book === currentBook && this.tracks[i].chapter < currentChapter) {
-                        // Found the previous chapter, now find the first track in that chapter
                         for (let j = i; j >= 0; j--) {
                             if (this.tracks[j].chapter === this.tracks[i].chapter && this.tracks[j].book === currentBook) {
-                                // Continue backward until we find the first occurrence of this chapter
                                 if (j === 0 || this.tracks[j-1].chapter !== this.tracks[i].chapter) {
                                     this.playTrack(j);
                                     return;
@@ -862,9 +765,7 @@
                         return;
                     }
                     
-                    // If we've moved to a previous book, find the last chapter in that book
                     if (this.tracks[i].book < currentBook) {
-                        // Find the highest chapter in the previous book
                         let highestChapter = 0;
                         for (let k = 0; k <= i; k++) {
                             if (this.tracks[k].book === this.tracks[i].book) {
@@ -872,7 +773,6 @@
                             }
                         }
                         
-                        // Find the first track of the highest chapter in the previous book
                         for (let j = i; j >= 0; j--) {
                             if (this.tracks[j].book === this.tracks[i].book && this.tracks[j].chapter === highestChapter) {
                                 if (j === 0 || this.tracks[j-1].chapter !== highestChapter) {
@@ -884,10 +784,6 @@
                         return;
                     }
                 }
-            }
-            
-            pause() {
-                this.audio.pause();
             }
             
             nextTrack() {
@@ -909,7 +805,6 @@
                     this.currentChapterEl.textContent = track.chapter;
                     this.currentSpeakerEl.textContent = track.character;
                     
-                    // Update book title based on the current book selection
                     const selectedBookOption = this.bookSelector.options[this.bookSelector.selectedIndex];
                     const selectedStoryOption = this.storySelector.options[this.storySelector.selectedIndex];
                     
@@ -926,10 +821,8 @@
             }
             
             initStorySelector() {
-                // Clear existing options except the first one
                 this.storySelector.innerHTML = '<option value="">Select a story...</option>';
                 
-                // Add options for each story
                 for (const [storyId, storyInfo] of Object.entries(this.stories)) {
                     const option = document.createElement('option');
                     option.value = storyId;
@@ -942,13 +835,9 @@
                 const selectedStory = this.storySelector.value;
                 
                 if (selectedStory && this.stories[selectedStory]) {
-                    // Enable book selector
                     this.bookSelector.disabled = false;
-                    
-                    // Clear existing options except the first one
                     this.bookSelector.innerHTML = '<option value="">Select a book...</option>';
                     
-                    // Add options for each book in the selected story
                     const books = this.stories[selectedStory].books;
                     books.forEach(book => {
                         const option = document.createElement('option');
@@ -957,7 +846,6 @@
                         this.bookSelector.appendChild(option);
                     });
                 } else {
-                    // Disable book selector if no story is selected
                     this.bookSelector.disabled = true;
                     this.bookSelector.innerHTML = '<option value="">Select a book...</option>';
                 }
@@ -979,7 +867,6 @@
                     this.playlistItemsEl.appendChild(item);
                 });
                 
-                // Scroll to active item
                 const activeItem = this.playlistItemsEl.querySelector('.active');
                 if (activeItem) {
                     activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -988,7 +875,6 @@
             
             async loadBook(bookId) {
                 try {
-                    // Get the selected story
                     const selectedStory = this.storySelector.value;
                     
                     if (!selectedStory || !this.stories[selectedStory]) {
@@ -996,7 +882,6 @@
                         return;
                     }
                     
-                    // Find the selected book in the story's books
                     const bookInfo = this.stories[selectedStory].books.find(book => book.id === bookId);
                     
                     if (!bookInfo) {
@@ -1004,20 +889,16 @@
                         return;
                     }
                     
-                    // Fetch the metadata file for the selected book
                     const response = await fetch(bookInfo.path);
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     const metadata = await response.json();
                     
-                    // Extract tracks from metadata and convert local file paths to CDN paths
-                    // Using Cloudflare R2 for audio files
                     this.tracks = metadata.audio_files.map((file, index) => {
                         const cdnPath = file.file_path.startsWith('audio_output/') 
                             ? `https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/${file.file_path}`
                             : file.file_path;
-                        console.log('Converted audio path:', file.file_path, '->', cdnPath);
                         return {
                             id: index,
                             title: file.text.substring(0, 60) + (file.text.length > 60 ? '...' : ''),
@@ -1031,24 +912,15 @@
                         };
                     });
                     
-                    // Update the UI with tracks
                     this.updatePlaylist();
-                    
-                    // Reset player state
                     this.currentTrackIndex = -1;
                     this.audio.pause();
                     
-                    // Preload first few tracks and prepare the first track
                     if (this.tracks.length > 0) {
                         this.currentTrackIndex = 0;
-                        this.audio.src = this.tracks[0].filePath;  // Already converted to CDN URL when loading metadata
-                        console.log('Set initial audio source to:', this.audio.src);
-                        
-                        // Update display to show first track info
+                        this.audio.src = this.tracks[0].filePath;
                         this.updateTrackInfo();
                         this.updatePlaylist();
-                    } else {
-                        console.error('No tracks found in metadata file');
                     }
                     
                     this.isReady = true;
@@ -1070,7 +942,6 @@
             }
         }
         
-        // Initialize the player when the page loads
         document.addEventListener('DOMContentLoaded', () => {
             new AudiobookPlayer();
         });
