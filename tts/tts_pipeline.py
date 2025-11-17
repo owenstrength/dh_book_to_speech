@@ -8,19 +8,56 @@ from progress_manager import ProgressManager
 
 
 class TTSPipeline:
-    def __init__(self, data_dir="./Middlemarch-8_books_byCJ", output_dir="audio_output", api_key=None):
-        print(f"Initializing TTSPipeline with data_dir: {data_dir}")
+    def __init__(self, data_dir=None, output_dir="audio_output", api_key=None, book_name=None):
+        # Load config to get the default data directory and book info
+        config = self.load_config()
+        
+        # Determine the book name to use (passed in parameter takes precedence, then config, then default)
+        if book_name is None:
+            book_name = config.get("active_book", "Middlemarch")
+        self.book_name = book_name
+        
+        # Determine the data directory based on the book
+        if data_dir is None:
+            # First try to get the path from the specific book config
+            book_config = config.get("books", {}).get(book_name, {})
+            if "path" in book_config:
+                data_dir = book_config["path"]
+            else:
+                # Fall back to default books path
+                data_dir = config.get("default_books_path", "./Middlemarch-8_books_byCJ")
+        
+        print(f"Initializing TTSPipeline for book: {book_name}")
+        print(f"Using data directory: {data_dir}")
         self.data_dir = data_dir
         self.output_dir = output_dir
         
         self.content_extractor = ContentExtractor()
-        self.audio_generator = AudioGenerator(api_key=api_key, output_dir=output_dir)
+        self.audio_generator = AudioGenerator(api_key=api_key, output_dir=output_dir, book_name=book_name)
         self.progress_manager = ProgressManager(output_dir=output_dir)
         
         # Keep track of all characters across all books
         self.all_characters = {}
         
         os.makedirs(output_dir, exist_ok=True)
+    
+    def load_config(self):
+        """Load the config file to get settings like books path"""
+        import json  # Ensure json is imported locally
+        config_file = os.path.join(os.path.dirname(__file__), "config.json")
+        
+        if not os.path.exists(config_file):
+            print(f"Config file {config_file} not found. Using default values.")
+            return {}
+        
+        try:
+            with open(config_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            print(f"Loaded config from {config_file}")
+            return data
+        except Exception as e:
+            print(f"Error loading config file: {e}. Using default values.")
+            return {}
     
     @property
     def character_voices(self):
@@ -264,7 +301,7 @@ if __name__ == "__main__":
     print("API key found")
     print("Initializing pipeline...")
     
-    pipeline = TTSPipeline()
+    pipeline = TTSPipeline(api_key=api_key)
     print("Pipeline initialized")
     
     # Get all available books

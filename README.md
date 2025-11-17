@@ -1,5 +1,6 @@
 # Senior Design Character Maps & Audio Generation
 
+<<<<<<< HEAD
 The project focused mainly on creating a realistic audiobook generation pipeline using large language models (LLMs) and text-to-speech (TTS) models. The goal was to generate character maps from book text, which would then be used to inform the TTS model to produce more contextually accurate and emotionally resonant audio renditions of the text.
 
 ## Using Cloudflare R2 for Audio Files
@@ -29,3 +30,10 @@ The player will automatically convert local audio paths to Cloudflare R2 URLs wh
 ### Code Changes
 
 {"Casaubon": "kɑˈsɔbən"} 
+=======
+The project focused mainly on creating a realistic audiobook generation pipeline using large language models (LLMs) and text-to-speech (TTS) models. The goal was to generate character maps from book text, which would then be used to inform the TTS model to produce more contextually accurate and emotionally resonant audio renditions of the text. 
+
+# Current Pronunciation Map Examples
+{"Casaubon": "kɑˈsɔbən"} 
+ROMAN Numerals to Numbers
+>>>>>>> 6a43c10 (Refactor TTS pipeline and enhance pronunciation features)

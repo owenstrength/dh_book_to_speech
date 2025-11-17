@@ -350,6 +350,10 @@
       <select id="book-selector" class="book-selector" disabled>
         <option value="">Select a book...</option>
       </select>
+      <div id="selectors-arrows" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #666;">
+        <div style="position: absolute; left: -30px;">▼</div>
+        <div style="position: absolute; left: 0;">▼</div>
+      </div>
     </div>
     <div class="app-subtitle">Character-specific voices</div>
   </div>
@@ -443,24 +447,63 @@
                 this.storySelector = document.getElementById('story-selector');
                 this.bookSelector = document.getElementById('book-selector');
                 
-                this.stories = {
-                    'middlemarch': {
-                        name: 'Middlemarch',
-                        books: [
-                            { id: 'book1', name: 'Book 1', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_1_multi_voice_metadata.json' },
-                            { id: 'book2', name: 'Book 2', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_2_multi_voice_metadata.json' },
-                            { id: 'book3', name: 'Book 3', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_3_multi_voice_metadata.json' },
-                            { id: 'book4', name: 'Book 4', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_4_multi_voice_metadata.json' },
-                            { id: 'book5', name: 'Book 5', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_5_multi_voice_metadata.json' },
-                            { id: 'book6', name: 'Book 6', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_6_multi_voice_metadata.json' },
-                            { id: 'book7', name: 'Book 7', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_7_multi_voice_metadata.json' },
-                            { id: 'book8', name: 'Book 8', path: 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_8_multi_voice_metadata.json' }
+<<<<<<< HEAD
+=======
+                // Define the available stories and their books
+>>>>>>> 6a43c10 (Refactor TTS pipeline and enhance pronunciation features)
+        this.stories = {
+          'middlemarch': {
+            name: 'Middlemarch',
+            books: [
+              { id: 'book1', name: 'Book 1', path: 'audio_output/book_1_multi_voice_metadata.json' },
+              { id: 'book2', name: 'Book 2', path: 'audio_output/book_2_multi_voice_metadata.json' },
+              { id: 'book3', name: 'Book 3', path: 'audio_output/book_3_multi_voice_metadata.json' },
+              { id: 'book4', name: 'Book 4', path: 'audio_output/book_4_multi_voice_metadata.json' },
+              { id: 'book5', name: 'Book 5', path: 'audio_output/book_5_multi_voice_metadata.json' },
+              { id: 'book6', name: 'Book 6', path: 'audio_output/book_6_multi_voice_metadata.json' },
+              { id: 'book7', name: 'Book 7', path: 'audio_output/book_7_multi_voice_metadata.json' },
+              { id: 'book8', name: 'Book 8', path: 'audio_output/book_8_multi_voice_metadata.json' }
+            ]
+          }
+          // To add another story, uncomment and modify this template:
+          /*
+          'another_story': {
+            name: 'Another Story Name',
+            books: [
+              { id: 'book1', name: 'Book 1', path: 'path/to/another_story_book1_metadata.json' },
+              { id: 'book2', name: 'Book 2', path: 'path/to/another_story_book2_metadata.json' }
+            ]
+          }
+          */
+        };
+                
+        this.currentTrackIndex = -1; // Start with no track selected
+        this.currentSpeed = 1.0; // Default playback speed
+                            { id: 'book1', name: 'Book 1', path: 'audio_output/book_1_multi_voice_metadata.json' },
+                            { id: 'book2', name: 'Book 2', path: 'audio_output/book_2_multi_voice_metadata.json' },
+                            { id: 'book3', name: 'Book 3', path: 'audio_output/book_3_multi_voice_metadata.json' },
+                            { id: 'book4', name: 'Book 4', path: 'audio_output/book_4_multi_voice_metadata.json' },
+                            { id: 'book5', name: 'Book 5', path: 'audio_output/book_5_multi_voice_metadata.json' },
+                            { id: 'book6', name: 'Book 6', path: 'audio_output/book_6_multi_voice_metadata.json' },
+                            { id: 'book7', name: 'Book 7', path: 'audio_output/book_7_multi_voice_metadata.json' },
+                            { id: 'book8', name: 'Book 8', path: 'audio_output/book_8_multi_voice_metadata.json' }
                         ]
                     }
+                    // To add another story, uncomment and modify this template:
+                    /*
+                    'another_story': {
+                        name: 'Another Story Name',
+                        books: [
+                            { id: 'book1', name: 'Book 1', path: 'path/to/another_story_book1_metadata.json' },
+                            { id: 'book2', name: 'Book 2', path: 'path/to/another_story_book2_metadata.json' }
+                        ]
+                    }
+                    */
                 };
                 
-                this.currentTrackIndex = -1;
-                this.currentSpeed = 1.0;
+                this.currentTrackIndex = -1; // Start with no track selected
+                this.currentSpeed = 1.0; // Default playback speed
+>>>>>>> 6a43c10 (Refactor TTS pipeline and enhance pronunciation features)
                 this.tracks = [];
                 this.audioBuffers = new Map();
                 this.preloadQueue = [];
@@ -472,6 +515,7 @@
             
             async init() {
                 try {
+<<<<<<< HEAD
                     this.addEventListeners();
                     this.initStorySelector();
                     this.storySelector.value = 'middlemarch';
@@ -479,6 +523,28 @@
                     this.bookSelector.value = 'book1';
                     await this.loadBook('book1');
                     this.audio.volume = this.volumeSlider.value;
+=======
+                    // Add event listeners first
+                    this.addEventListeners();
+                    
+                    // Initialize story selector with available stories
+                    this.initStorySelector();
+                    
+                    // Set the story selector to Middlemarch by default
+                    this.storySelector.value = 'middlemarch';
+                    // Enable book selector and populate with books for Middlemarch
+                    this.updateBookSelector();
+                    
+                    // Set the book selector to Book 1 by default
+                    this.bookSelector.value = 'book1';
+                    
+                    // Load the metadata for the default book (Middlemarch Book 1)
+                    await this.loadBook('book1');
+                    
+                    // Set initial volume
+                    this.audio.volume = this.volumeSlider.value;
+                    
+>>>>>>> 6a43c10 (Refactor TTS pipeline and enhance pronunciation features)
                     this.isReady = true;
                     console.log('Audiobook player initialized with', this.tracks.length, 'tracks');
                 } catch (error) {
@@ -497,7 +563,12 @@
                         if (!this.audioBuffers.has(i)) {
                             const audio = new Audio();
                             audio.preload = 'auto';
+<<<<<<< HEAD
                             const audioPath = this.tracks[i].filePath;
+=======
+                            let preloadFilePath = this.tracks[i].filePath;
+                            const audioPath = preloadFilePath;  // Use path from metadata directly
+>>>>>>> 6a43c10 (Refactor TTS pipeline and enhance pronunciation features)
                             audio.src = audioPath;
                             this.audioBuffers.set(i, audio);
                             audio.load();
@@ -616,16 +687,21 @@
                     this.changeSpeed(0.25);
                 });
                 
+
+                // Story selector change
                 this.storySelector.addEventListener('change', (e) => {
                     const selectedStory = e.target.value;
                     if (selectedStory) {
                         this.updateBookSelector();
                     } else {
+
                         this.bookSelector.disabled = true;
                         this.bookSelector.innerHTML = '<option value="">Select a book...</option>';
                     }
                 });
                 
+
+                // Book selector change
                 this.bookSelector.addEventListener('change', (e) => {
                     const selectedBook = e.target.value;
                     if (selectedBook) {
@@ -663,6 +739,16 @@
                 const audioPath = this.tracks[index].filePath;
                 console.log('Attempting to play audio file:', audioPath);
                 
+                let playFilePath = this.tracks[index].filePath;
+                
+                // The filePath from metadata should already be relative to the project root
+                // So we just need to use it directly
+                const audioPath = playFilePath;
+                
+                console.log('Attempting to play audio file:', playFilePath);
+                console.log('Audio path:', audioPath);
+                
+                // Set the audio source
                 this.audio.src = audioPath;
                 
                 try {
@@ -805,6 +891,7 @@
                     this.currentChapterEl.textContent = track.chapter;
                     this.currentSpeakerEl.textContent = track.character;
                     
+                    // Update book title based on the current book selection
                     const selectedBookOption = this.bookSelector.options[this.bookSelector.selectedIndex];
                     const selectedStoryOption = this.storySelector.options[this.storySelector.selectedIndex];
                     
@@ -821,8 +908,11 @@
             }
             
             initStorySelector() {
+                this.storySelector.innerHTML = '<option value="">Select a story...</option>';             
+                // Clear existing options except the first one
                 this.storySelector.innerHTML = '<option value="">Select a story...</option>';
                 
+                // Add options for each story
                 for (const [storyId, storyInfo] of Object.entries(this.stories)) {
                     const option = document.createElement('option');
                     option.value = storyId;
@@ -837,7 +927,13 @@
                 if (selectedStory && this.stories[selectedStory]) {
                     this.bookSelector.disabled = false;
                     this.bookSelector.innerHTML = '<option value="">Select a book...</option>';
+                    // Enable book selector
+                    this.bookSelector.disabled = false;
                     
+                    // Clear existing options except the first one
+                    this.bookSelector.innerHTML = '<option value="">Select a book...</option>';
+                    
+                    // Add options for each book in the selected story
                     const books = this.stories[selectedStory].books;
                     books.forEach(book => {
                         const option = document.createElement('option');
@@ -846,6 +942,7 @@
                         this.bookSelector.appendChild(option);
                     });
                 } else {
+                    // Disable book selector if no story is selected
                     this.bookSelector.disabled = true;
                     this.bookSelector.innerHTML = '<option value="">Select a book...</option>';
                 }
@@ -875,6 +972,8 @@
             
             async loadBook(bookId) {
                 try {
+
+                    // Get the selected story
                     const selectedStory = this.storySelector.value;
                     
                     if (!selectedStory || !this.stories[selectedStory]) {
@@ -882,13 +981,15 @@
                         return;
                     }
                     
+                    // Find the selected book in the story's books
                     const bookInfo = this.stories[selectedStory].books.find(book => book.id === bookId);
                     
                     if (!bookInfo) {
                         console.error('Book not found:', bookId);
                         return;
                     }
-                    
+                  
+                    // Fetch the metadata file for the selected book
                     const response = await fetch(bookInfo.path);
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -919,6 +1020,11 @@
                     if (this.tracks.length > 0) {
                         this.currentTrackIndex = 0;
                         this.audio.src = this.tracks[0].filePath;
+                        let firstFilePath = this.tracks[0].filePath;
+                        const audioPath = `../${firstFilePath}`;
+                        this.audio.src = audioPath;
+                        
+                        // Update display to show first track info
                         this.updateTrackInfo();
                         this.updatePlaylist();
                     }

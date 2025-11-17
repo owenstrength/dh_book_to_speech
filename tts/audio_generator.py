@@ -31,9 +31,67 @@ class AudioGenerator:
         self.character_descriptions = {}
         self.character_custom_instructions = {}
         
+        # Load pronunciation overrides
+        self.pronunciation_overrides = self.load_pronunciation_overrides()
+        # Load config file for additional settings
+        self.config = self.load_config_file()
+        
         os.makedirs(output_dir, exist_ok=True)
     
-    def load_character_data(self):
+    def load_pronunciation_overrides(self):
+        """Load pronunciation overrides from JSON file"""
+        pronunciation_file = os.path.join(os.path.dirname(__file__), "config.json")
+        
+        if not os.path.exists(pronunciation_file):
+            print(f"Pronunciation overrides file {pronunciation_file} not found. Using default text.")
+            return {"pronunciations": {}, "replacements": {}}
+        
+        try:
+            with open(pronunciation_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            print(f"Loaded pronunciation overrides from {pronunciation_file}")
+            
+            if "pronunciations" not in data:
+                data["pronunciations"] = {}
+            if "replacements" not in data:
+                data["replacements"] = {}
+                
+            return data
+        except Exception as e:
+            print(f"Error loading pronunciation overrides: {e}. Using default text.")
+            return {"pronunciations": {}, "replacements": {}}
+    
+    def load_config_file(self):
+        """Load the full config file"""
+        config_file = os.path.join(os.path.dirname(__file__), "config.json")
+        
+        if not os.path.exists(config_file):
+            print(f"Config file {config_file} not found. Using default values.")
+            return {}
+        
+        try:
+            with open(config_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            print(f"Loaded config file from {config_file}")
+            return data
+        except Exception as e:
+            print(f"Error loading config file: {e}. Using default values.")
+            return {}
+    
+    def apply_pronunciation_overrides(self, text):
+        """Apply pronunciation overrides to text before TTS generation"""
+        # First apply replacements (for full phrases/phrases)
+        for original, replacement in self.pronunciation_overrides["replacements"].items():
+            text = text.replace(original, replacement)
+        
+        # Then apply word-by-word pronunciation overrides
+        for original_word, phonetic in self.pronunciation_overrides["pronunciations"].items():
+            # Use word boundaries to replace whole words only
+            # This prevents partial matches within other words
+            pattern = r'\b' + re.escape(original_word) + r'\b'
+            text = re.sub(pattern, phonetic, text, flags=re.IGNORECASE)
+        
+        return text
         if not os.path.exists(self.character_data_file):
             print(f"Character data file {self.character_data_file} not found. Using auto-generation.")
             return None
@@ -321,11 +379,13 @@ class AudioGenerator:
                 filename = f"{global_index:04d}_B{book_number:02d}C{chapter_number:02d}_{char_id}_{content_suffix}_part{chunk_idx+1:02d}_{chunk_hash}.mp3"
                 speech_file_path = chapter_dir / filename
                 
+                processed_chunk_text = self.apply_pronunciation_overrides(chunk_text)
+                
                 try:
                     response = self.client.audio.speech.create(
                         model="tts-1",
                         voice=voice,
-                        input=chunk_text,
+                        input=processed_chunk_text,
                     )
                     
                     with open(speech_file_path, "wb") as f:
@@ -370,11 +430,14 @@ class AudioGenerator:
             filename = f"{global_index:04d}_B{book_number:02d}C{chapter_number:02d}_{char_id}_{content_suffix}_{text_hash}.mp3"
             speech_file_path = chapter_dir / filename
             
+            # Apply pronunciation overrides to the text before TTS
+            processed_text = self.apply_pronunciation_overrides(text)
+            
             try:
                 response = self.client.audio.speech.create(
                     model="tts-1",
                     voice=voice,
-                    input=text,
+                    input=processed_text,
                 )
                 
                 with open(speech_file_path, "wb") as f:

@@ -1,0 +1,18 @@
+{
+  "default_books_path": "./Middlemarch-8_books_byCJ",
+  "active_book": "OtherBook",
+  "books": {
+    "Middlemarch": {
+      "path": "./Books/Middlemarch-8_books_byCJ",
+      "pronunciations": {
+        "Casaubon": "k\u0251\u02c8s\u0254b\u0259n"
+      }
+    },
+    "OtherBook": {
+      "path": "./Books/OtherBook_path",
+      "pronunciations": {
+        "romula": "rom yu luh"
+      }
+    }
+  }
+}
