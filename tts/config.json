@@ -1,6 +1,6 @@
 {
   "default_books_path": "./Middlemarch-8_books_byCJ",
-  "active_book": "OtherBook",
+  "active_book": "Romola",
   "books": {
     "Middlemarch": {
       "path": "./Books/Middlemarch-8_books_byCJ",
@@ -8,10 +8,21 @@
         "Casaubon": "k\u0251\u02c8s\u0254b\u0259n"
       }
     },
-    "OtherBook": {
-      "path": "./Books/OtherBook_path",
+    "Romola": {
+      "path": "./Books/Romola_refine_v1.xml",
       "pronunciations": {
-        "romula": "rom yu luh"
+        "Romola": "roh-moh-lah",
+        "Tito": "tee-toh",
+        "Baldassarre": "bal-dah-sar-ray",
+        "Dino": "dee-noh",
+        "Tessa": "tes-sah",
+        "Nello": "nel-loh",
+        "Goro": "go-roh",
+        "Lorenzo": "lo-ren-tsoh",
+        "Niccol\u00f2": "nik-ko-loh",
+        "Ghirlandajo": "gee-ree-lan-dah-joh",
+        "Fra Girolamo": "fra jee-ro-lah-moh",
+        "Savonarola": "sah-voh-nah-ro-lah"
       }
     }
   }

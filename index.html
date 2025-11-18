@@ -7,429 +7,435 @@
     <style>
         /* Base reset and modern mobile-friendly styling */
         body {
-          margin: 0;
-          padding: 0;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-          color: #333;
-          background-color: #FFF8DC;
-          line-height: 1.5;
-          -webkit-font-smoothing: antialiased;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #333;
+            background-color: #FFF8DC;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
+        
         * {
-          box-sizing: border-box;
+            box-sizing: border-box;
         }
+        
         h1, h2, h3 { 
-          margin: 0 0 0.5em 0; 
-          font-weight: 600;
+            margin: 0 0 0.5em 0; 
+            font-weight: 600;
         }
-        p { margin: 0 0 1em; }
+        
+        p { 
+            margin: 0 0 1em; 
+        }
 
         /* Mobile-friendly header */
         .app-header {
-          background: #1a1a1a;
-          color: white;
-          padding: 16px;
-          text-align: center;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-          position: relative;
+            background: #1a1a1a;
+            color: white;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
         }
         
         .app-title {
-          font-size: 18px;
-          font-weight: 600;
+            font-size: 18px;
+            font-weight: 600;
         }
         
         .app-subtitle {
-          font-size: 14px;
-          color: #aaa;
-          margin-top: 4px;
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 4px;
         }
         
         .book-selector {
-          width: 100%;
-          max-width: 300px;
-          padding: 16px 20px;
-          font-size: 18px;
-          font-weight: 600;
-          color: #333;
-          background: white;
-          border: 2px solid #ddd;
-          border-radius: 12px;
-          outline: none;
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          appearance: none;
-          text-align: center;
-          text-align-last: center;
-          cursor: pointer;
-          margin: 0 auto;
-          display: block;
+            width: 100%;
+            max-width: 300px;
+            padding: 16px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            text-align: center;
+            text-align-last: center;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
         }
         
         .book-selector:focus {
-          outline: none;
-          border-color: #C72E2E;
-          box-shadow: 0 0 0 3px rgba(199, 46, 46, 0.2);
+            outline: none;
+            border-color: #C72E2E;
+            box-shadow: 0 0 0 3px rgba(199, 46, 46, 0.2);
         }
         
         .book-selector option {
-          background: white;
-          color: #333;
+            background: white;
+            color: #333;
         }
 
         /* Main container - mobile first */
         .app-container {
-          max-width: 100%;
-          margin: 0 auto;
-          padding: 16px;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 16px;
         }
 
         /* Card styling for sections */
         .card {
-          background: white;
-          border-radius: 16px;
-          padding: 20px;
-          margin-bottom: 16px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .card-title {
-          font-size: 16px;
-          color: #666;
-          margin-bottom: 16px;
-          padding-bottom: 8px;
-          border-bottom: 1px solid #eee;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
         }
 
         /* Current info display */
         .current-info {
-          text-align: center;
-          margin-bottom: 16px;
+            text-align: center;
+            margin-bottom: 16px;
         }
         
         .book-title {
-          font-size: 18px;
-          font-weight: 600;
-          color: #333;
-          margin-bottom: 4px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
         }
         
         .book-details {
-          font-size: 14px;
-          color: #666;
-          margin-bottom: 8px;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
         }
         
         .speaker-info {
-          font-size: 16px;
-          padding: 8px 16px;
-          background-color: #f8f9fa;
-          display: inline-block;
-          border-radius: 20px;
-          color: #444;
-          font-weight: 500;
+            font-size: 16px;
+            padding: 8px 16px;
+            background-color: #f8f9fa;
+            display: inline-block;
+            border-radius: 20px;
+            color: #444;
+            font-weight: 500;
         }
         
         .content-type-info {
-          margin-top: 8px;
-          font-size: 14px;
-          color: #666;
-          text-align: center;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
         }
 
         /* Player controls */
         .player-controls {
-          text-align: center;
+            text-align: center;
         }
         
         .time-display {
-          font-size: 12px;
-          color: #888;
-          margin-bottom: 12px;
-          font-weight: 500;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 12px;
+            font-weight: 500;
         }
         
         .progress-container {
-          background: #e0e0e0;
-          border-radius: 3px;
-          height: 4px;
-          margin: 16px 0;
-          cursor: pointer;
+            background: #e0e0e0;
+            border-radius: 3px;
+            height: 4px;
+            margin: 16px 0;
+            cursor: pointer;
         }
+        
         .progress-bar {
-          background: #C72E2E;
-          height: 100%;
-          width: 0%;
-          border-radius: 3px;
-          transition: width 0.1s linear;
+            background: #C72E2E;
+            height: 100%;
+            width: 0%;
+            border-radius: 3px;
+            transition: width 0.1s linear;
         }
         
         .control-buttons {
-          display: flex;
-          justify-content: center;
-          gap: 20px;
-          margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
         }
         
         .control-btn {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          border: none;
-          background: #f0f0f0;
-          color: #333;
-          font-size: 16px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-          transition: all 0.2s ease;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: #f0f0f0;
+            color: #333;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
         }
         
         .control-btn:active {
-          transform: scale(0.95);
-          background: #e0e0e0;
+            transform: scale(0.95);
+            background: #e0e0e0;
         }
         
         .control-btn.primary {
-          background: #C72E2E;
-          color: white;
+            background: #C72E2E;
+            color: white;
         }
         
         .control-btn.primary:active {
-          background: #A82525;
+            background: #A82525;
         }
 
         /* Volume and speed controls */
         .volume-control, .speed-control {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          margin: 16px 0;
-          padding: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 16px 0;
+            padding: 8px 0;
         }
         
         .volume-slider, .speed-slider {
-          flex: 1;
-          height: 3px;
-          background: #e0e0e0;
-          border-radius: 2px;
-          outline: none;
-          -webkit-appearance: none;
+            flex: 1;
+            height: 3px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
         }
         
         .volume-slider::-webkit-slider-thumb, .speed-slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          width: 18px;
-          height: 18px;
-          border-radius: 50%;
-          background: #C72E2E;
-          cursor: pointer;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #C72E2E;
+            cursor: pointer;
         }
         
         .volume-btn, .speed-btn {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          border: none;
-          background: #f0f0f0;
-          color: #333;
-          font-size: 14px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: #f0f0f0;
+            color: #333;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
         
         .speed-display {
-          min-width: 50px;
-          text-align: center;
-          font-weight: 500;
-          color: #333;
+            min-width: 50px;
+            text-align: center;
+            font-weight: 500;
+            color: #333;
         }
 
         /* Collapsible playlist */
         .playlist-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          cursor: pointer;
-          padding: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 0;
         }
         
         .playlist-header h3 {
-          margin: 0;
-          font-size: 16px;
-          color: #333;
+            margin: 0;
+            font-size: 16px;
+            color: #333;
         }
         
         .toggle-icon {
-          transition: transform 0.3s ease;
+            transition: transform 0.3s ease;
         }
         
         .playlist-content {
-          max-height: 300px;
-          overflow-y: auto;
-          transition: max-height 0.3s ease;
+            max-height: 300px;
+            overflow-y: auto;
+            transition: max-height 0.3s ease;
         }
         
         .playlist-content.hidden {
-          max-height: 0;
-          overflow: hidden;
+            max-height: 0;
+            overflow: hidden;
         }
         
         .rotate-180 {
-          transform: rotate(180deg);
+            transform: rotate(180deg);
         }
         
         .playlist-item {
-          padding: 12px 8px;
-          border-bottom: 1px solid #eee;
-          cursor: pointer;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
+            padding: 12px 8px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .playlist-item:last-child {
-          border-bottom: none;
+            border-bottom: none;
         }
         
         .playlist-item:hover {
-          background-color: #f9f9f9;
+            background-color: #f9f9f9;
         }
         
         .playlist-item.active {
-          background-color: #FFF0F0;
-          border-left: 3px solid #C72E2E;
+            background-color: #FFF0F0;
+            border-left: 3px solid #C72E2E;
         }
         
         .playlist-item .track-title {
-          font-size: 14px;
-          font-weight: 500;
-          color: #333;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
         }
         
         .playlist-item .track-details {
-          font-size: 12px;
-          color: #888;
+            font-size: 12px;
+            color: #888;
         }
         
         .muted { 
-          color: #888; 
-          text-align: center;
-          padding: 20px;
+            color: #888; 
+            text-align: center;
+            padding: 20px;
         }
         
         .audio-element {
-          display: none;
+            display: none;
         }
         
         /* Responsive design */
         @media (max-width: 768px) {
-          .app-container {
-            padding: 8px;
-          }
-          
-          .card {
-            border-radius: 12px;
-            padding: 16px;
-          }
+            .app-container {
+                padding: 8px;
+            }
+            
+            .card {
+                border-radius: 12px;
+                padding: 16px;
+            }
         }
     </style>
 </head>
 <body>
-  <div class="app-header">
-    <div style="position: relative; display: flex; flex-direction: column; align-items: center; margin-bottom: 8px; gap: 8px;">
-      <select id="story-selector" class="book-selector">
-        <option value="">Select a story...</option>
-        <option value="middlemarch">Middlemarch</option>
-      </select>
-      <select id="book-selector" class="book-selector" disabled>
-        <option value="">Select a book...</option>
-      </select>
-      <div id="selectors-arrows" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #666;">
-        <div style="position: absolute; left: -30px;">▼</div>
-        <div style="position: absolute; left: 0;">▼</div>
-      </div>
+    <div class="app-header">
+        <div style="position: relative; display: flex; flex-direction: column; align-items: center; margin-bottom: 8px; gap: 8px;">
+            <select id="story-selector" class="book-selector">
+                <option value="">Select a story...</option>
+                <option value="middlemarch">Middlemarch</option>
+            </select>
+            <select id="book-selector" class="book-selector" disabled>
+                <option value="">Select a book...</option>
+            </select>
+            <div id="selectors-arrows" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #666;">
+                <div style="position: absolute; left: -30px;">▼</div>
+                <div style="position: absolute; left: 0;">▼</div>
+            </div>
+        </div>
+        <div class="app-subtitle">Character-specific voices</div>
     </div>
-    <div class="app-subtitle">Character-specific voices</div>
-  </div>
 
-  <div class="app-container">
-    <div class="card">
-      <h3 class="card-title">Now Playing</h3>
-      <div class="current-info">
-        <div class="book-title"><span id="current-book-title">Select a book</span></div>
-        <div class="book-details">
-          Book <span id="current-book">1</span>, Chapter <span id="current-chapter">1</span>
+    <div class="app-container">
+        <div class="card">
+            <h3 class="card-title">Now Playing</h3>
+            <div class="current-info">
+                <div class="book-title"><span id="current-book-title">Select a book</span></div>
+                <div class="book-details">
+                    Book <span id="current-book">1</span>, Chapter <span id="current-chapter">1</span>
+                </div>
+                <div class="speaker-info">
+                    <span class="speaker-character" id="current-speaker">Narrator</span>
+                </div>
+            </div>
         </div>
-        <div class="speaker-info">
-          <span class="speaker-character" id="current-speaker">Narrator</span>
+        
+        <div class="card">
+            <h3 class="card-title">Controls</h3>
+            <div class="player-controls">
+                <div class="time-display">
+                    <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+                </div>
+                
+                <div class="progress-container" id="progress-container">
+                    <div class="progress" id="progress"></div>
+                </div>
+                
+                <div class="control-buttons">
+                    <button class="control-btn" id="chapter-prev-btn" title="Previous Chapter">⏮</button>
+                    <button class="control-btn" id="prev-btn" title="Previous Track">◀</button>
+                    <button class="control-btn primary" id="play-btn">
+                        <span id="play-icon">▶</span>
+                    </button>
+                    <button class="control-btn" id="next-btn" title="Next Track">▶</button>
+                    <button class="control-btn" id="chapter-next-btn" title="Next Chapter">⏭</button>
+                </div>
+                
+                <div class="volume-control">
+                    <button class="volume-btn">-</button>
+                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
+                    <button class="volume-btn">+</button>
+                </div>
+                
+                <div class="speed-control">
+                    <button class="speed-btn" id="speed-down">-</button>
+                    <div class="speed-display" id="speed-display">1.0x</div>
+                    <button class="speed-btn" id="speed-up">+</button>
+                </div>
+            </div>
         </div>
-      </div>
+        
+        <div class="card">
+            <div class="playlist-header" id="playlist-toggle">
+                <h3>Playback Queue</h3>
+                <div class="toggle-icon">▼</div>
+            </div>
+            <div class="playlist-content" id="playlist-container">
+                <div id="playlist-items" class="playlist"></div>
+            </div>
+        </div>
     </div>
     
-    <div class="card">
-      <h3 class="card-title">Controls</h3>
-      <div class="player-controls">
-        <div class="time-display">
-          <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
-        </div>
-        
-        <div class="progress-container" id="progress-container">
-          <div class="progress-bar"><div class="progress" id="progress"></div></div>
-        </div>
-        
-        <div class="control-buttons">
-          <button class="control-btn" id="chapter-prev-btn" title="Previous Chapter">⏮</button>
-          <button class="control-btn" id="prev-btn" title="Previous Track">◀</button>
-          <button class="control-btn primary" id="play-btn">
-            <span id="play-icon">▶</span>
-          </button>
-          <button class="control-btn" id="next-btn" title="Next Track">▶</button>
-          <button class="control-btn" id="chapter-next-btn" title="Next Chapter">⏭</button>
-        </div>
-        
-        <div class="volume-control">
-          <button class="volume-btn">-</button>
-          <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
-          <button class="volume-btn">+</button>
-        </div>
-        
-        <div class="speed-control">
-          <button class="speed-btn" id="speed-down">-</button>
-          <div class="speed-display" id="speed-display">1.0x</div>
-          <button class="speed-btn" id="speed-up">+</button>
-        </div>
-      </div>
-    </div>
-    
-    <div class="card">
-      <div class="playlist-header" id="playlist-toggle">
-        <h3>Playback Queue</h3>
-        <div class="toggle-icon">▼</div>
-      </div>
-      <div class="playlist-content" id="playlist-container">
-        <div id="playlist-items" class="playlist"></div>
-      </div>
-    </div>
-  </div>
-  
-  <audio class="audio-element" id="audio-player" crossorigin="anonymous"></audio>
+    <audio class="audio-element" id="audio-player" crossorigin="anonymous"></audio>
     
     <script>
         // Audiobook Player Implementation
         class AudiobookPlayer {
             constructor() {
+                // Initialize DOM elements
                 this.audio = document.getElementById('audio-player');
                 this.playBtn = document.getElementById('play-btn');
                 this.prevBtn = document.getElementById('prev-btn');
                 this.nextBtn = document.getElementById('next-btn');
-                this.progressBar = document.getElementById('progress-bar');
-                this.progress = document.getElementById('progress');
+                this.progressBar = document.getElementById('progress');
                 this.currentTimeEl = document.getElementById('current-time');
                 this.totalTimeEl = document.getElementById('total-time');
                 this.volumeSlider = document.getElementById('volume-slider');
@@ -447,63 +453,12 @@
                 this.storySelector = document.getElementById('story-selector');
                 this.bookSelector = document.getElementById('book-selector');
                 
-<<<<<<< HEAD
-=======
-                // Define the available stories and their books
->>>>>>> 6a43c10 (Refactor TTS pipeline and enhance pronunciation features)
-        this.stories = {
-          'middlemarch': {
-            name: 'Middlemarch',
-            books: [
-              { id: 'book1', name: 'Book 1', path: 'audio_output/book_1_multi_voice_metadata.json' },
-              { id: 'book2', name: 'Book 2', path: 'audio_output/book_2_multi_voice_metadata.json' },
-              { id: 'book3', name: 'Book 3', path: 'audio_output/book_3_multi_voice_metadata.json' },
-              { id: 'book4', name: 'Book 4', path: 'audio_output/book_4_multi_voice_metadata.json' },
-              { id: 'book5', name: 'Book 5', path: 'audio_output/book_5_multi_voice_metadata.json' },
-              { id: 'book6', name: 'Book 6', path: 'audio_output/book_6_multi_voice_metadata.json' },
-              { id: 'book7', name: 'Book 7', path: 'audio_output/book_7_multi_voice_metadata.json' },
-              { id: 'book8', name: 'Book 8', path: 'audio_output/book_8_multi_voice_metadata.json' }
-            ]
-          }
-          // To add another story, uncomment and modify this template:
-          /*
-          'another_story': {
-            name: 'Another Story Name',
-            books: [
-              { id: 'book1', name: 'Book 1', path: 'path/to/another_story_book1_metadata.json' },
-              { id: 'book2', name: 'Book 2', path: 'path/to/another_story_book2_metadata.json' }
-            ]
-          }
-          */
-        };
+                // Initialize stories object as empty - will be populated dynamically
+                this.stories = {};
                 
-        this.currentTrackIndex = -1; // Start with no track selected
-        this.currentSpeed = 1.0; // Default playback speed
-                            { id: 'book1', name: 'Book 1', path: 'audio_output/book_1_multi_voice_metadata.json' },
-                            { id: 'book2', name: 'Book 2', path: 'audio_output/book_2_multi_voice_metadata.json' },
-                            { id: 'book3', name: 'Book 3', path: 'audio_output/book_3_multi_voice_metadata.json' },
-                            { id: 'book4', name: 'Book 4', path: 'audio_output/book_4_multi_voice_metadata.json' },
-                            { id: 'book5', name: 'Book 5', path: 'audio_output/book_5_multi_voice_metadata.json' },
-                            { id: 'book6', name: 'Book 6', path: 'audio_output/book_6_multi_voice_metadata.json' },
-                            { id: 'book7', name: 'Book 7', path: 'audio_output/book_7_multi_voice_metadata.json' },
-                            { id: 'book8', name: 'Book 8', path: 'audio_output/book_8_multi_voice_metadata.json' }
-                        ]
-                    }
-                    // To add another story, uncomment and modify this template:
-                    /*
-                    'another_story': {
-                        name: 'Another Story Name',
-                        books: [
-                            { id: 'book1', name: 'Book 1', path: 'path/to/another_story_book1_metadata.json' },
-                            { id: 'book2', name: 'Book 2', path: 'path/to/another_story_book2_metadata.json' }
-                        ]
-                    }
-                    */
-                };
-                
+                // Initialize player state
                 this.currentTrackIndex = -1; // Start with no track selected
                 this.currentSpeed = 1.0; // Default playback speed
->>>>>>> 6a43c10 (Refactor TTS pipeline and enhance pronunciation features)
                 this.tracks = [];
                 this.audioBuffers = new Map();
                 this.preloadQueue = [];
@@ -515,38 +470,20 @@
             
             async init() {
                 try {
-<<<<<<< HEAD
-                    this.addEventListeners();
-                    this.initStorySelector();
-                    this.storySelector.value = 'middlemarch';
-                    this.updateBookSelector();
-                    this.bookSelector.value = 'book1';
-                    await this.loadBook('book1');
-                    this.audio.volume = this.volumeSlider.value;
-=======
-                    // Add event listeners first
-                    this.addEventListeners();
-                    
                     // Initialize story selector with available stories
                     this.initStorySelector();
                     
-                    // Set the story selector to Middlemarch by default
-                    this.storySelector.value = 'middlemarch';
-                    // Enable book selector and populate with books for Middlemarch
-                    this.updateBookSelector();
-                    
-                    // Set the book selector to Book 1 by default
-                    this.bookSelector.value = 'book1';
-                    
-                    // Load the metadata for the default book (Middlemarch Book 1)
-                    await this.loadBook('book1');
+                    // Load stories dynamically from R2 storage
+                    await this.loadStoriesFromR2();
                     
                     // Set initial volume
                     this.audio.volume = this.volumeSlider.value;
                     
->>>>>>> 6a43c10 (Refactor TTS pipeline and enhance pronunciation features)
-                    this.isReady = true;
-                    console.log('Audiobook player initialized with', this.tracks.length, 'tracks');
+                    // Add event listeners
+                    this.addEventListeners();
+                    
+                    // isReady will be set after stories are loaded from R2 in loadStoriesFromR2 method
+                    console.log('Audiobook player initialization started, waiting for stories from R2...');
                 } catch (error) {
                     console.error('Error initializing audiobook player:', error);
                     const currentInfoEl = document.querySelector('.current-info');
@@ -563,12 +500,8 @@
                         if (!this.audioBuffers.has(i)) {
                             const audio = new Audio();
                             audio.preload = 'auto';
-<<<<<<< HEAD
-                            const audioPath = this.tracks[i].filePath;
-=======
                             let preloadFilePath = this.tracks[i].filePath;
                             const audioPath = preloadFilePath;  // Use path from metadata directly
->>>>>>> 6a43c10 (Refactor TTS pipeline and enhance pronunciation features)
                             audio.src = audioPath;
                             this.audioBuffers.set(i, audio);
                             audio.load();
@@ -578,6 +511,7 @@
             }
             
             addEventListeners() {
+                // Play/Pause button
                 this.playBtn.addEventListener('click', () => {
                     if (this.tracks.length === 0) return;
                     
@@ -596,6 +530,7 @@
                     }
                 });
                 
+                // Navigation buttons
                 this.nextBtn.addEventListener('click', () => {
                     this.nextTrack();
                 });
@@ -612,12 +547,14 @@
                     this.prevChapter();
                 });
                 
+                // Progress bar
                 this.progressContainer.addEventListener('click', (e) => {
                     const rect = this.progressContainer.getBoundingClientRect();
                     const pos = (e.clientX - rect.left) / rect.width;
                     this.audio.currentTime = pos * this.audio.duration;
                 });
                 
+                // Volume controls
                 this.volumeSlider.addEventListener('input', () => {
                     this.audio.volume = this.volumeSlider.value;
                 });
@@ -637,6 +574,7 @@
                     this.volumeSlider.value = newVolume;
                 });
                 
+                // Time updates
                 this.audio.addEventListener('timeupdate', () => {
                     if (this.audio.duration) {
                         const progressPercent = (this.audio.currentTime / this.audio.duration) * 100;
@@ -645,21 +583,25 @@
                     }
                 });
                 
+                // Metadata loaded
                 this.audio.addEventListener('loadedmetadata', () => {
                     console.log('Audio metadata loaded, duration:', this.audio.duration);
                     this.totalTimeEl.textContent = this.formatTime(this.audio.duration);
                 });
                 
+                // Audio error handling
                 this.audio.addEventListener('error', (e) => {
                     console.error('Error loading audio:', e.target.error);
                     console.error('Audio src that failed:', this.audio.src);
                     alert(`Error loading audio file from CDN. Make sure the file exists at the expected CDN path.\n\nAudio URL: ${this.audio.src}`);
                 });
                 
+                // Track ended
                 this.audio.addEventListener('ended', () => {
                     this.nextTrack();
                 });
                 
+                // Playback state changes
                 this.audio.addEventListener('play', () => {
                     this.isPlaying = true;
                     document.getElementById('play-icon').textContent = '⏸';
@@ -679,6 +621,7 @@
                     }
                 });
                 
+                // Speed controls
                 this.speedDownBtn.addEventListener('click', () => {
                     this.changeSpeed(-0.25);
                 });
@@ -687,20 +630,17 @@
                     this.changeSpeed(0.25);
                 });
                 
-
                 // Story selector change
                 this.storySelector.addEventListener('change', (e) => {
                     const selectedStory = e.target.value;
                     if (selectedStory) {
                         this.updateBookSelector();
                     } else {
-
                         this.bookSelector.disabled = true;
                         this.bookSelector.innerHTML = '<option value="">Select a book...</option>';
                     }
                 });
                 
-
                 // Book selector change
                 this.bookSelector.addEventListener('change', (e) => {
                     const selectedBook = e.target.value;
@@ -709,6 +649,7 @@
                     }
                 });
                 
+                // Playlist toggle
                 const playlistToggle = document.getElementById('playlist-toggle');
                 const playlistContainer = document.getElementById('playlist-container');
                 const toggleIcon = playlistToggle.querySelector('.toggle-icon');
@@ -736,19 +677,13 @@
                 this.updatePlaylist();
                 document.getElementById('play-icon').textContent = '⏳';
                 
-                const audioPath = this.tracks[index].filePath;
-                console.log('Attempting to play audio file:', audioPath);
+                const track = this.tracks[index];
+                const cdnPath = track.filePath;
+                let audioPath = cdnPath;
                 
-                let playFilePath = this.tracks[index].filePath;
+                console.log('Attempting to play audio file from CDN:', cdnPath);
                 
-                // The filePath from metadata should already be relative to the project root
-                // So we just need to use it directly
-                const audioPath = playFilePath;
-                
-                console.log('Attempting to play audio file:', playFilePath);
-                console.log('Audio path:', audioPath);
-                
-                // Set the audio source
+                // Set the audio source to CDN path initially
                 this.audio.src = audioPath;
                 
                 try {
@@ -757,19 +692,9 @@
                     this.isPlaying = true;
                     document.getElementById('play-icon').textContent = '⏸';
                 } catch (error) {
-                    console.error('Error playing audio:', error);
-                    setTimeout(async () => {
-                        try {
-                            this.audio.playbackRate = this.currentSpeed;
-                            await this.audio.play();
-                            this.isPlaying = true;
-                            document.getElementById('play-icon').textContent = '⏸';
-                        } catch (err) {
-                            console.error('Unable to play audio after retry:', err);
-                            document.getElementById('play-icon').textContent = '▶';
-                            alert(`Could not play audio file: ${audioPath}\nMake sure the file exists and you're serving the site via a web server.`);
-                        }
-                    }, 100);
+                    console.error('Error playing from CDN:', error);
+                    document.getElementById('play-icon').textContent = '▶';
+                    alert(`Could not play audio file from CDN.\n\nCDN URL: ${cdnPath}\n\nMake sure the file exists and you're serving the site via a web server.`);
                 }
                 
                 this.preloadTracks(index + 1, 3);
@@ -907,8 +832,121 @@
                 }
             }
             
+            async loadStoriesFromR2() {
+                try {
+                    // Try to load from a manifest file first (most reliable method)
+                    const manifestUrl = 'https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/manifest.json';
+                    
+                    try {
+                        const response = await fetch(manifestUrl);
+                        if (response.ok) {
+                            const manifest = await response.json();
+                            this.stories = manifest.stories || {};
+                            
+                            // Update the story selector UI
+                            this.initStorySelector();
+                            
+                            // Set default selection to first available story if no story is selected yet
+                            const storyIds = Object.keys(this.stories);
+                            if (storyIds.length > 0 && !this.storySelector.value) {
+                                const firstStoryId = storyIds[0];
+                                this.storySelector.value = firstStoryId;
+                                this.updateBookSelector();
+                                
+                                // Load the first available book of the first story as default
+                                const firstStory = this.stories[firstStoryId];
+                                if (firstStory.books && firstStory.books.length > 0) {
+                                    this.bookSelector.value = firstStory.books[0].id;
+                                    await this.loadBook(firstStory.books[0].id);
+                                }
+                            }
+                            
+                            // Set ready state since we now have stories available
+                            this.isReady = true;
+                            console.log(`Audiobook player ready with ${storyIds.length} stories from R2 storage manifest`);
+                        } else {
+                            console.warn('Manifest file not found, using fallback method');
+                            await this.loadStoriesFromR2Fallback();
+                        }
+                    } catch (manifestError) {
+                        console.warn('Error loading manifest, using fallback method:', manifestError);
+                        await this.loadStoriesFromR2Fallback();
+                    }
+                } catch (error) {
+                    console.error('Error loading stories from R2:', error);
+                    // Add error message to UI
+                    const currentInfoEl = document.querySelector('.current-info');
+                    if (currentInfoEl) {
+                        currentInfoEl.innerHTML = '<div class="muted">Error loading stories from storage.</div>';
+                    }
+                }
+            }
+            
+            async loadStoriesFromR2Fallback() {
+                // Fallback method when manifest is not available
+                // This might have CORS issues but is kept for compatibility
+                console.log('Using fallback method to detect available books...');
+                
+                const availableBooks = [];
+                
+                // Test for Middlemarch books (1-8) in the correct directory
+                for (let i = 1; i <= 8; i++) {
+                    const metadataPath = `https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_${i}_multi_voice_metadata.json`;
+                    try {
+                        const response = await fetch(metadataPath);
+                        if (response.ok) {
+                            availableBooks.push({
+                                id: `book${i}`,
+                                name: `Book ${i}`,
+                                path: metadataPath
+                            });
+                            console.log(`Found available book: ${metadataPath}`);
+                        } else {
+                            console.log(`Book ${i} not available: HTTP ${response.status}`);
+                            console.log(`Failed path: ${metadataPath}`);
+                        }
+                    } catch (error) {
+                        console.log(`Book ${i} not available:`, error.message);
+                        console.log(`Failed path: ${metadataPath}`);
+                    }
+                }
+                
+                // If we found any Middlemarch books, add the story
+                if (availableBooks.length > 0) {
+                    this.stories['middlemarch'] = {
+                        name: 'Middlemarch',
+                        books: availableBooks
+                    };
+                    
+                    // Update the story selector UI
+                    this.initStorySelector();
+                    
+                    // Set default selection to Middlemarch if no story is selected yet
+                    if (!this.storySelector.value) {
+                        this.storySelector.value = 'middlemarch';
+                        this.updateBookSelector();
+                        
+                        // Load the first available book as default
+                        if (availableBooks.length > 0) {
+                            this.bookSelector.value = availableBooks[0].id;
+                            await this.loadBook(availableBooks[0].id);
+                        }
+                    }
+                    
+                    // Set ready state since we now have stories available
+                    this.isReady = true;
+                    console.log(`Audiobook player ready with ${availableBooks.length} books from R2 storage`);
+                } else {
+                    console.warn('No available books found in R2 storage');
+                    // Add error message to UI
+                    const currentInfoEl = document.querySelector('.current-info');
+                    if (currentInfoEl) {
+                        currentInfoEl.innerHTML = '<div class="muted">No books found in storage. Please check R2 configuration and CORS settings.</div>';
+                    }
+                }
+            }
+            
             initStorySelector() {
-                this.storySelector.innerHTML = '<option value="">Select a story...</option>';             
                 // Clear existing options except the first one
                 this.storySelector.innerHTML = '<option value="">Select a story...</option>';
                 
@@ -925,8 +963,6 @@
                 const selectedStory = this.storySelector.value;
                 
                 if (selectedStory && this.stories[selectedStory]) {
-                    this.bookSelector.disabled = false;
-                    this.bookSelector.innerHTML = '<option value="">Select a book...</option>';
                     // Enable book selector
                     this.bookSelector.disabled = false;
                     
@@ -972,7 +1008,6 @@
             
             async loadBook(bookId) {
                 try {
-
                     // Get the selected story
                     const selectedStory = this.storySelector.value;
                     
@@ -996,10 +1031,11 @@
                     }
                     const metadata = await response.json();
                     
+                    // Process metadata and create tracks with CDN URLs
                     this.tracks = metadata.audio_files.map((file, index) => {
-                        const cdnPath = file.file_path.startsWith('audio_output/') 
-                            ? `https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/${file.file_path}`
-                            : file.file_path;
+                        // Create proper audio file path using our helper function
+                        const audioPath = this.createAudioPath(file.file_path);
+                        
                         return {
                             id: index,
                             title: file.text.substring(0, 60) + (file.text.length > 60 ? '...' : ''),
@@ -1007,7 +1043,7 @@
                             characterId: file.character_id,
                             book: file.book_number,
                             chapter: file.chapter_number,
-                            filePath: cdnPath,
+                            filePath: audioPath,
                             fullText: file.text,
                             contentType: file.content_type
                         };
@@ -1020,9 +1056,6 @@
                     if (this.tracks.length > 0) {
                         this.currentTrackIndex = 0;
                         this.audio.src = this.tracks[0].filePath;
-                        let firstFilePath = this.tracks[0].filePath;
-                        const audioPath = `../${firstFilePath}`;
-                        this.audio.src = audioPath;
                         
                         // Update display to show first track info
                         this.updateTrackInfo();
@@ -1041,6 +1074,24 @@
                 }
             }
             
+            // Helper function to create audio file path with CDN
+            createAudioPath(filePath) {
+                // If the file path is already a full URL, return as is
+                if (filePath.startsWith('http')) {
+                    return filePath;
+                } 
+                // If it's an absolute path, return as is
+                else if (filePath.startsWith('/')) {
+                    return filePath;
+                } 
+                // If it's a relative path, create CDN path
+                else {
+                    // Create CDN path
+                    const cdnPath = `https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/${filePath}`;
+                    return cdnPath;
+                }
+            }
+            
             formatTime(seconds) {
                 const mins = Math.floor(seconds / 60);
                 const secs = Math.floor(seconds % 60);
@@ -1048,6 +1099,7 @@
             }
         }
         
+        // Initialize the player when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             new AudiobookPlayer();
         });

@@ -25,7 +25,7 @@ The Cloudflare R2 configuration has been completed. All audio files and metadata
 - Metadata files: `https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_1_multi_voice_metadata.json`
 - Audio files: `https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_01/chapter_01/FILENAME.mp3`
 
-The player will automatically convert local audio paths to Cloudflare R2 URLs when loading and playing files. 
+The player fetches metadata and audio files directly from Cloudflare R2 storage. 
 
 ### Code Changes
 

@@ -37,6 +37,50 @@ class AudioGenerator:
         self.config = self.load_config_file()
         
         os.makedirs(output_dir, exist_ok=True)
+        
+        # Check if we have existing metadata to reuse character computation
+        self.existing_metadata = self.load_existing_metadata()
+        
+        # If we have existing metadata, load the character data to skip computation
+        if self.existing_metadata:
+            print(f"Found existing metadata with character data for {len(self.existing_metadata.get('character_voices', {}))} characters, skipping computation...")
+            self.character_voices = self.existing_metadata.get('character_voices', {})
+            self.character_descriptions = self.existing_metadata.get('character_descriptions', {})
+            self.character_genders = self.existing_metadata.get('character_genders', {})
+
+    def load_existing_metadata(self):
+        """Load existing metadata files to check if character computation has already been done"""
+        import glob
+        
+        # Look for existing metadata files in the output directory
+        pattern = os.path.join(self.output_dir, "*_multi_voice_metadata.json")
+        metadata_files = glob.glob(pattern)
+        
+        if metadata_files:
+            # Use the most recently modified metadata file
+            latest_metadata = max(metadata_files, key=os.path.getmtime)
+            try:
+                with open(latest_metadata, 'r', encoding='utf-8') as f:
+                    metadata = json.load(f)
+                
+                # Check if the essential character data exists in the metadata
+                has_character_data = (
+                    'character_voices' in metadata and 
+                    'character_descriptions' in metadata and 
+                    'character_genders' in metadata
+                )
+                
+                if has_character_data:
+                    print(f"Found existing metadata file: {os.path.basename(latest_metadata)}")
+                    return metadata
+                else:
+                    print(f"Existing metadata file {os.path.basename(latest_metadata)} does not contain character computation data")
+                    return None
+            except Exception as e:
+                print(f"Error loading existing metadata: {e}")
+                return None
+        
+        return None
     
     def load_pronunciation_overrides(self):
         """Load pronunciation overrides from JSON file"""
@@ -92,6 +136,9 @@ class AudioGenerator:
             text = re.sub(pattern, phonetic, text, flags=re.IGNORECASE)
         
         return text
+    
+    def load_character_data(self):
+        """Load character data from JSON file"""
         if not os.path.exists(self.character_data_file):
             print(f"Character data file {self.character_data_file} not found. Using auto-generation.")
             return None
