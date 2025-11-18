@@ -1,0 +1,59 @@
+{
+  "stories": {
+    "middlemarch": {
+      "name": "Middlemarch",
+      "books": [
+        {
+          "id": "book1",
+          "name": "Book 1",
+          "path": "https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_1_multi_voice_metadata.json"
+        },
+        {
+          "id": "book2",
+          "name": "Book 2",
+          "path": "https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_2_multi_voice_metadata.json"
+        },
+        {
+          "id": "book3",
+          "name": "Book 3",
+          "path": "https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_3_multi_voice_metadata.json"
+        },
+        {
+          "id": "book4",
+          "name": "Book 4",
+          "path": "https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_4_multi_voice_metadata.json"
+        },
+        {
+          "id": "book5",
+          "name": "Book 5",
+          "path": "https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_5_multi_voice_metadata.json"
+        },
+        {
+          "id": "book6",
+          "name": "Book 6",
+          "path": "https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_6_multi_voice_metadata.json"
+        },
+        {
+          "id": "book7",
+          "name": "Book 7",
+          "path": "https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_7_multi_voice_metadata.json"
+        },
+        {
+          "id": "book8",
+          "name": "Book 8",
+          "path": "https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_8_multi_voice_metadata.json"
+        }
+      ]
+    },
+    "romola": {
+      "name": "Romola",
+      "books": [
+        {
+          "id": "book2411",
+          "name": "Book 1",
+          "path": "https://pub-4b3889db161a4e9c8a8e34ccec2cc57e.r2.dev/audio_output/book_2411_multi_voice_metadata.json"
+        }
+      ]
+    }
+  }
+}
