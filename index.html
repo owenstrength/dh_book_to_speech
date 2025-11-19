@@ -356,10 +356,10 @@
             <select id="book-selector" class="book-selector" disabled>
                 <option value="">Select a book...</option>
             </select>
-            <div id="selectors-arrows" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #666;">
-                <div style="position: absolute; left: -30px;">▼</div>
-                <div style="position: absolute; left: 0;">▼</div>
-            </div>
+            <!--Added chapter selector-->
+            <select id="chapter-selector" class="book-selector" disabled>
+                <option value="">Select a chapter...</option>
+            </select>
         </div>
         <div class="app-subtitle">Character-specific voices</div>
     </div>
@@ -430,7 +430,7 @@
         // Audiobook Player Implementation
         class AudiobookPlayer {
             constructor() {
-                // Initialize DOM elements
+                // Initialize DOM elements *ADDED CHAPTER SELECTOR*
                 this.audio = document.getElementById('audio-player');
                 this.playBtn = document.getElementById('play-btn');
                 this.prevBtn = document.getElementById('prev-btn');
@@ -452,6 +452,7 @@
                 this.chapterNextBtn = document.getElementById('chapter-next-btn');
                 this.storySelector = document.getElementById('story-selector');
                 this.bookSelector = document.getElementById('book-selector');
+                this.chapterSelector = document.getElementById('chapter-selector');
                 
                 // Initialize stories object as empty - will be populated dynamically
                 this.stories = {};
@@ -648,6 +649,15 @@
                         this.loadBook(selectedBook);
                     }
                 });
+                // Chapter selector change
+                this.chapterSelector.addEventListener("change", () => {
+                    const chapter = parseInt(this.chapterSelector.value);
+                    if (!chapter) return;
+
+                    const index = this.tracks.findIndex(t => t.chapter === chapter);
+                    if (index !== -1) this.playTrack(index);
+                });
+
                 
                 // Playlist toggle
                 const playlistToggle = document.getElementById('playlist-toggle');
@@ -815,6 +825,11 @@
                     this.currentBookEl.textContent = track.book;
                     this.currentChapterEl.textContent = track.chapter;
                     this.currentSpeakerEl.textContent = track.character;
+                    // Sync chapter selector
+                    if (this.chapterSelector) {
+                        this.chapterSelector.value = track.chapter;
+        }
+
                     
                     // Update book title based on the current book selection
                     const selectedBookOption = this.bookSelector.options[this.bookSelector.selectedIndex];
@@ -983,6 +998,20 @@
                     this.bookSelector.innerHTML = '<option value="">Select a book...</option>';
                 }
             }
+            populateChapterSelector() {
+                this.chapterSelector.disabled = false;
+                this.chapterSelector.innerHTML = '<option value="">Select a chapter...</option>';
+
+                const chapters = [...new Set(this.tracks.map(t => t.chapter))].sort((a, b) => a - b);
+
+                 chapters.forEach(ch => {
+                    const opt = document.createElement("option");
+                    opt.value = ch;
+                    opt.textContent = `Chapter ${ch}`;
+                    this.chapterSelector.appendChild(opt);
+                });
+            }
+
             
             updatePlaylist() {
                 this.playlistItemsEl.innerHTML = '';
@@ -1048,7 +1077,7 @@
                             contentType: file.content_type
                         };
                     });
-                    
+                    this.populateChapterSelector();
                     this.updatePlaylist();
                     this.currentTrackIndex = -1;
                     this.audio.pause();
